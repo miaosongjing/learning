@@ -1,0 +1,30 @@
+1.获取指定页数的数内容
+    URL:/getList  GET
+    参数:?page=1
+    返回:
+    '
+        {
+          total:10,//一共有n页
+              data:[
+                       {
+                            "id":1,
+                            "name":"zs",
+                            "sex":0,
+                            "score":98
+                           },
+                           .......
+                  ]
+        }
+    '
+2.根据客户端传递ID,获取用户的详细信息
+    URL:/getInfo GET
+   参数:?id=1
+   返回:
+   '
+     {
+        id:1,
+        name:'xxx',
+        sex:0,
+        score:98
+     }
+   '

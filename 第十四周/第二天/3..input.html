@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/reset.min.css" type="text/css"/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul>li{
+            width: 300px;
+            margin: 10px auto;
+        }
+        ul>li:nth-child(1) input{
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid green;
+        }
+        #userEmail{
+            display: block;
+            padding: 0 5px;
+            width: 260px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #ccc;
+        }
+        span#emailTip{
+            display: block;
+            margin-top: 10px;
+            padding: 0 5px;
+            line-height: 30px;
+            color: green;
+            font-size: 14px;
+        }
+        li #emailTip.error{
+            color: red;
+        }
+        #userEmail:valid{/*默认使用css3中的伪类进行验证*/
+            border-color:green ;
+        }
+        #userEmail:invalid{
+            border-color:red ;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<ul>
+    <li><input type="number" max="65" min="18" step="5" value="25"/></li>
+    <li><input type="data"/></li>
+    <li><input type="range" max="65" min="18" step="1" value="25"/></li><!--滑动杆-->
+    <li>
+        <input type="email" id="userEmail"/>
+        <span  id="emailTip">请您输入常用邮箱</span>
+    </li><!--滑动杆-->
+</ul>
+<script type="text/javascript">
+
+
+</script>
+</body>
+</html>

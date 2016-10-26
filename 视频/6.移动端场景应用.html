@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/insex2.css"/>
+
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<section class="main">
+    <!-- music-->
+    <div class="music" id="musicMenu">
+        <audio src="audio/beyond.mp3" preload="none" loop id="musicAudio">
+            <!-- 以上是只用一种格式
+            以下是用三种audio格式
+            controls:是不是显示播放器空间
+            preload:提前加载
+            loop:循环
+            autoplay:是否自动播放 会影响性能,可以使用js优化
+            -->
+            <!--<source src="audio/beyond.mp3" type="audio/mpeg"/>-->
+            <!--<source src="audio/beyond.wav" type="audio/wav"/>-->
+            <!--<source src="audio/beyond.ogg" type="audio/ogg"/>-->
+        </audio><!--audio支持三种音频-->
+    </div>
+    <!-- container-->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide page1">
+                <img src="swiper/page1-text1.png" alt=""/>
+                <img src="swiper/page1-text2.png" alt=""/>
+                <img src="swiper/page1-text3.png" alt=""/>
+                <img src="swiper/page1-text4.png" alt=""/>
+            </div>
+            <div class="swiper-slide page2">
+                <img src="swiper/page2-text1.png" alt=""/>
+                <img src="swiper/page2-text2.png" alt=""/>
+                <img src="swiper/page2-text3.png" alt=""/>
+                <img src="swiper/page2-text4.png" alt=""/>
+            </div>
+        </div>
+    </div>
+    <!-- arrow-->
+    <div class="arrow"></div>
+
+
+</section>
+
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript" src="js/fastclick.min.js"></script>
+<script type="text/javascript">
+    FastClick.attach(document.body);
+    //REM适配
+    ~function () {
+        var desW=640,
+            winW=document.documentElement.clientWidth,
+            ratio=winW/desW,
+            oMain=document.querySelector('.main');
+        if(winW>desW){
+            oMain.style.width=desW+'px';
+            oMain.style.margin='0 auto';
+            return;
+        }
+        document.documentElement.style.fontSize=ratio*100+'px';
+
+    }();
+
+    //1.初始化swiper
+    var mySwiper=new Swiper('.swiper-container',{
+        direction:'vertical',
+        loop:true,
+        //切换结束后,给当前区域的元素增加id,实现动画效果
+        onSlideChangeEnd: function (swiper) {
+            var slideAry=swiper.slides,//获取当前活动快(包括loop模式前后增加的多个)
+                total=slideAry.length,//活动快的个数
+                curIn=swiper.activeIndex;//当前展示区域的索引
+            //计算ID是page?
+            var targetId='page';
+            switch (curIn){
+                case 0:
+                    targetId+=total-2;
+                    break;
+                case total-1:
+                    targetId+=1;
+                    break;
+                default :
+                    targetId+=curIn;
+            }
+            //给当前的活动块设置id,还要把其他的移除
+            [].forEach.call(slideAry,function (item, index) {
+                item.id=null;
+                if(curIn===index){
+                    item.id=targetId;
+                    return;
+                }
+            });
+        }
+
+
+    });
+//music
+    (function () {
+
+        var musicMenu=document.querySelector('.musicMenu'),
+            musicAudio=document.querySelector('.musicAudio');
+        //2.点击控制暂停/播放
+        musicMenu.addEventListener('click', function () {
+            if(musicAudio.paused){//暂停时
+                musicAudio.play();//播放
+                musicMenu.className='music move';
+                return;
+            }
+            musicAudio.pause();
+            musicMenu.className='music';
+        },false);
+        //1.音频播放
+        function controlMusic(){
+            musicAudio.volume=0.1;//控制音量
+            musicAudio.play();//实现播放 音频文件播放--边缓冲边播放,会触发事件canplay
+            //有声音后显示图标
+            musicAudio.addEventListener("canplay", function () {
+                musicMenu.style.display='block';
+                musicMenu.className='music move';
+            },false);
+
+        }
+
+        window.setTimeout(controlMusic,1000);
+    })();
+//移动端的click事件有300ms的延迟,因为视click为单击,解决方案:通过fastClick.min.js实现,原理是使用attach
+</script>
+</body>
+</html>

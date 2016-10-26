@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .div1{
+            margin:100px 0 0 100px;
+            float: left;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle,yellow,red);
+        }
+        ul{
+            position: absolute;
+        }
+        ul li{
+            margin:100px 0 0 100px;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle,yellow,red);
+        }
+        ul li:nth-child(1){
+            /*transform: translate(0,0);/!*起始值,默认是0,0*!/*/
+            /*执行*/
+            /*animation: move 10s 1s 1;/*从起始位置跳跃到第一帧位置,然后开始动画,停留在起始位置*/
+            /*animation: move 20s 1s 1 forwards;/!*从起始位置跳跃到第一帧位置,然后开始动画,停留在最后一帧*!/*/
+            /*animation: move 20s 1s 1 backwards;/!*从第一帧位置开始动画,运动到最后一帧,然后直接跳跃到起始位置,停留在起始位置*!/*/
+            /*animation: move 20s 1s 1 both;/!*从第一帧位置开始动画,运动到最后一帧,停留在最后一帧*!/*/
+            animation: move 10s 1s 2 alternate-reverse;/*normal | reverse | alternate(针对两次及以上动画) | alternate-reverse
+不同属性间空格隔开*//*从起始位置跳跃到第一帧位置,然后开始动画,停留在起始位置*/
+        }
+        ul li:nth-child(1):hover{
+
+        }
+        ul li:nth-child(2){
+
+        }
+        ul li:nth-child(3){
+
+            animation: move 2s 1 both;/*为both时,不显示从起始为位置到第一帧位置,直接从第一帧开始到结束位置,停留在最后一帧*/
+        }
+
+        /*控制元素何时执行动画效果常用的两种方式:
+               1.增加/移除类名(id名)
+               2.设置animation-play-state,如果为running为运行,paused为停止;*/
+        /*声明*/
+        @keyframes move {
+            0%{
+                transform:translate(100px,100px);/*向右100px 向下100px*/
+            }
+            50%{
+                transform:translate(200px,200px);/*相对于起始位置,而非第一帧的位置*/
+            }
+            100%{
+                transform: translate(300px,100px);
+            }
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<!--css中的动画:过渡动画:帧动画
+    过渡动画:只能设置起始状态和结束状态
+    帧动画:定义动画在每个阶段的样式,可以设置复杂的动画效果(多种状态)
+
+    帧动画的步骤:
+          @keyframes申明关键帧动画
+          animation调用关键帧动画
+        步骤一:
+        @keyframes  帧动画名称move{
+            0%{
+            transform:rotate(0deg);样式
+            }
+            25%{
+            transform:rotate(25deg);样式
+            }
+            100%{
+            transform:rotate(50deg);样式
+            }
+        }
+        步骤二:
+        //必选属性
+        animation-name:move;
+        animation-duration:1s;
+        //可选属性
+        animation-timing-function:linear(默认)/ease/ease-in/ease-in-out/cubic-bezier;
+        animation-delay:0s(默认);
+        animation-iteration-count:infinite(无数次);默认1,推荐必写		重复次数(iteration[ˌɪtəˈreɪʃn] 迭代)
+        animation-direction:normal | reverse | alternate(交替执行) | alternate-reverse(反方向交替);
+        animation-play-state:running(默认)| paused;(动画状态)  如果是默认状态,不用再设置running(iPhone6/plus不支持,导致动画效果不能实现)
+        animation-fill-mode:none | forwards(最后一帧状态)| backwards(起始状态)| both(根据方向确定,第一帧或最后一帧)
+
+
+字符：from(0%)、to(100%)
+关键帧的时间单位
+数字：0%、25%、100%等(设置某个时间段内的任意时间点的样式)
+字符：from(0%)、to(100%)
+
+格式
+@keyframes 动画名称
+{
+	动画状态
+}
+
+-->
+<div class="wrap">
+    <div class="div1"></div>
+    <ul>
+        <li></li>
+        <!--<li></li>-->
+        <!--<li></li>-->
+        <!--<li class="li4"></li>-->
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

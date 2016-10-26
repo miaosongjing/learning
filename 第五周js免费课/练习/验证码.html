@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<!--<script type="text/javascript">
+    var str="";
+    var codeStr="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //取索引0-61的四个随机字符
+    for(var i=0;i<4;i++){
+        //0-61的四个随机数
+        var ran=Math.round(Math.random()*(61-0)+0);
+        //通过随机数找到对应的字符,并添加在str中
+        str+=codeStr.charAt(ran);
+    }
+    console.log(str);
+</script>-->
+<!--<script type="text/javascript">
+    var str="";
+    var codeStr="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //取索引0-61的四个不重复随机字符
+    while(str.length<4){
+        //0-61的四个随机数
+        var ran=Math.round(Math.random()*(61-0)+0);
+        //通过索引得到对应的字符
+         var strItem=codeStr.charAt(ran);
+        //当索引为ran的字符没有在str出现过时,将其添加在str中
+        if(str.indexOf(strItem)===-1){
+            str+=strItem;
+        }
+    }
+    console.log(str);
+</script>-->
+<script type="text/javascript">
+    var str="";
+    var codeStr="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //取索引0-61的四个不重复随机字符
+    while(str.length<4){
+        //0-61的四个随机数
+        var ran=Math.round(Math.random()*(61-0)+0);
+        //通过索引得到对应的字符
+        var strItem=codeStr.charAt(ran);
+        //当索引为ran的字符无论大写和小写在str中都没有出现过,将其添加在str中
+        if(str.indexOf(strItem.toUpperCase())===-1&&str.indexOf(strItem.toLowerCase())===-1){
+            str+=strItem;
+        }
+    }
+    console.log(str);
+</script>
+</body>
+</html>

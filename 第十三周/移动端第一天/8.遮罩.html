@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        /*mask-image
+mask-position
+mask-repeat
+
+*/     ul li{
+                   border: 1px solid yellow;
+                   margin: 20px auto;
+                   width: 300px;
+                   height: 300px;
+               }
+        ul li:nth-child(1){
+            background: url("image/1.jpg") no-repeat;
+            background-size: cover;
+            -webkit-mask-image:url(image/2.jpg) ;
+            mask-image:url(image/2.jpg) ;/*注意:谷歌浏览器必须加前缀*/
+            -webkit-mask-repeat:no-repeat ;
+            mask-repeat: repeat;
+
+        }
+        #aa{
+            width: 150px;
+            height: 150px;
+            mask-image: -webkit-linear-gradient(top, rgba(0,0,0,1), rgba(0,0,0,0));
+            -webkit-mask-image: -webkit-linear-gradient(top, rgba(0,0,0,1), rgba(0,0,0,0));
+        }
+
+
+    </style>
+</head>
+<body>
+<ul>
+    <li></li>
+    <li>
+        <textarea name="" id="aa" cols="30" rows="10">当苹果把css遮罩带给webkit时，未能将他的实现细节和文件与w3c达成一致。所以意味着，如果其他供应商想要实现遮罩效果，他们就不得不首先反向编译，找出所有的实现细节。这种工作没有人愿意做。所以直到几天前，2012年11月15号，遮罩第一次出现在w3c公布的草案中。但是跟苹果公司的是不同的版本。</textarea>
+        当苹果把css遮罩带给webkit时，未能将他的实现细节和文件与w3c达成一致。所以意味着，如果其他供应商想要实现遮罩效果，他们就不得不首先反向编译，找出所有的实现细节。这种工作没有人愿意做。所以直到几天前，2012年11月15号，遮罩第一次出现在w3c公布的草案中。但是跟苹果公司的是不同的版本。
+    </li>
+</ul>
+<div class="div1"></div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

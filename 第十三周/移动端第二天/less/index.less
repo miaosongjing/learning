@@ -1,0 +1,284 @@
+@color:#000;
+@color-white:#FFF;
+html,body{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;/*页面不出现滚动条*/
+}
+.transformScale(@val:1){
+  -webkit-transform: scale(@val);
+  -moz-transform: scale(@val);
+  -ms-transform: scale(@val);
+  -o-transform: scale(@val);
+  transform: scale(@val);
+  transition: scale(@val);
+
+}
+.transition(@property: all,@duration: 1s,@time-function:linear,@delay: 0s){
+    -webkit-transition: @arguments;/*把所有的形参放入*/
+    -moz-transition: @arguments;
+    -ms-transition: @arguments;
+    -o-transition: @arguments;
+   transition: @arguments;
+}
+.box{
+  //实现垂直居中
+
+  //法一:知道盒子的width和height,兼容所有浏览器
+  //position: absolute;
+  //top: 50%;
+  //left: 50%;
+  //margin-top: -100px;
+  //margin-left: -100px;
+
+  //法二:不兼容低版本--可应用于移动端
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+
+
+  width: 200px;
+  height: 200px;
+  color: @color;
+  background: red;
+  border: 1px solid @color;/*给指定的形参赋值,不需要传参的不用传值*/
+  .transition(@duration: .3s);
+  &:hover{/*.box:hover*/
+    .transformScale(@val: 1.5);
+  }
+}
+
+
+
+//变量  嵌套规则  混合函数(不带参数  带参数,参数没有设置起始值   带参数,设置有起始值  通过...接收不定参数  &父标签)
+//->LESS代码
+///@link-color: #428bca;
+//@link-color-hover: darken(@link-color, 10%);
+//
+//a {
+//  color: @link-color;
+//  &:hover {//&当前选择器的父级选择器
+//    color: @link-color-hover;
+//  }
+//}
+
+
+/////变量存储共用的的URL.选择器
+//.@{selector} {
+//  width: 100px;
+//  height: 100px;
+//  @{property}: #000;
+//  background: url("@{bgImg}/test.png");/*选择器 属性 url需要写在{}中*/
+//
+//  &:after {
+//    display: block;
+//    content: @@var;/*将一个变量值作为另一个变量名*/
+//  }
+//}
+//@selector: box;
+//@bgImg: "../img";
+//@property: color;
+//@name: "珠峰培训";
+//@var: "name";
+
+//混合:把某个选择器中的样式拿过来使用，我们看下面的代码。
+
+
+//  //->LESS代码
+//.public {//选择器后加()就不需要编译
+//  width: 100px;
+//  height: 100px;
+//}
+//
+//nav ul {
+//  .public;
+//  list-style: none;
+//}
+
+////extend伪类来实现样式的继承
+//.public {
+//  width: 100px;
+//  height: 100px;
+//}
+//
+////nav ul {
+////  &:extend(.public);
+////  list-style: none;
+////}
+////或者下面写法,都是继承
+//nav ul:extend(.public) {
+//  list-style: none;
+//}
+
+////命名空间和作用域 指定命名空间，实现在一个盒子中层级嵌套式的编写
+//.box {
+//  width: 100px;
+//  height: 100px;
+//  img {
+//    width: 100%;
+//    height: 100%;
+//  }
+//  .gray {
+//    color: #eee;
+//  }
+//  &:hover {
+//    background: green;
+//  }
+//}
+//
+//#nav {
+//  .box;
+//}
+//
+//#header {
+//  .box > .gray;
+//}
+//在LESS中定义了命名空间就创建了一个私有的作用域，在这个私有作用域中使用的变量都是先看一下自己作用域中有没有，没有的话，在向上一级查找（类似于JS的作用域链）。
+//@color: #ccc;
+//.box {
+//  @color: #eee;
+//  .gray {
+//    color: @color;
+//  }
+//}
+//
+//.box2 {
+//  .gray {
+//    color: @color;
+//  }
+//}
+//在调用的混合集后面追加 !important 关键字，可以使混合集里面的所有属性都继承 !important:
+////->LESS代码
+//@color: #ccc;
+//.box {
+//  @color: #eee;
+//  .gray {
+//    color: @color;
+//  }
+//}
+//
+//nav ul {
+//  .box !important;
+//}
+//Parametric Mixins 处理CSS3的兼容问题
+
+//  //->LESS代码
+//.transition(@property:all;@duration:1s;@function:linear;@delay:0s;) {
+//  -webkit-transition: @property @duration @function @delay;
+//  -moz-transition: @property @duration @function @delay;
+//  -ms-transition: @property @duration @function @delay;
+//  -o-transition: @property @duration @function @delay;
+//  transition: @property @duration @function @delay;
+//}
+//
+//.box1 {
+//  .transition;
+//}
+//
+//.box2 {
+//  .transition(@duration: 2s);//当某个值不是默认时,设置值的方法
+//}
+//
+//.box3 {
+//  .transition(@duration: 2s; @property: width;);
+//}
+////LESS中也有arguments。
+//
+//.transition(@property:all;@duration:1s;@function:linear;@delay:0s;) {
+//  -webkit-transition: @arguments;
+//  transition: @arguments;
+//}
+//
+//.box1 {
+//  .transition;
+//}
+///////////////////////////////////////////////////////////////////////////////////////////////
+//变量像JS的函数一样操作，不仅仅有参数，还有返回值。
+//.average(@x, @y) {
+//  @result: ((@x + @y) / 2);
+//}
+//
+//div {
+//  .average(16px, 50px); //"call" the mixin
+//  padding: @result; //use its "return" value
+//}
+//.opacity(@alpha){
+//  opacity: @alpha;
+//  @result:@alpha*100;
+//  //////////////////////////////////////////
+//  filter:~"alpha(opacity=@result)";
+//}
+
+/*滤镜的代码在less中不支持编译   ~表示忽视*/
+//函数
+//在mixin中设置条件；常用的条件运算符：>、>=、<、<=、=；我们设定的条件还可以使用IS函数：iscolor、isnumber、isstring、iskeyword、isurl、ispixel、ispercentage...
+
+
+//->LESS代码
+//.mixin (@a) when (lightness(@a) >= 50%) {
+//  background-color: black;
+//}
+//
+//.mixin (@a) when (lightness(@a) < 50%) {
+//  background-color: white;
+//}
+//
+//.box1{
+//  .mixin(#ddd);
+//}
+//
+//.box2{
+//  .mixin(#555);
+//}
+//&特性结合实现'if'类型的语句。
+//->LESS代码:这里的意思是如果为true,.box的文字颜色才是白色
+//@my-option: true;
+//& when (@my-option = true) {
+//  .box {
+//    color: white;
+//  }
+//}
+//递归循环最常见的情况就是生成栅格系统的CSS：
+//.generate-columns(4);
+//.generate-columns(@n, @i: 1) when (@i <= @n) {
+//  .column-@{i} {
+//    width: (@i * 100% / @n);
+//  }
+//  .generate-columns(@n, (@i + 1));
+//}
+//Merge特性可以从多个属性中将值，集合到某一个样式属性的列表中（也就是多样式效果）。在编写的时候，+代表以逗号分隔，+_代表多个之前以空格分隔。
+//.mixin() {
+//  box-shadow+: inset 0 0 10px #555;
+//}
+//.myclass {
+//  .mixin;
+//  box-shadow+: 0 0 20px black;
+//}
+//.mixin2() {
+//  transform+_: scale(2);
+//}
+//.myclass2 {
+//  .mixin2;
+//  transform+_: rotate(45deg);
+//}
+//改变选择器顺序，下面的案例中，选择器.no-border-radius &会前置插入它的父选择器.header .menu，最后变成.no-border-radius .header .menu形式输出：
+
+//.header {
+//  .menu {
+//    border-radius: 5px;
+//    .no-border-radius & {
+//      background-image: url('images/button-background.png');
+//    }
+//  }
+//}
+//从其他样式表中导入样式:实现了调取使用，但是会把public中的less也编译到了自己的这个css中，如果不想编译的话reference
+//@import (referance)"public.less";
+//
+//.box {
+//  &:after {
+//    .clear;
+//  }
+//}

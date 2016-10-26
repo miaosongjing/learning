@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        #ul1{
+            margin: 20px auto;
+            width: 300px;
+        }
+        #ul1 li{
+            height: 35px;
+            line-height: 35px;
+            border-bottom: 1px solid green;
+        }
+        #ul1 li a{
+            display: block;
+            height: 35px;
+            line-height: 35px;
+        }
+        /*给li加hover伪类在ie6中不兼容,只有a标签的hover伪类兼容所有浏览器*/
+        #ul1 li a:hover{
+            background: pink;
+        }
+
+
+    </style>
+</head>
+<body>
+<a href="https://www.baidu.com/" target="_blank"></a>
+<ul id="ul1">
+    <!-- 直接在html中阻止默认行为   javascript:void 0; javascript:void 1;-->
+    <li><a href="javascript:;">1</a></li><!--href中写什么就跳转到哪,不写是刷新页面-->
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+</ul>
+<script type="text/javascript">
+    //a标签的默认行为是跳转页面,但是有时候使用a标签,只是想应用它的特殊性,但是不想点击跳转
+    var linkList=document.getElementsByTagName("a");
+    for(var i=0;i<linkList.length;i++){
+        linkList[i].onclick= function (e) {
+            e=e||window.event;
+//            e.preventDefault()?e.preventDefault():e.returnValue=false;
+            return false;
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

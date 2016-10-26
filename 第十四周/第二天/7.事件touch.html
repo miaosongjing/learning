@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" href="css/reset.min.css"/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+        }
+        .box{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            background: green;
+            transition: all 1s linear 0s;
+        }
+
+
+    </style>
+</head>
+<body>
+&nbsp;<div class="box" id="box"></div>
+
+<script type="text/javascript">
+    var oBox=document.getElementById('box');
+    //touchstart记录起始坐标,touchmove记录偏移指标,touchend时判断有没有偏移
+    oBox.addEventListener('touchstart', function (ev) {//ev是手指事件对象  touches/changedTouches存放了每一个手指的坐标信息,一般只需要获取第一个手指的坐标信息即可,当手指在屏幕操作时,touches和changedTouches获取的值是一样的,但是当手指离开屏幕时,touches就没有内容,需要使用changedTouches获取离开时手指的坐标信息
+        //记录手指的起始坐标
+        var point=ev.changedTouches[0];
+        this['strX']=point.pageX;//坐标
+        this['strY']=point.pageY;
+        this['changeX']=0;//偏移
+        this['changeY']=0;
+        this['isFlag']=false;//记录是否发生滑动,默认false
+    },false);
+    //如果发生滑动会触发touchMove,如果没有触发touchMove就会触发touchEnd,在touchEnd中只需要判断isFlag;在touchMove中进行到底是不是滑动的判断
+    oBox.addEventListener('touchmove', function (ev) {
+        //获取偏移距离
+        var point=ev.changedTouches[0];
+        this['changeX']=point.pageX-this['strX'];
+        this['changeY']=point.pageY-this['strY'];
+        //判断是否发生滑动,需要判断偏移的值是否>30,防止手指的误操作
+        if(Math.abs(this['changeX'])>30||Math.abs(this['changeY'])>30){
+            this['isFlag']=true;
+        }
+    },false);
+    oBox.addEventListener('touchend', function (ev) {
+        //验证isFlag值,确定是滑动还是点击;如果是滑动,判断滑动的方向;
+        //1)如果没有滑动,说明就是点击
+        if(this['isFlag']===false){
+            console.log('点击');
+            this.style.webkitTransitionDuration='1s';
+            this.style.webkitTransform='rotate(360deg)';
+            var delayTimer=window.setTimeout(function () {
+                this.style.webkitTransitionDuration='0s';//运动事件为0s就是停止360deg后的动画;在点击后再加上1s
+                this.style.webkitTransform='rotate(0deg)';
+            }.bind(this),1000);
+            return;
+        }
+        //2)如果滑动
+        this.style.background='red';
+        console.log('滑动,方向是:'+swiperDir(this['changeX'],this['changeY']));
+        //确定滑动方向
+        function swiperDir(changeX,changeY){
+            return Math.abs(changeX)>Math.abs(changeY)?(changeX>0?'right':'left'):(changeY>0?'down':'up');
+
+
+        }
+
+    },false)
+
+    //fastclick可以解决这个问题
+
+</script>
+</body>
+</html>

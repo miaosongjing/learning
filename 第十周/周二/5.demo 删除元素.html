@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    var ary=["red","yellow","black","pink","blue","gray","orange","green","purple"];
+    for(var i=0;i<30;i++){
+        var oDiv=document.createElement("div");
+        oDiv.style.width="20%";
+        oDiv.style.borderRadius="50%";
+        oDiv.style.height="150px";
+        oDiv.style.display="none";
+
+        oDiv.style.cssFloat="left";
+        var ran=Math.round(Math.random()*8);
+        oDiv.style.backgroundColor=ary[ran];
+        document.body.appendChild(oDiv);
+    }
+    var divs=document.getElementsByTagName("div");
+    //Ⅰ实现一个一个的出现  一个定时器做不同的事情//30个定时器不同时间执行
+    var index=0;
+    var timer=window.setInterval(function () {
+        if(index==divs.length-1){
+            window.clearInterval(timer);
+            return;
+        }
+        divs[index].style.display="block";
+        index++;
+    },500);
+    //Ⅱ删除
+    //事件委托
+    document.body.onclick= function (e) {
+        e=e||window.event;
+        e.target= e.target|| e.srcElement;
+        //删除元素
+        this.removeChild(e.target);
+
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+1.jQuery.extend()  静态方法
+    jQuery.fn.extend()原型上的方法  $.fn.extend({banner:banner})
+2.DOM0 DOM2
+零级事件:div.onclick=function(){}
+二级事件:div.addEventListener(事件,函数,true/false)  true为捕获
+先捕获再冒泡
+3.事件委托  相同事件委托不同元素时,一般和e.target一起使用
+4.兼容
+1)e=e||window.event 事件对象:函数执行时的arguments[0],记录事件发生那一刻的相关信息
+ 2)e.target=e.target||e.srcElement
+ 3)阻止默认行为
+ e.prentDefault? e.prentDefault():e.returnValue=false;//return false
+ 或者e.prentDefault=e.prentDefault()||function(){
+      e.returnValue=false;//return false
+ }
+
+ 4)e.type:事件类型
+ 5)e.clientX/e.clientY
+ 6)e.pageX/e.pageY||(document.documentElement.scrollLeft||document.body.scrollLeft)+clientX
+ 7)阻止传播
+ e.stopPropagation?e.stopPropagation():e.cancelBubble=true;
+ /

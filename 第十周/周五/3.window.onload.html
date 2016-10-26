@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    //onload加载之后
+    window.onload= function () {//dom 0级 一个事件只能绑定一个函数
+        //页面内所有的标签和资源全部加载完成之后
+    };
+    document.addEventListener("DOMContentLoaded", function () {
+        //网页中所有的标签加载完成之后,比window.onloaded快,这个事件只能通过dom2方式绑定,且可以绑定多个
+    },false);//dom 2级 可以绑定多个事件
+    //当jQuery中有浏览器打开就要操作的元素时使用,在所有代码最外层添加如下函数
+    //要获取网页中的任何元素,必须等dom结构已经成功加载完成
+    $(function () {});//或$(document).ready(function () {});
+</script>
+</body>
+</html>

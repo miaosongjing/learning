@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/reset.min.css" type="text/css"/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul>li{
+            position: relative;
+            height: 32px;
+            width: 300px;
+            margin: 10px auto;
+
+        }
+        #userEmail,#userEmailTip{
+            display: block;
+            padding: 0 5px;
+            width: 260px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #ccc;
+        }
+        #userEmailTip{
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #ccc;
+        }
+
+    </style>
+</head>
+<body>
+<ul>
+    <li>
+        <input type="email" id="userEmail" placeholder="请输入邮箱"/>
+        <span  id="userEmailTip">请输入邮箱</span>
+    </li><!--滑动杆-->
+</ul>
+<script type="text/javascript">
+    //检测浏览器
+    if(window.navigator.userAgent.indexOf('MSIE')>-1){
+        var userEmail=document.getElementById('userEmail'),
+                userEmailTip=document.getElementById('emailTip');
+        userEmail.placeholder='';//ie10时会重复,强制为空
+        userEmailTip.style.display='block';
+        //文本框获取焦点
+        userEmailTip.onclick= function () {
+            userEmail.focus();//点击span,让文本框获取光标,这样才可以在文本框输入
+        }
+        //处理span的显示和隐藏
+        userEmail.onkeydown=userEmail.onkeyup=userEmail.onfocus=check;
+        //检查是否有内容
+        function check(){
+            //获取文本框中内容,去除首尾空格(trim()方法,不兼容  trimLeft()  trimRight  正则)
+            var val=userEmail.value.replace(/^ +| +$/g,'');
+            userEmailTip.style.display=val.length>0?'none':'block';
+
+        }
+
+
+    }
+
+</script>
+</body>
+</html>

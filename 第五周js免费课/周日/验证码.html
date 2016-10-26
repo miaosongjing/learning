@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #code{
+            margin: 30px auto;
+            width: 300px;
+            height: 200px;
+            font-size:100px;
+            font-family: "Microsoft YaHei";
+            font-weight: bold;
+            text-align: center;
+            line-height: 200px;
+            border: 5px solid #ccc;
+            cursor: pointer;
+            -webkit-user-select: none;
+            /*双击不被选中*/
+            border-radius: 5px;
+
+
+        }
+
+    </style>
+</head>
+<body>
+    <div id="code">1a4s</div>
+
+
+<script type="text/javascript">
+    //设定取值范围
+    var range="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var code=document.getElementById("code");
+    code["onclick"]= fn;//绑定事件就是把一个函数的引用地址复制给dom元素的事件属性
+    fn();
+    function fn() {
+        var str="";
+        while(str.length<4){
+            //索引0-61  随机生成4个索引,通过索引获取字符
+            var ran=Math.round(Math.random()*(61-0)+0);//0-61的随机数
+            var ranChar=range.charAt(ran);//获取随机字符
+            if(str.toLowerCase().indexOf(ranChar.toLowerCase())===-1){
+            //判断一个字符的大小写是否出现过
+                str+=ranChar;//随机字符添加
+            }
+        }
+        code.innerHTML=str;
+    }
+    function getRandom(n,m){
+        n=Number(n);
+        m=Number(m);
+        if(isNaN(n)||isNaN(m)){
+            return Math.random();
+        }
+        if(n>m){
+            var temp=n;
+            n=m;
+            m=temp;
+        }
+        return Math.round(Math.random()*(m-n)+n);
+    }
+</script>
+</body>
+</html>

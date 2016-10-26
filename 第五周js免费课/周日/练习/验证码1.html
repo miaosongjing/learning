@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #node{
+            moz-user-select: -moz-none;
+            -moz-user-select: none;
+            -o-user-select:none;
+            user-select: none;
+            margin:50px auto;
+            border: 1px solid #ccc;
+            width: 100px;
+            height:60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 5px;
+            background:-webkit-linear-gradient(top left,#f60,red);
+        }
+        a{
+            display: block;
+            width: 100%;
+            height: 100%;
+            color: black;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="node"><a href="javascript:void(0);">las4</a></div>
+<!--<script type="text/javascript">
+    //验证码:设定四位字符的取值范围
+    //获取node对象
+    //定义获取四位字符方法便于绑定事件
+    //定义空字符串装四位随机字符
+    //循环遍历四位
+    // 根据随机索引获取对应随机字符
+    //通过indexof和转换小写判断随机字符是否重复,不重复时形成四位随机字符
+    //添加到node对象中
+    var node=document.getElementById("node");
+    var range="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    node.onclick=fn;
+    fn();
+    function fn(){
+        var str="";
+        while(str.length<4){
+            var ran=Math.round(Math.random()*61);
+            var ranChar=range.charAt(ran);
+            if(str.toLowerCase().indexOf(ranChar.toLocaleLowerCase())===-1){
+                str+=ranChar;
+            }
+        }
+        node.innerHTML=str;
+    }
+</script>-->
+    <script type="text/javascript">
+        //获取node对象  获取字符的取值范围
+        //定义获取四位随机字符的方法
+        //定义变量str放四位随机字符
+        //while循环添加字符,条件是str的长度小于4
+        //获取随机索引
+        // 通过随机索引获取对应的随机字符
+        //通过indexof和toLowerCase判断字符是否大小写重复
+        //不重复是添加到str中
+        //在node对象中加入str
+        //方法自执行
+        //node绑定点击事件
+        var node=document.getElementById("node");
+        var range="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        fn();
+        node["onclick"]=fn;//绑定事件的本质是把一个函数的引用地址赋值为dom元素的事件属性
+        function fn(){
+            var str="";
+           /* while(str.length<4){
+                var ran=Math.round(Math.random()*61);
+                var ranChar=range.charAt(ran);
+                if(str.toLowerCase().indexOf(ranChar.toLowerCase())===-1){
+                    str+=ranChar;
+                }
+            }*/
+
+            for(var i=0;i<4;i++) {
+                var ran = Math.round(Math.random() * 61);
+                var ranChar = range.charAt(ran);
+                if (str.toLowerCase().indexOf(ranChar.toLowerCase()) === -1) {
+                    str += ranChar;
+                }else{
+                    i--;//当重复时因为i++引起重复的位置为空
+                }
+            }
+            node.innerHTML=str;
+        }
+
+    </script>
+</body>
+</html>

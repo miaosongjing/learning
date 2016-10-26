@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            -webkit-user-select: none;
+        }
+        #div1{
+            margin: 0 auto;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .link{
+            display: block;
+            width: 100px;
+            height: 30px;
+            background: yellow;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="div1" id="div1">
+
+</div>
+<a class="link" id="link" href="https://www.baidu.com/"></a>
+
+<script>
+
+    //选项卡总结/////////////////////////////////////////////////
+
+    //1.什么是事件
+    //1)行为本身:浏览器天生就赋予其的行为,onclick,onmouseover(onmouseenter),onmouseout(onmouseleave),onmousemove,onmousedown,onmouseup,onmousewheel,onscroll(滚动条滚动),onresize(window.onresize浏览器窗口大小改变事件),onload,onunload(浏览器关闭),onfocus(文本框获取焦点),onblur(文本框失去焦点),onkeydown,onkeyup,
+    //即使没有为上述行为绑定方法,事件也是存在的,当我们点击这个盒子的时候,同样会触发它的onclick事件,只是什么都没有做而已
+    //2)事件绑定:给元素的某一个行为绑定方法,当触发行为时,执行绑定的函数
+    //绑定方法
+    // DOM0级事件绑定:对象.事件=function(){}这里的事件定义在私有属性上
+    //DOM2级事件绑定:对象.addEventListener(事件, function () {},false);addEventListener定义在当前元素所属EventTarget这个类的原型上
+    var div1=document.getElementById("div1");
+    div1.onclick= function (e) {//当触发click行为时,执行绑定的函数
+        console.log(arguments);//[MouseEvent]
+        //ie6-8没有e,兼容处理
+        e=e||window.event;
+        console.log(e);//MouseEvent {isTrusted: true, screenX: 693, screenY: 142, clientX: 693, clientY: 81…}
+        console.log(e.clientX);
+        console.log(e.clientY);
+        //ie6-8中没有这两个属性e.pageX/e.pageY,兼容处理
+//        console.log(e.pageX);
+//        console.log(e.pageY);
+        e.pageX= e.pageX|| e.pageX+document.documentElement.scrollLeft||document.body.scrollLeft;
+        e.pageY= e.pageY|| e.pageY+document.documentElement.scrollTop||document.body.scrollTop;
+
+        console.log(e.type);
+    };
+    var link=document.getElementById("link");
+    link.onclick= function (e) {
+        e=e||window.event;
+        //阻止默认行为  a标签的默认跳转行为
+        e.preventDefault()?e.preventDefault():e.returnValue=false;//ie6-8中==>return false
+    };
+    /*
+     * 事件触发时,浏览器默认为函数传递一个叫事件对象e的参数,ie6-8中事件对象存放在window.event上
+     *   鼠标事件传递的是MouseEvent对象
+     *MouseEvent:clientX/clientY:鼠标距离浏览器左上角的X轴/Y轴坐标
+     *           pageX/pageY:鼠标距离body左上角的X轴/Y轴坐标 ie6-8中不存在
+     *           e.target:事件源
+     *           type:记录事件类型
+     *           e.preventDefault():阻止默认行为
+     *           e.stopPropagation():取消捕获
+     *      ie6-8中:
+     *            pageX:clientX+document.documentElement.scrollLeft||document.body.scrollLeft;
+     *            pageY:clientY+document.documentElement.scrollTop||document.body.scrollTop;
+     *           e.srcElement:事件源
+     *           e.returnValue=false:阻止默认行为  ==>return false
+     *           e.cancelBubble=true:取消捕获
+     * */
+</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .outer{
+            margin: 200px auto;
+            width: 500px;
+            height: 30px;
+            border: 1px solid red;
+            border-radius: 8px;
+            position: relative;
+        }
+        .inner{
+            height: 100%;
+            background-color: peru;
+            position: absolute;
+            top: 0;
+            left:0;
+            width: 0%;
+            border-radius: 8px;
+            transition: width 5s;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="outer">
+    <div class="inner"></div>
+</div>
+
+
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var num="0.35234322352523423432px";
+        num=parseFloat(num).toFixed(2)*100;
+        $(".inner").css("width",num+"%");
+        console.log(num);
+        var reg=/^ +| +$/g;
+        var reg1=new RegExp(num,"g");
+    });
+
+
+
+    var str="zhufeng";//单双引号交叉使用
+    //console.log(str.length);//length字符串中字符的个数
+    //console.log(str[str.length-1]);//字符串有索引属性,可以通过索引获取字符
+    //字符串的方法
+    //通过索引获取指定字符或ASCII编码
+    var res=str.charAt(0);//通过索引获取字符
+    console.log(res);//z
+    var res=str.charAt(10);//空
+    console.log(typeof res);//string如果索引值超出范围,获取的是空字符串
+    var res=str.charCodeAt(1000);//获取对应字符的编码
+    console.log(res);//NaN
+    var res=str.charCodeAt(0);
+    console.log(res);//122
+    //截取字符串
+    /*
+    * substr(n,m)从索引n开始截取m个
+    * substr(n)从索引n开始截取到末尾
+    *substr()截取全部
+    *
+    *
+    * */
+    var str="zhufengpeixun";
+    var res=str.substr(3,3);//substr(n,m)从索引n开始截取m个
+    console.log(res);//fen
+    var str="zhufengpeixun";
+    var res=str.substr(3);//substr(n)从索引n开始截取到末尾
+    console.log(res);//fengpeixun
+    var str="zhufengpeixun";
+    var res=str.substr(str.length);//
+    console.log(res);//截取不到为空字符串
+    //substring
+    /*/
+    substring(n,m) 从索引n开始到m-1==>同数组的slice   但不支持负数
+    substring(n) 从n复制到末尾
+    substring() 复制整个字符串
+    *
+    *
+    *
+    *
+    * */
+    var str="zhufengpeixun";
+    var res=str.substring(3,6);
+//    var res=str.substring(3);
+    console.log(res);//fen
+    var res=str.substring(3);
+    console.log(res);//fengpeixun
+    //slice
+    //slice()和substring()基本相同,但是slice()支持负数索引,默认在负数+str.length,一般用
+    //              于截取末尾的字符
+    var res=str.slice(-3,-1);
+    console.log(res);//xu
+    //转换大小写
+    /*
+    * str.toUpperCase()转化成大写  原有数组不变
+    * str.toLowerCase()转化成小写
+    * */
+    //查看字符在字符串中的索引位置,一般用于判断是否出现,出现返回索引,没有出现饭后-1
+    // indexOf  查看字符在字符串中的索引位置 兼容  一般用于判断是否出现
+    // lastIndexOf  查看字符在字符串中最后一次的索引位置 兼容
+    var str="zhufengpeixun";
+    var res=str.indexOf("z");
+    console.log(res);//0
+    var str="zhufengpeixun";
+    var res=str.lastIndexOf("feng");
+    console.log(res);//3
+    var res=str.lastIndexOf("fng");
+    console.log(res);//-1
+   // window.navigator.userAgent.indexOf();//判断浏览器版本
+    //替换   str.replace(old,new)替换字符串 返回新的替换好的字符串 如果第二个参数是函数,
+    //       是用这个函数的返回值替换 第一个参数还可以是正则
+    var str="zhufeng2015peixun2016";
+    //var res=str.replace("2015","2016");
+    //console.log(str);//zhufeng2015peixun2016
+   // console.log(res);//zhufeng2016peixun2016
+    //str=str.replace("2015","2016");//返回新的替换好的字符串,使用时用str=....节省代码
+    str=str.replace("2015",function(item,index,orignAry){
+        console.log(arguments);//["2015", 7, "zhufeng2015peixun2016"]item在原有字符串中匹配到的字
+                    // 符,index是索引,originAry原有字符串
+        return "二零一五";
+    })
+    console.log(str);//zhufeng二零一五peixun2016 如果第二个参数是函数,是用这个函数的返回值替换
+    //split()按照指定字符拆分数组==>与数组的join相反
+    var str="zhufeng$2016";
+    var res=str.split("$");
+    console.log(res);//["zhufeng", "2016"]
+    var res=str.split("");
+    console.log(res);//["z", "h", "u", "f", "e", "n", "g", "$", "2", "0", "1", "6"]
+
+</script>
+
+</body>
+</html>

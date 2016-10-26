@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- 一个页面基本都会存在的四个部分-->
+    <title>珠峰培训--腾讯体育</title><!--标题-->
+    <meta name="keywords" content=""/><!--网站的关键字-->
+    <meta name="description" content=""/><!--网站的描述-->
+    <link type="image/x-icon" rel="icon" href=""/><!--设置网站标题中的图片-->
+    <!--3.less使用:浏览器不能直接识别less代码,如果用less写完样式需要浏览器识别:-->
+    <!--项目结束时,通过node安装less,通过lessc xx.less xx.css把less编译为css代码-->
+    <!--开发中,通过less.js把less转为css,避免写一点less编译一次-->
+    <!-- Import Needed Css导入需要的css-->
+    <link type="text/css" rel="stylesheet" href="第一天/css/reset.min.css"/>
+    <link type="text/css" rel="stylesheet/less" href="第一天/css/index.less"/>
+    <script type="text/javascript" src="js/less-2.5.3.min.js"></script>
+
+    <!-- [if lt IE 9]>
+    <script type="text/javascript" src="js/html5.min.js"></script>
+    <![end if]-->
+    <!--2.在ie6--8中不兼容,处理方案:在低版本浏览器中把使用的h5中新增加的标签替换为div标签,插件html5.min.js实现这个功能   注意:1.在head中引入 2.条件注释-->
+
+
+</head>
+<body>
+<!--HEADER-->
+<header class="header" id="header">
+    <section class="box">
+        <!-- LOGO-->
+        <h1 class="logo">腾讯体育</h1><!--图片已经带有文字,这里再写一遍是为了被搜索引擎收录-->
+        <!--NAV-->
+        <nav class="nav">
+            <a href="#" class="bg">看比赛</a>
+            <a href="#">社区</a>
+            <a href="#" class="downLoad">
+                下载
+                <!-- 微信二维码-->
+                <div class="weChatBg"></div>
+                <div class="weChat">
+                    <img src="img/kbs-pc/weixin.jpg" alt=""/>
+                    <p>扫一扫下载<br>腾讯体育APP</p>
+                </div>
+            </a>
+            <a href="#">会员</a>
+            <a href="#" target="_blank" class="liveQQ"><img src="img/kbs-pc/live-qq-logo.jpg" alt=""/></a><!--在新的页面打开-->
+        </nav>
+        <!-- LOGIN-->
+        <a href="javascript:;" class="login">登陆</a>
+    </section>
+</header>
+<!--CONTENT -->
+<section class="content" id="content">
+    <!-- MENU-->
+    <div class="menu" id="menu">
+        <ul class="menuItem">
+            <!--控制当前url的末尾添加哈希值,重新加载页面时使哈希值对应的a有对应的样式=>不需要js处理,让每一个a的href+#xx-->
+            <li><a href="#nba" data-id="100000">NBA<i></i></a></li>
+            <li><a href="#csl" data-id="208">中超<i></i></a></li>
+            <li><a href="#afc" data-id="605">亚冠<i></i></a></li>
+            <li><a href="#ucl" data-id="5">欧冠<i></i></a></li>
+            <li><a href="#pl" data-id="8">英超<i></i></a></li>
+            <li><a href="#laliga" data-id="23">西甲<i></i></a></li>
+            <li><a href="#seriea" data-id="21">意甲<i></i></a></li>
+            <li><a href="#nhl" data-id="100006">NHL<i></i></a></li>
+            <li><a href="#bundesliga" data-id="22">德甲<i></i></a></li>
+            <li><a href="#l1" data-id="24">法甲<i></i></a></li>
+            <li><a href="#cba" data-id="100008">CBA<i></i></a></li>
+            <li><a href="#others" data-id="100002">综合<i></i></a></li>
+            <li><a href="#nfl" data-id="100005">NPL<i></i></a></li>
+            <li><a href="#wcp-eu" data-id="336">欧洲世预赛<i></i></a></li>
+            <li><a href="#wcp-as" data-id="341">亚洲世预赛<i></i></a></li>
+            <li><a href="#wcp-sa" data-id="342">南美世预赛<i></i></a></li>
+            <li><a href="#esports" data-id="100101">电竞<i></i></a></li>
+        </ul>
+    </div>
+    <!-- SECTION-->
+    <section class="conRight">
+        <!-- CALENDER-->
+        <div class="calendar" id="calendar">
+            <div class="container">
+                <div class="wrapper"></div>
+                <!-- //6.使用EJS
+                //导入ejs
+                //指定模版:把需要动态绑定数据的HTML结构都放在模版中-->
+                <script type="text/template" id="calendarTemplate">
+                    <%$.each(calendarData,function(index,item){%>
+                    <a href="##" class="slide" data-time="<%=item.data%>">
+                        <span class="week"><%=item.weekday%></span>
+                        <span class="data"><%=item.date.formatTime('{1}-{2}')%></span>
+                    </a>
+                    <%});%>
+                </script>
+            </div>
+            <a href="##" class="btnLeft"><i></i></a>
+            <a href="##" class="btnRight"><i></i></a>
+        </div>
+        <!-- MATCH-->
+        <div class="match">
+
+        </div>
+    </section>
+</section>
+<script type="text/javascript" src="js/iscroll-5.1.3.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/ejs.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

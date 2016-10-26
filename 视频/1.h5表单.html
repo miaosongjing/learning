@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        input{
+            display: inline-block;
+            outline: none;
+        }
+        #two:valid{
+            border: 1px solid red;
+        }
+        #two:invalid{
+            border: 1px solid green;
+        }
+
+        html,body{
+            width: 100%;
+            overflow-x: hidden;
+            color: #000;
+            font-size: 14px;
+            font-family: Helvetica;
+        }
+        .box{
+            position: relative;
+            width: 200px;
+            margin: 20px auto;
+        }
+        /*原理:将span定位在文本框中,获取焦点,有内容span消失*/
+        .box input,.box .tip{
+            padding: 0 5px;
+            width: 188px;
+            border: 1px solid #ccc;
+            height: 30px;
+            line-height: 30px;
+        }
+        .box .tip{
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #ccc;
+            cursor: text;
+        }
+
+    </style>
+</head>
+<body>
+<!--1.单选框  通过name进行分组  checked默认被选中 for定向:
+通过input中的id和label中的for定向实现点击性别也被选中  -->
+<input type="radio" value="man" name="sex" checked id="sexMan"/><label for="sexMan">男</label>
+<input type="radio" value="woman" name="sex" id="sexWoman"/><label for="sexWoman">女</label>
+<input type="submit" id="submit"/>
+<!--2.复选框  name进行分组  点击文字也选中:id+for-->
+<input type="checkbox" name="hobby" value="游泳" id="swim"/><label for="swim">游泳</label>
+<input type="checkbox" name="hobby" value="唱歌" id="sing"/><label for="sing">唱歌</label>
+<input type="checkbox" name="hobby" value="爬山" id="climb"/><label for="climb">爬山</label>
+<input type="checkbox" name="hobby" value="摄影" id="photo"/><label for="photo">摄影</label>
+<input type="checkbox" name="hobby" value="前端" id="code"/><label for="code">前端</label>
+<input type="submit" id="submit1"/>
+
+<!--3.file:一般后台来做-->
+<input type="file"/>
+
+<!--4.number disabled不可编辑-->
+<input type="number" id="number" style="width: 50px;text-align:center;" min="10" max="20" step="1" value="25" disabled/>
+<!--5.range-->
+<input type="range" id="range" min="18" max="65" step="1" value="25" />
+<!--6.date-->
+<input type="date"/><br/>
+<!--7.text  email-->
+<input type="text" id="fir"/><br/><br/>
+<!--<input type="email" id="two" placeholder="请输入常用邮箱"/>--><!--ie不支持,解决方案如下:注意css和js-->
+<div class="box">
+    <input type="email" id="two" placeholder="请输入常用邮箱"/>
+    <span class="tip" id="tipEmail">请输入常用邮箱</span>
+</div>
+<!--8.datalist:二级下拉文本框,它的id和search的list建立联系-->
+<input type="search" id="searchInp" list="searchList"/>
+<datalist id="searchList">
+    <option>珠峰培训</option>
+    <option>嘻嘻嘻</option>
+    <option>是是是</option>
+    <option>都到达</option>
+</datalist>
+<!--select一级下拉文本框-->
+<select name="" id="">
+    <option>珠峰培训</option>
+    <option>嘻嘻嘻</option>
+    <option>是是是</option>
+    <option>都到达</option>
+</select>
+<script type="text/javascript">
+//1.传统的表单类型:text password submit reset button radio checkbox file hidden
+//`pc端表单元素常用的事件:click change focus blur keydown keyup select ...
+
+//2.H5中给INPUT新增加的类型:search url email tel number range color date time dataTime...
+//移动端表单元素的事件:在移动端没有keyup和keydown事件(个别手机可以识别),因为移动端使用的键盘是虚拟的,但是可以使用:input事件(随输入而改变)
+
+//3.优势:1)方便强大:提供的属性中有一些属性是浏览器自带操作控件,不需要我们实用js开发
+    //  2)方便输入:不适用新增加的属性,当用户输入时,调取出来的都是默认的键盘,如果用户想要输入邮箱,需要在符号/数字/英文键盘之间切换,影响用户体验;如果使用email,浏览器会调取最符合用户输入的虚拟键盘,有数字/英文/@等;如果使用number,调取的键盘就是纯数字的
+    //  3)强大的表单验证:css3的input:valid{}验证(可以在输入过程中通过改变元素的样式进行提示),在js通过this.checkValidity()检测格式是否正确//也可以使用自己写的正则进行验证
+    // 弊端:不兼容ie低版本浏览器,并且没有解决方案
+    //   4)提供属性placeholder,可以在文本框中提示信息,但是不兼容ie9以下浏览器;如果在pc端使用,针对ie做一套
+//2015 第三周日历.....学习
+//1.单选框
+var submit=document.getElementById('submit'),
+        sexMan=document.getElementById('sexMan'),
+        sexWoman=document.getElementById('sexWoman');
+    //点击提交,显示性别
+    submit.onclick= function () {
+        var sexType=0;
+        !sexMan.checked?sexType=1:null;
+        console.log(sexType);
+    }
+    sexMan.onchange=sexWoman.onchange= function () {
+        console.log(this.value);
+    };//一般应用于表单元素 当元素发改变时触发事件
+
+    //2.复选框  获取被选中的项  全选  非全选  反选
+var submit1=document.getElementById('submit1');
+    var hobbyList=document.getElementsByName('hobby');
+submit1.onclick= function () {
+    for(var i=0;i<hobbyList.length;i++){
+        var curHobby=hobbyList[i];
+        if(curHobby.checked){
+            console.log(curHobby.value);
+        }
+    }
+}
+
+    //3.range number
+    var range=document.getElementById('range'),
+        number=document.getElementById('number');
+    range.onchange= function () {//拖动结束后,number中的数据才发生改变
+        number.value=this.value;
+    }
+//    range.oninput= function () {//number中的数据随拖动发生变化
+//        number.value=this.value;
+//    }
+//7.text  email
+
+//去除首尾空格
+~function(pro){
+    function myTrim(){
+        return this.replace(/^ +| +$/g,'');
+    }
+    pro.myTrim=myTrim;
+}(String.prototype);
+
+var fir=document.getElementById('fir'),
+        two=document.getElementById('two');
+    //text的邮箱验证
+
+//    fir.onblur= function () {
+//    //    var val=this.value.trim();//去掉首尾空格,不兼容
+//        var val=this.value.myTrim();
+//        //邮箱正则
+//        var reg=/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+//        if(reg.test(val)){
+//            console.log('邮箱格式不正确');
+//        }
+//    }
+
+//    two.onblur= function () {
+//        var val=this.value.myTrim();
+//        if(!this.checkValidity()){
+//            console.log('邮箱格式不正确');
+//        }
+//    }
+
+    //边输入边进行样式提示
+//text
+    fir.onbkeyup= function () {
+        var val=this.value.myTrim();
+        var reg=/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        if(!reg.test(val)){
+            this.style.border='1px solid red';
+        }else{
+            this.style.border='1px solid green';
+
+        }
+    }
+    //email直接通过css3
+
+    //ie中单独实现placeholder
+    if(navigator.userAgent.indexOf('MSIE')>-1){
+        var tipEmail=document.getElementById('tipEmail');
+        two.placeholder='';//避免ie10冲突
+        tipEmail.style.display='block';
+        tipEmail.onclick= function () {
+            //文本框获取光标
+            two.focus();
+        }
+        //文本框有内容时,span消失;没有内容时显示
+        two.onkeydown=two.onkeyup=two.onfocus= function () {
+            tipEmail.style.display=this.value.length==0?'block':'none';
+        }
+
+    }
+
+</script>
+</body>
+</html>

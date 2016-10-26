@@ -1,0 +1,84 @@
+@import(reference) "public.less";
+
+body, html {
+  width: @percentage;
+  height: @percentage;
+}
+.header {
+  height: 580px;
+  position: relative;
+}
+.wrap {
+  .position(@zIndex: 10);
+  width: @percentage;
+  height: 89px;
+  background: url("../image/nav-b.png") repeat-x;
+}
+.nav {
+  width: @percentage;
+}
+
+.nav{
+  h1{
+    float: left;
+    margin-top: 18px;
+  }
+  ul{
+    height: @percentage;
+    float: right;
+    li{
+      height: @percentage;
+      float: left;
+      a{
+        position: relative;
+        display: block;
+        padding: 0 30px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 18px;
+        line-height: 89px;
+        cursor: pointer;
+        z-index: 1;
+        span{
+          .position(@zIndex: -1);
+          width: @percentage;
+          height: @percentage;
+          background: rgba(0, 0, 0, .1);
+          opacity: 0;
+
+        }
+        &:hover{
+          color: @color;
+          span {
+            .opacity;
+
+            .css3(animation: move 0.5s 1 both);
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@keyframes(move);
+.frame(@-...){
+  0% {
+    @{arguments}transform:scale(0, 1);
+    transform: scale(0, 1);
+  }
+  100% {
+    @{arguments}transform:scale(1, 1);
+    transform: scale(1, 1);
+  }
+}
+/*BANNER*/
+.banner {
+  position: relative;/*relative自带层级 */
+  width: @percentage;
+  height: @percentage;
+}
+.slideA{
+  width: @percentage;
+  height: @percentage;
+  background: #183e84;
+}

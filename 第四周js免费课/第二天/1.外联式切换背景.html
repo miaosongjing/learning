@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link id="link" rel="stylesheet" href="css/blue.css" type="text/css"/>
+</head>
+<body>
+<div id="btn">点我</div>
+<!--<script type="text/javascript">
+    //获取要操作的元素
+    var oBtn=document.getElementById("btn");
+   // alert(oBtn); 调错
+    var oLink=document.getElementById("link");
+    //alert(oLink);
+    //var hf=oLink.href;
+    //console.log(hf);
+    oBtn.onclick= function () {
+        //=表示在点击时赋予一个方法
+        var hf=oLink.href;
+        //console.log(hf);
+        if(hf=="http://localhost:63342/learning/%E7%AC%AC%E5%9B%9B%E5%91%A8/%E7%AC%AC%E4%BA%8C%E5%A4%A9/css/blue.css"){
+            oLink.href="css/red.css";
+        }else{
+            oLink.href = "css/blue.css";
+        }
+        //oLink.href="css/red.css";
+        //.获取一个对象的属性
+    };
+</script>-->
+<script type="text/javascript">
+    var oLink=document.getElementById("link");
+    var oBtn=document.getElementById("btn");
+    var bg=true;//判断用变量
+    oBtn.onclick=function(){
+        //var bg=true;无效果,应当作为全局变量
+        //外面变量不能影响里面,但里面可以获取外面的变量
+        if(bg){
+            oLink.href="css/red.css";
+        }else{
+            oLink.href="css/blue.css";
+        }
+        bg=!bg;
+    }
+</script>
+</body>
+</html>

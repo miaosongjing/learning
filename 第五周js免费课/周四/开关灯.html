@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body{/*html和body是块级元素,不设定时默认为0,这时html的宽高是内容宽高,只设定body宽高为100%,
+        那body的宽高为html的宽高,也是内容的宽高;所以需要同时设定*/
+            background-color: white;
+            /*width: 100%;*/
+            /*height: 100%;*/
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    document.body.onclick=function(){
+        var style=document.body.style;
+        if(style.backgroundColor=="white"){
+            style.backgroundColor="black";
+        }else{
+            style.backgroundColor="white";
+        }
+    }
+</script>
+</body>
+</html>
+var style=document.body.style;//style是一个对象数据类型,是一个空间堆内存地址
+要操作对象的某一属性(如样式),最终只能在这个对象上进行操作,而不能为该属性直接定义变量进行赋值,
+否则进行的只是赋值操作,不能改变堆内存的内容*/
+console.log(style);//dom对象的样式只能通过style才能更改,要定义变量最多保存到style(内层可以是body,)为止
+ var color=document.body.style.color;//color是一个值,
+color="gold";// 仅仅是赋值,不能改变样式

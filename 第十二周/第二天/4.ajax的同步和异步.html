@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<script type="text/javascript" src="ajax惰性思想.js"></script>
+<script type="text/javascript">
+//同步(sync)编程和异步(async)编程
+//JS是单线程()一次只能做一件事情,最好使用异步编程
+//等待任务队列和主任务队列
+//////////////////////////////////////////////////////////////////////
+    //异步编程:定时器和事件绑定都是异步编程 回调函数可以理解为异步编程 ajax中可以使用异步编程
+    //
+//    var count=0;
+//    window.setTimeout(function () {
+//        count++;
+//        console.log(count);
+//    },10);//第三次输出:1   定时器时间设置为0时,不会立即执行.浏览器有一个最小反应时间,谷歌3-6ms,ie10-13ms;设定1000ms后执行,不一定到达时间执行,如果当前浏览器的线程被占用,定时器要一直等着
+//    window.setTimeout(function () {
+//        console.log("b");
+//    },6);//第二次输出:b  当出现多个定时器,如果执行完成循环都到达时间,先执行时间短的定时器
+//    console.log(count);//第一次输出:0
+//    while(1){//死循环,定时器不输出
+//    }
+</script>
+<script type="text/javascript">
+    //ajax中的同步和异步
+    //ajax中的同步:当ajax任务开始的时候(xhr.send),一直到readyState===4时任务才结束,此时才可以处理其他事情
+    //ajax中的异步:当ajax任务开始的时候(xhr.send),不需要到readyState===4时,也可以处理其他事情,只有当其他的任务完成后看是否到4,到4时做相关操作
+    var xhr=new XMLHttpRequest;//readyState为0
+    xhr.open("get","note.txt",true);//readyState为1
+    xhr.onreadystatechange= function () {
+        console.log(xhr.readyState);
+    };//采用true异步编程,该事件可以执行三次,输出三次,2,3,4  如果事件绑定在open前,还可以输出1
+//    xhr.open("get","本地存储.txt",false);//readyState为1
+//    xhr.onreadystatechange= function () {
+//        console.log(xhr.readyState);
+//    };//采用false同步编程,readyState=4时任务结束,结束后执行该事件,执行一次,输出4
+    xhr.send(null);//send之后,ajax向服务器发送请求的任务开始
+
+//    var xhr=new XMLHttpRequest;
+//    xhr.open("get","本地存储.txt",true);
+//    xhr.send(null);
+//    xhr.onreadystatechange= function () {
+//        console.log(xhr.readyState);
+//    };//采用true异步编程,不需要等到readyState=4就可以执行该事件,执行三次,输出2,3,4;采用false同步编程时,等到readyState=4之后执行其他任务,此时readyState不会发生改变,不会触发该事件,所以没有输出
+
+    //获取服务器时间:当状态为2时,在响应头信息中包含服务器时间--应用于倒计时抢购等
+    var xhr=new XMLHttpRequest;
+    xhr.open("get","note.txt",true);//前提是异步编程
+//    xhr.setRequestHeader("zhufeng","2016");//在open后设置请求头信息
+//    xhr.timeout="1000";//设置ajax的请求超时时间
+    xhr.onreadystatechange= function () {
+        if(xhr.readyState===2){
+            var time=xhr.getResponseHeader("Date");//getResponseHeader获取服务器的响应头信息
+            console.log(new Date(time));//将格林尼治时间转为北京时间
+        }
+    };
+    xhr.send(null);
+    //在倒计时抢购时,如何解决时间差:在异步ajax请求中,当readyState===2时得到服务器时间,减少时间差,而不用readyState=3/4
+</script>
+</body>
+</html>

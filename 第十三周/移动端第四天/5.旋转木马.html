@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css" id="style1">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .wrap{
+            margin: 200px auto;
+            width: 150px;
+            height: 120px;
+            perspective: 2000px;
+        }
+        .item{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: move 15s infinite 3s both;
+        }
+        .item li{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #eee;
+            box-shadow: 0 1px 3px #fff;
+            background-size: 100% 100%;
+            border-radius: 5px;
+
+        }
+        /*旋转-->z轴移动相同距离*/
+        .item li:nth-child(1){
+            background-image: url("img/1.jpg");
+            transform: rotateY(0deg) translateZ(400px);
+        }
+        .item li:nth-child(2){
+            background-image: url("img/2.jpg");
+            transform: rotateY(30deg) translateZ(400px);
+        }
+        .item li:nth-child(3){
+            background-image: url("img/3.jpg");
+            transform: rotateY(60deg) translateZ(400px);
+        }
+        .item li:nth-child(4){
+            background-image: url("img/4.jpg");
+            transform: rotateY(90deg) translateZ(400px);
+        }
+        .item li:nth-child(5){
+             background-image: url("img/5.jpg");
+            transform: rotateY(120deg) translateZ(400px);
+         }
+        .item li:nth-child(6){
+            background-image: url("img/6.jpg");
+            transform: rotateY(150deg) translateZ(400px);
+        }
+        .item li:nth-child(7){
+            background-image: url("img/7.jpg");
+            transform: rotateY(180deg) translateZ(400px);
+        }
+        .item li:nth-child(8){
+            background-image: url("img/8.jpg");
+            transform: rotateY(210deg) translateZ(400px);
+        }
+        .item li:nth-child(9){
+            background-image: url("img/9.jpg");
+            transform: rotateY(240deg) translateZ(400px);
+        }
+        .item li:nth-child(10){
+            background-image: url("img/10.jpg");
+            transform: rotateY(270deg) translateZ(400px);
+        }
+        .item li:nth-child(11){
+            background-image: url("img/11.jpg");
+            transform: rotateY(300deg) translateZ(400px);
+        }
+        .item li:nth-child(12){
+            background-image: url("img/12.jpg");
+            transform: rotateY(330deg) translateZ(400px);
+        }
+        /*角度转为弧度: 弧度=pi/180*角度
+        var deg=15*Math.pi/180
+        Math.tan(deg)=75/邻边*/
+
+        .gradient{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -600px;
+            margin-top: -600px;
+            width: 1200px;
+            height: 1200px;
+            background: -webkit-radial-gradient(600px 600px at center,rgba(50,50,50,1),rgba(0,0,0,0));
+            background: radial-gradient(600px 600px at center,rgba(50,50,50,1),rgba(0,0,0,0));
+            /*从垂直向前翻转*/
+            transform: rotateX(90deg) translateZ(-200px);
+        }
+        @keyframes move {
+            0%{
+                transform: rotateX(0deg);
+            }
+            8.33%{
+                transform: rotateY(30deg);
+            }
+            16.7%{
+                transform: rotateY(60deg);
+            }
+            25%{
+                transform: rotateY(90deg);
+            }
+            33.33%{
+                transform: rotateY(120deg);
+            }
+            41.7%{
+                transform: rotateY(150deg);
+            }
+            50%{
+                transform: rotateY(180deg);
+            }
+            58.33%{
+                transform: rotateY(210deg);
+            }
+            66.7%{
+                transform: rotateY(240deg);
+            }
+            75%{
+                transform: rotateY(270deg);
+            }
+            83.33%{
+                transform: rotateY(300deg);
+            }
+            91.7%{
+                transform: rotateY(320deg);
+            }
+            100%{
+                transform: rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <ul class="item">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div class="gradient"></div>
+</div>
+
+<script type="text/javascript">
+    var oLis=document.querySelectorAll('.item li');
+    var oStyle=document.querySelector('#style1');
+    for(var i=0;i<oLis.length;i++){
+        (function (i) {
+            window.setTimeout(function () {
+//                控制每张图片出现的角度
+                oStyle.innerHTML+='.item li:nth-child('+(i+1)+'){' +
+                        'transform:rotateY('+(oLis.length-1-i)*30+'deg) translateZ(400px);transition:0.5s;transition-delay:'+i*0.1+'s}'
+            },i*100);//每隔100ms出现一张图片
+        })(i);
+    }
+</script>
+</body>
+</html>

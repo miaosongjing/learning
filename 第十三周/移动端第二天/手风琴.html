@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>垂直手风琴</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        .box {
+            margin:0 auto;
+            padding: 10px;
+            border: 1px solid red;
+            width: 500px;
+            color:#424242;
+            font: 14px Arial;
+        }
+        .box h2 {
+            position: relative;
+            margin:5px 0;
+        }
+        /*三角形:使用伪元素*/
+        .box h2:before {
+            position:absolute;
+            right: 10px;
+            top: 15px;
+            border: 5px solid;
+            border-color: #fff transparent transparent;
+            content:"";
+            height: 0;
+            width: 0;
+        }
+        /*展开时三角对应的效果*/
+        .box :target h2:before {
+            border-color: transparent transparent transparent #fff;
+        }
+        /*制作手风琴标题栏*/
+        .box h2 a {
+            display: block;
+            padding:10px;
+            border-radius: 5px;
+            background: #8f8f8f;
+            font-size: 13px;
+            color:#424242;
+            text-shadow: 2px 2px 2px #aeaeae;
+        }
+        /*目标标题效果*/
+        .box :target h2 a, .box h2 a:focus, .box h2 a:hover, .box h2 a:active {/*注意a的几个状态*/
+            background: #2288dd;
+            color:#FFF;
+        }
+        /*标题栏对应的内容隐藏*/
+        .box p {
+            padding:0 10px;
+            height: 0;/*默认标题高度为0达到隐藏效果*/
+            overflow: hidden;
+            transition: height 0.5s ease-in;
+        }
+        /*标题对应的内容显示*/
+        .box :target p {
+            height:100px;
+            overflow: auto;
+        }
+
+        ​   </style>
+</head>
+<body>
+    <div class="box">
+        <div id="brand">
+            <h2><a href="#brand">Brand</a></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div id="promotion">
+            <h2><a href="#promotion">Promotion</a></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div id="event">
+            <h2><a href="#event">Event</a></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </div>
+</body>
+</html>

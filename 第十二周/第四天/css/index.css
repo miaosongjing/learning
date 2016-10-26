@@ -1,0 +1,79 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body,html{
+    width: 100%;
+    overflow-x:hidden;
+    color: #555;
+    font-size: 14px;
+}
+ul{
+    list-style: none;
+}
+a,a:hover,a:active{
+    color: #555;
+    text-decoration: none;
+}
+.w50{
+    width: 50px;
+}
+.w150{
+    width: 150px;
+}
+.w200{
+    width: 200px;
+}
+/*index*/
+.box{
+    margin: 10px auto;
+    padding: 10px;
+    width:800px;
+    border: 2px solid green;
+}
+.box .add-custom{
+    display: block;
+    line-height: 35px;
+    color: green;
+    font-size: 16px;
+}
+.box .add-custom:hover{
+    text-decoration: underline;
+}
+.box .head{
+    height: 35px;
+    line-height: 35px;
+    background: green;
+    text-align: center;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+}
+.box .head:after{
+    display: block;
+    content: '';
+    clear: both;
+}
+.box .head span{
+    float: left;
+}
+.custom-list li{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+ .custom-list li span{
+    float: left;
+}
+/*以下样式是css3中新增加的,低版本浏览器不兼容*/
+.custom-list li:nth-child(even){
+    background: #EEE;
+}
+.custom-list li:hover{
+    background: #fea;
+}
+.custom-list li span.control a{
+    display: inline-block;
+    margin: 0 3px;
+    color: green;
+}

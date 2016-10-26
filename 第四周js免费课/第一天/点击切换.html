@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        input{
+            width: 100px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body style="background-color:black;" id="box">
+<input type="button" value="点击切换颜色" id="btn"/>
+<input type="button" value="点击切换颜色"/>
+<input type="button" value="点击切换颜色"./>
+<script>
+    var oBox=document.getElementById('box');
+    //var oBtn=oBox.getElementById('btn');错误的
+    //id具有唯一性,只能通过整个文档获取
+    var oBtn=document.getElementById('btn');
+    //var oBtn=oBox.getElementsByTagName('input')[0];获取元素的集合
+    //通过索引可以获取对应的元素
+   // console.log(0Btn);
+    //取到一个元素的集合,类似于数字,成为类数组
+    //0:input  0是索引
+    //1:input
+    //var bg=oBox.style.backgroundColor;//全局变量
+    //console.log(bg);
+    // 只能获取行内样式,第一次点击获取的是"",所以点击两次才内变色
+    oBtn.onclick=function(){
+        //以下为当点击oBtn时,执行的代码
+        //oBox.style.backgroundColor="black";
+        //让oBox的背景颜色变为黑色
+        var bg=oBox.style.backgroundColor;//局部变量,只能在函数内获取,出了函数就找不到
+        //只能获取行内样式,第一次点击获取的是"",所以点击两次才内变色
+        if(bg=="red"){
+            oBox.style.backgroundColor="black";
+        }else if(bg=="black"){
+            // if(bg=="black")可以去掉,效果相同
+            oBox.style.backgroundColor="red";
+            //向行内添加样式t
+        }
+    }
+
+
+</script>
+</body>
+</html>

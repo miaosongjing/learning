@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    /*插入排序:从原因数组拿出一项到新数组中,从原有数组拿出第二项和新数组的每一项比较,如果比最后一项大就直接
+    放在最后一项的后面;依次类推.如果到边界也没有合适的,就直接放在开头*/
+    var ary=[3,5,4,2,1];
+    var newAry=[];
+    newAry.push(ary[0]);//原有数组第一项放在新数组中
+    for(var i=1;i<ary.length;i++){//原有数组从索引1开始循环
+        var cur=ary[i];
+        for(var j=newAry.length-1;j>=0;){//与新数组从后往前比较
+                if(cur<newAry[j]){//如果当前项比新数组的项小,继续往前比较
+                    j--;
+                    if(j===-1){
+                        newAry.unshift(cur);
+                        j=-1;//停止循环
+                    }
+                }else{//如果大,插入到新数组比较项的后面,newAry不用循环
+                    newAry.splice(j+1,0,cur);
+                    break;
+                }
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    var ary=[3,5,4,2,1];
+    var newAry=[];
+    newAry.push(ary[0]);
+    for(var i=1;i<ary.length;i++){
+        var cur=ary[i];
+        for(var j=0;j<newAry.length;){
+            if(cur<newAry[j]){
+                newAry.splice(j,0,cur);
+                break;
+            }else{
+                j++;
+                if(j==newAry.length){
+                    newAry.push(cur);
+                    break;
+                }
+            }
+        }
+    }
+    console.log(newAry);
+</script>
+</body>
+</html>

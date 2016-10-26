@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            position: relative;
+            margin: 20px auto;
+            width: 450px;
+        }
+        img{
+            float: left;
+            width: 100px;
+            margin-left: 10px;
+            height: 75px;
+            border: 1px solid #ccc;
+        }
+        #mark{
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 400px;
+            height: 300px;
+            border: 1px solid #0077B0;
+            z-index: 10;
+        }
+        #mark img{
+            margin-left: 0;/*清除以上继承*/
+            width: 100%;
+            height: 100%;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+        <img src="images/apple_1.jpg" bigImg="images/apple_1_bigger.jpg"/>
+        <img src="images/apple_2.jpg" bigImg="images/apple_2_bigger.jpg"/>
+        <img src="images/apple_3.jpg" bigImg="images/apple_3_bigger.jpg"/>
+        <img src="images/apple_4.jpg" bigImg="images/apple_4_bigger.jpg"/>
+
+        <div id="mark">
+            <img src="images/apple_1_bigger.jpg"/>
+        </div>
+    </div>
+
+<script type="text/javascript" src="../../jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    $(function () {//html结构加载完执行,等价于$(document).ready()
+        var $box=$("#box"),$mark=$("#mark");
+        //1.获取当前元素距离body的偏移{left:xxx,top:xxx}
+        var $boxOffset=$box.offset();
+        //2.获取所有图片
+//        $box.children("img").mouseover(function () {})
+        $box.children("img").bind("mouseover", function (e) {
+            e=e||window.event;
+            e.target= e.target|| e.srcElement;
+//            var left= e.clientX-$boxOffset.left+10;
+//            var top= e.clientY-$boxOffset.top+10;
+            $mark.stop().show(500)./*.css({left:left,top:top}).*/find("img").attr("src", e.target.getAttribute("bigImg"));//hide toggle  slidedown slideup slideToggle fadeIn fadeUp fadeToggle animate(jq中的动画// )  stop()终止上一次动画
+        }).bind("mousemove", function (e) {
+            e=e||window.event;
+            e.target= e.target|| e.srcElement;
+            var left= e.clientX-$boxOffset.left+10;
+            var top= e.clientY-$boxOffset.top+10;
+            $mark.css({left:left,top:top});
+        }).bind("mouseout", function (e) {
+            $mark.stop().hide(500);
+        });
+
+
+
+
+
+    });
+</script>
+</body>
+</html>

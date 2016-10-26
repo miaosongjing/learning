@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/index.css"/>
+</head>
+<body>
+<div class="box">
+    <h2>
+        <span>编号</span>
+        <span>姓名</span>
+        <span>性别</span>
+        <span>分数</span>
+    </h2>
+    <!-- 内容-->
+    <ul class="con" id="con">
+        <li>
+            <span>1</span>
+            <span>xx</span>
+            <span>男</span>
+            <span>90</span>
+        </li>
+    </ul>
+    <!-- 分页-->
+    <div class="page" id="page">
+        <span>FIRST</span>
+        <span>PREV</span>
+        <ul class="pageNum" id="pageNum">
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+        </ul>
+        <span>NEXT</span>
+        <span>LAST</span>
+        <input type="text" id="numInp" value="1"/>
+    </div>
+</div>
+
+<script type="text/javascript" src="ajax.js">
+
+</script>
+<script type="text/javascript">
+
+    var pageModule=(function () {
+        var content=document.getElementById('con'),
+                page=document.getElementById('page'),
+                pageNum=document.getElementById('pageNum'),
+                numInp=document.getElementById('numInp');
+
+        var n= 1,total= 0,data=null;
+        //1.绑定数据和其他数据的绑定
+
+        function bindHTML(){
+//            1.content bind
+            var str='';
+            for(var i=0;i<data.length;i++){
+                console.log(data.length);
+                var curData=data[i];
+                str+='<li studentId="'+curData["id"]+'">';
+                str+='<span>'+curData['id']+'</span>';
+                str+='<span>'+curData['name']+'</span>';
+                str+='<span>'+(curData['id']==1?"女":"男")+'</span>';
+                str+='<span>'+curData['score']+'</span>';
+                str+='</li>';
+            }
+            content.innerHTML=str;
+//          2.page bind
+            str='';
+            for(i=1;i<=total;i++){
+//                页码实现被选中的样式,通过添加类名
+                if(i===n){
+                    str+='<li class="bg">'+i+'</li>';
+                    continue;
+                }
+                str+='<li>'+i+'</li>';
+            }
+            pageNum.innerHTML=str;
+//            3.numInp bind
+            numInp.value=n;
+        }
+//        2.事件委托实现分页区域的按钮操作
+        function bindEvent(){
+            page.onclick= function (e) {
+                e=e||window.event;
+                var tar= e.target|| e.srcElement,
+                        tarTag=tar.tagName.toUpperCase(),
+                        tarInn=tar.innerHTML;
+                // FIRST  PREV NEXT LAST
+                if(tarTag==='SPAN'){
+                    if(tarInn==='FIRST'){
+                        if(n===1)return;
+                        n=1;
+                    }
+                    if(tarInn==='PREV'){
+                        if(n===1)return;
+                        n--;
+                    }
+                    if(tarInn==='NEXT'){
+                        if(n===total)return;
+                        n++;
+                    }
+                    if(tarInn==='LAST'){
+                        if(tarInn===total)return;
+                        n=total;
+                    }
+                }
+                if(tarTag==='LI'){
+                    if(n===parseFloat(tarInn))return;//如果点击时当前页
+                    n=parseFloat(tarInn);
+                }
+                if(tarTag==='INPUT')return;//点击的是input,直接返回
+                //知道n,发送请求,绑定数据
+                sendAjax();
+            };
+            numInp.onkeyup=function (e){
+                e=e||window.event;
+                if(e.keyCode===13){
+                    var val=parseFloat(this.value.replace(/^ +| +$/,''));//去除字符串首尾空格
+                    if(isNaN(val)){
+                        this.value=n;
+                        return;
+                    }
+                    val=Math.round(val);//避免是小数
+                    if(val<1) {
+                        n = 1;
+                    }else if(val>total){
+                        n=total;
+                    }else{
+                        n=val;
+                    }
+                    sendAjax();
+                }
+            }
+        }
+
+        //3.bindLink:conten区域的li跳转
+        function bindLink(){
+            //获取所有的li,给没有li绑定点击事件,点击时页面跳转到指定页面,注意this和传递
+            var oLis=content.getElementsByTagName('li');
+            for(var i=0;i<oLis.length;i++){
+                oLis[i].onclick= function () {
+                    var that=this;
+//                    window.location.href='detail.html';//页面跳转
+                    window.open('detail.html?id='+that.getAttribute('studentId'));//页面跳转,在新窗口打开;在跳转时,把当前点击客户的id传递到详细页
+                }
+            }
+        }
+        //f发送ajax请求
+        function sendAjax(){
+            ajax({
+                url:'getList?n='+n,
+                type:'GET',
+                dataType:'json',
+                success: function (jsonData) {
+                    if(!jsonData)return;
+                    if(jsonData&&jsonData.code==0){
+                        total=jsonData.total;
+                        data=jsonData.data;
+                        bindHTML();
+                        //数据绑定后,绑定li的跳转事件
+                        bindLink();
+                    }
+                }
+            });
+        }
+
+        function init(){
+            sendAjax();
+
+            bindEvent();
+
+        }
+        return {init:init}
+    })();
+    pageModule.init();
+</script>
+</body>
+</html>

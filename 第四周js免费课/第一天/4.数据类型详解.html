@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+一number数据类型
+    1.包含:正数/负数/0/小数/NaN(非有效数字)
+    1)isNaN()检测是否为非有效数字
+    2)Number()强制转化
+        如果值不是有效数字,返回NaN
+    3)parseFloat()/parseInt()非强制转化
+        从左到右依次查找,遇到第一个非数字就停止 parseFloat多识别一个小数点
+    4)NaN==NaN 返回false
+<script>
+    //var val=12;  返回false
+    //var val="12";  返回false,检测前会先调用Number()方法,将其强制转换为Number数据类型
+    //var  val=[1,2];返回true
+    //console.log(isNaN(val));//在控制台输出判断结果
+    var val="12.3px";
+    console.log(Number(val));  返回NaN
+    console.log(parseInt(val)); 返回12
+    console.log(parseFloat(val));返回12.3
+    var val="width:12.3px";
+    console.log(parseInt(val)); 返回NaN
+    console.log(parseFloat(val));返回NaN
+</script>
+
+二数据类型的比较==
+    1.NaN==NaN 返回false
+<script>
+    console.log(NaN==NaN);
+    var val=Number("12.5px");
+    if(val==12.5){
+        console.log(12.5);
+    }else if(val==NaN){
+        console.log(NaN);
+    }else{
+        console.log("什么都不是");
+    }
+</script>
+二boolean数据类型
+    1.值:true/false
+    0 "" NaN null undefined返回false,其他返回true
+    2.Boolean()将其它数据类型转化为boolean类型
+    3.!取反:先转为bool数据类型,再取反
+    4.!!   :意义同Boolean(),将其他数据类型转为bool数据类型
+
+<script>
+    //if(10){
+    if(!"null"){
+       // 字串里的内容没有意义,里面是代码/null/undefined等都不会执行
+        console.log(10);
+    }
+    console.log(Boolean("1"));//先调用Number()转化为1,在调用Boolean()转化为true
+   if(!!"123"){
+       console.log(123);
+   }
+    if(Boolean("123")){
+        console.log(123);
+    }
+    //两者结果相同
+</script>
+三 两个不同数据类型的比较
+    1.对象==对象,返回false
+    2.对象==布尔,将对象先转为字串,再转为数字,将布尔转为数字
+    3.对象==字符串:对象转为字符串
+    4.对象==数字:将对象先转为字串,再转为数字
+    5.布尔==字串:都转为数字
+    6.布尔==数字:布尔转为数字
+    7.字符串==数字:字串转为数字
+    8.null==undefined:true
+    9.null/undefined==其他:false
+    注:一个值判断,0 ""  undefined null NaN为假,其余为真
+
+<script>
+    []==[];//返回false
+    ({}=={});//返回false  对象和对象比较不相等
+    "1"==1;//返回true
+    []==0;//返回true
+    []==1;//返回false
+    [].toString();//返回""
+    Number("");//返回0
+    []==[];//返回false    相同数据类型比较不转换
+    {}=={};//返回false
+    [1]==true;//返回true  [1].toString()返回"1"
+    [1,2]==1;//先"1,2",再NaN
+    ""=="";//返回true
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

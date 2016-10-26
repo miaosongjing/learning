@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title></title>
+    <link rel="stylesheet" href="第一天/css/reset.min.css" type="text/css"/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        /*保证当前页面有且只有一屏*/
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .nav{
+            height: 40px;
+            background: #c91523;
+        }
+        .menu {
+            height: 44px;
+            background: #74c274;
+        }
+        .con{
+            position: relative;
+            overflow: hidden;
+        }
+        .con ul{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: auto;
+        }
+        .conItem li{
+            padding-left: 10px;
+            height: 30px;
+            line-height: 30px;
+            border-bottom: 1px dashed green;
+        }
+        /*以上解决方案,实现头尾固定,中间内容滚动效果,但是在pc和移动端使用position:fixed兼容性差
+        pc:ie6不兼容
+        移动端:手机都兼容,但是效果不理想,尤其是定位区域需要调取键盘时候
+        (面试题:项目中有什么问题,怎么解决?)
+        尝试不适用position:fixed,让当前页面的高度为一屏,三个盒子加起来的高度=一屏高度,但是con区域的内容很多,尝试使用内置的局部滚动处理,overflow-y:auto.多数手机可以实现,但是部分安卓手机在滚动过程中,出现卡顿现象.
+        自定义滚动条,使用插件--->IScroll.js插件:
+
+        */
+
+
+    </style>
+</head>
+<body>
+<nav class="nav"></nav>
+<section class="con" id="con">
+    <ul class="conItem">
+        <li class="start">这是开始</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li>这是结束</li>
+    </ul>
+</section>
+<section class="menu"></section>
+<script type="text/javascript" src="js/iscroll-5.1.3.min.js"></script>
+<script type="text/javascript">
+    //计算con区域的高度
+    function fn(){
+        var oCon=document.getElementById('con');
+        var winH=document.documentElement.clientHeight,
+                tarH=winH-40-44;
+        oCon.style.height=tarH+'px';
+    }
+    fn();
+    window.addEventListener('resize',fn,false);
+    //使用IScroll实现局部区域的滚动  滑动用swiper
+    var example=new IScroll('#con',{//创建一个实例
+        bounce:false,//是否取消到达边界的缓冲效果,默认是true
+        mouseWheel:true,//是否开启鼠标滚动
+        scrollbars:true,//是否显示滚动条,默认false,原理:在con容器的末尾追加一个DIV显示滚动条,滚动条的高度是根据容器高度和内容高度计算好的(使用IScroll时,需要指定容器的具体高度),增加的滚动条是position:absolute,默认相对body定位;如果想在con区域展示滚动条,需要给con加position:relative;还可以根据自己的需求把滚动条的样式重写;
+        // 原理:当初始化IScroll时,它会在con下的第一个子元素(只对第一个子元素作用)增加css3动画(transition)和变形(transform:translate)效果,当滚动时,控制con下的第一个子元素在con区域进行位移改变
+        useTransform:false,
+        useTransition:false,//不使用css3动画和变形处理,而使用传统的top/left进行处理(保证ul相对con定位);建议开启,因为css3的transform开启手机硬件加速,使手机运行更加流畅
+        fadeScrollbars:true,//不操作不显示滚动条,操作时才显示
+        scrollX:false,
+        scrollY:true//控制使横向还是竖向滚动
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+一 函数
+    js中的方法,实现不同的功能
+    可以重复执行,每次执行互不相干
+    1.步骤
+   1)创建函数
+    function 函数名(){
+        function 关键字 声明我是一个函数
+       函数名 区分每一个函数
+        函数体 要执行的方法
+    }
+    2)执行函数
+    函数名();
+    2.函数的形参和实参
+<script>
+    //1.步骤
+    // 1)创建函数
+    //function 函数名(){
+    //function 关键字 声明我是一个函数
+    //函数名 区分每一个函数
+    //函数体 要执行的方法
+    // }
+    //2)执行函数
+    //函数名();
+    //函数不执行时,就是一堆字符串,没有任何意义
+    //每次执行互不相干,因为它是引用数据类型
+    function con(){
+        console.log("男同学小心耿大爷");
+    }
+    con();
+    //2.函数的形参和实参
+    function sum(n,m){
+      //  n,m就是这个函数的形参(或者说变量),可以储存和代表任何值
+        var total=n+m;
+        console.log(total);
+    }
+    sum(4,5);//9
+    //在执行的括号中传入参数,即实参
+    sum(3);//NaN  因为n为4,m为undefined,不能相加
+    //形参和实参要相互对应(位置和个数),如果形参多了,这个形参的返回值为undefined
+    sum(1,2,3);
+    sum(3,"8");//38 如果是字符串,会默认为拼接字符串
+    sum(3,"q");//8q
+    //sum(4,q);//q is not defined 默认q为一个变量
+    //var n= 1,m=2;
+    //可以用一个var同时声明多个变量
+
+    //判断实参是否为有效数字
+    //转为数字--Number()
+    //判断是否为有效数字--!isNaN()
+    function sum(n,m){
+        var cur1=Number(n);
+        var cur2=Number(m);
+        //强制转化为数字数据类型
+        console.log(cur1);
+        console.log(cur2);
+        if((!isNaN(cur1))&&(!isNaN(cur2))){
+            var total=cur1+cur2;
+            console.log(total);
+        }
+    }
+    sum(1,"2");
+    //+ - * /  在js中优先运算
+    //()在js运算中优先
+    //||(或)两侧任意为真时整个条件为真即执行  $$(并且)两侧都为真时整个条件为真执行
+
+
+
+
+</script>
+</body>
+</html>

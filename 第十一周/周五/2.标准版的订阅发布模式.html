@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    function EventEmitter() {
+
+    }
+    EventEmitter.prototype.on = function (type, fn) {//绑定事件
+        if (!this['aEmitter' + type]) {
+            this['aEmitter' + type] = [];
+        }
+        var a = this['aEmitter' + type];
+        for (var i = 0; i < a.length; i++) {
+            if (a[i] == fn)return;
+        }
+        a.push(fn);
+    };
+    EventEmitter.prototype.fire = function (type, e) {//通知/发布事件
+        var a = this['aEmitter' + type];
+        if (a && a.length) {
+            for (var i = 0; i < a.length; i++) {
+                if (typeof a[i] === "function") {
+                    a[i].call(this, e);
+                } else {
+                    a.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+    };
+    EventEmitter.prototype.off = function (type, fn) {//解除事件
+        var a = this['aEmitter' + type];
+        if (a && a.length) {
+            for (var i = 0; i < a.length; i++) {
+                if (a[i] == fn) {
+                    a[i] = null;
+                    break;
+                }
+            }
+        }
+    };
+
+    //烧水:--喝水 方便面  洗澡
+    //中间20分钟,可以作其他工作,等水开时自动通知来做其他三件事
+
+    //先要有水壶,然后运行水壶烧水方法
+    //在烧水之前有一个事件绑定:让drink,noodles,shower这三个行为绑定烧水的行为,一旦水开,会自动通知三个行为执行
+
+    function Kettle(){}
+//    Kettle.prototype=new EventEmitter;//这样的继承方式不能写在定义原型方法之后
+    Kettle.prototype.__proto__=EventEmitter.prototype;//更加安全,他不会破坏kettle类上所有的prototype,但是IE不支持
+
+    Kettle.prototype.boiling= function () {
+        console.log("开始烧水");
+        var that=this;
+        window.setTimeout(function () {
+            console.log("水开了");
+            that.fire("boiling");
+        },6000);
+    };
+    var k1=new Kettle;
+    function drink(){
+        console.log("喝点开水");
+    }
+    function noodles(){
+        console.log("泡面");
+    }
+    function shower(){
+        console.log("洗澡");
+    }
+</script>
+</body>
+</html>

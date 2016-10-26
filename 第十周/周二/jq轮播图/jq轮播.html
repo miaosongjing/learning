@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="banner.css"/>
+</head>
+<body>
+    <div class="banner" id="bannerFir">
+        <div class="bannerInner">
+        </div>
+        <ul class="bannerTip">
+        </ul>
+        <a href="javascript:void 0;" class="bannerLeft"></a>
+        <a href="javascript:void 0;" class="bannerRight"></a>
+    </div>
+    <div class="banner" id="bannerTwo">
+        <div class="bannerInner">
+        </div>
+        <ul class="bannerTip">
+        </ul>
+        <a href="javascript:void 0;" class="bannerLeft"></a>
+        <a href="javascript:void 0;" class="bannerRight"></a>
+    </div>
+<script type="text/javascript" charset="UTF-8" src="../jquery-1.11.3.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="banner.js"></script>
+    <script type="text/javascript">
+        $("#bannerFir").banner("data.txt",1000);
+        $("#bannerTwo").banner("data.txt",1000);
+    </script>
+</body>
+</html>

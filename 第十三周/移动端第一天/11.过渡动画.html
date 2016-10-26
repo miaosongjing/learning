@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        /*transition 指css属性起始值和结束值之间实现平滑过度的效果*/
+        .div1{
+            margin: 20px auto;
+            width: 100px;
+            height: 100px;
+            background: red;
+            transition:width 1s linear 0s,height 1s linear 0s;
+        }
+        .div1:hover{
+            width: 200px;
+            height: 200px;
+            /*-webkit-transition-property: width;*/
+            /*transition-property: width;*/
+            /**/
+            /*-webkit-transition-duration: 1s*/
+            /*transition-duration: 1s;*/
+            /**/
+            /*-webkit-transition-timing-function:linear;*/
+            /*transition-timing-function: linear;*/
+            /**/
+            /*-webkit-transition-delay: 1s;*/
+            /*transition-delay: 1s;*/
+
+
+            /*transition:all 1s linear 0s;/!*动画属性  持续时间  动画方式  延迟时间*!/*/
+            /*效果同上  多个属性用逗号隔开*/
+            transition:width 1s linear 0s,height 1s linear 0s;/*动画属性  持续时间  动画方式  延迟时间*/
+        }
+
+    </style>
+</head>
+<body>
+<div class="div1" id="div1"></div>
+
+<script type="text/javascript">
+    //transition 执行次数问题
+
+    var div1=document.getElementById('div1');
+    div1.addEventListener('webkitTransitionEnd',function(){
+        console.log('1');
+    },false);
+</script>
+</body>
+</html>

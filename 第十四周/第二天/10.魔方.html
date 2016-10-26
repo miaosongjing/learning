@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body,html,.cube{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        html{
+            font-size: 100px;
+        }
+        .cube{
+            perspective: 1000px;
+            background: url("img1/zf_cubeBg.jpg") no-repeat center center;
+            background-size: cover;
+        }
+        .cubeBox,.cubeBox li{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -2.55rem;
+            margin-top: -2.55rem;
+            width: 5.1rem;
+            height: 5.1rem;
+        }
+        .cubeBox{
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            transform:scale(0.6) rotateX(-30deg) rotateY(45deg);
+            transition: 1s;
+        }
+        .cubeBox li:nth-child(1){
+            -webkit-transform: translateZ(2.55rem);
+            transform: translateZ(2.55rem);
+            background: url("img1/zf_cube1.png") no-repeat;
+            background-size: 100% 100%;
+        }
+        .cubeBox li:nth-child(2){
+            -webkit-transform: translateZ(-2.55rem) rotateY(180deg);
+            transform: translateZ(-2.55rem);
+            background: url("img1/zf_cube2.png") no-repeat;
+            background-size: 100% 100%;
+        }
+        .cubeBox li:nth-child(3){
+            -webkit-transform: rotateY(-90deg) translateZ(2.55rem) ;
+            transform: rotateY(-90deg) translateZ(2.55rem) ;
+            background: url("img1/zf_cube3.png") no-repeat;
+            background-size: 100% 100%;
+        }
+        .cubeBox li:nth-child(4){
+            -webkit-transform: translateX(2.55rem) rotateY(90deg) ;
+            transform: translateX(2.55rem) rotateY(90deg) ;
+            background: url("img1/zf_cube4.png") no-repeat;
+            background-size: 100% 100%;
+        }
+        .cubeBox li:nth-child(5){
+            -webkit-transform: rotateX(90deg) translateZ(2.55rem) ;
+            transform: rotateX(90deg) translateZ(2.55rem) ;
+            background: url("img1/zf_cube5.png") no-repeat;
+            background-size: 100% 100%;
+        }
+        .cubeBox li:nth-child(6){
+            -webkit-transform: rotateX(-90deg) translateZ(2.55rem) ;
+            transform: rotateX(-90deg) translateZ(2.55rem) ;
+            background: url("img1/zf_cube6.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<section class="cube">
+    <ul class="cubeBox">
+       <li></li>
+       <li></li>
+       <li></li>
+       <li></li>
+       <li></li>
+       <li></li>
+    </ul>
+</section>
+<script src="js/zepto.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    document.documentElement.style.fontSize=document.documentElement.clientWidth/640*100+'px';
+    var $cubeBox=$('.cubeBox');
+    //记录当前盒子的旋转角度,下次操作是在当前的基础上旋转
+    $cubeBox.attr({
+        rotateX:-30,
+        rotateY:45
+    });
+    $cubeBox.on('touchstart', function (e) {
+        var point= e.changedTouches[0];
+        $(this).attr({
+            strX:point.pageX,
+            strY:point.pageY,
+            changeX:0,
+            changeY:0
+        })
+
+    });
+    $cubeBox.on('touchmove', function (e) {
+        var point= e.changedTouches[0];
+        $(this).attr({
+            changeX: point.pageX - parseFloat($(this).attr('strX')),
+            changeY: point.pageY - parseFloat($(this).attr('strY'))
+        });
+
+    });
+    $cubeBox.on('touchend', function () {
+        //判断有没有移动,进行旋转
+        var changeX=parseFloat($(this).attr('changeX')),
+            changeY=parseFloat($(this).attr('changeY'));
+        var rotateX=parseFloat($(this).attr('rotateX')),
+            rotateY=parseFloat($(this).attr('rotateY'));
+        //滑动时
+        if(Math.abs(changeX)>30||Math.abs(changeY)>30){
+            rotateX=rotateX-changeY/3;//y轴滑动,实现的是x轴旋转
+            rotateY=rotateY+changeX/3;//x轴滑动,实现的是y轴旋转
+            $(this).attr({
+                rotateX:rotateX,
+                rotateY:rotateY
+            }).css('transform','scale(0.6) rotateX('+rotateX+'deg) rotateY('+rotateY+'deg)');
+        }
+    });
+</script>
+</body>
+</html>

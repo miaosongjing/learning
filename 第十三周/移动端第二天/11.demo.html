@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            list-style: none;
+            /*border: 1px solid green;*/
+        }
+        ul li{
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            border: 1px solid green;
+            /*3d效果必须的两个属性*/
+            perspective:2000px ;/*景深效果/透视效果,有近大远小效果,设置在父标签/祖先标签/变形元素(transform: perspective(2000px);)上,800--2000*/
+            transform-style: preserve-3d;/*wrap下的子元素在3d空间展示,设置在父标签上*/
+        }
+        ul li div{
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+
+        ul li:hover .slide{
+            /*transform: translateZ(-200px);*/
+            transform: translate3d(0,0,-200px);
+            transition: 1s;
+        }
+        /*scale3d( sx , sy , sz)*/
+        ul li:hover .slide1{
+            transform: scale3d(1,1,0.5) translate3d(0,0,-200px);/*scaleZ()在z轴上的缩放必须配合其他变形一起使用*/
+            transition: 1s;
+        }
+        /*rotate3d( rx , ry , rz，a)*/
+        ul li .slide2{
+            background: grey;
+        }
+        ul li:hover .slide2{
+            transform: rotateX(45deg);/*rotateX:正值->前翻*/
+            transition: 1s;
+        }
+        ul li .slide3{
+            background: green;
+        }
+        ul li:hover .slide3{
+            transform: rotateY(45deg);/*rotateY:正值->右翻*/
+            transition: 1s;
+        }
+        ul li .slide4{
+            background: yellow;
+        }
+        ul li:hover .slide4{
+            transform: rotateZ(45deg);/*z轴等同于rotate效果*/
+            transition: 1s;
+        }
+        /*  (1,0,0,45deg) -->rotateX(45deg)
+            (0,1,0,45deg) -->rotateY(45deg)
+            (0,0,1,45deg) -->rotateZ(45deg)*/
+
+
+    </style>
+</head>
+<body>
+<ul id="wrap">
+    <li class="slide">
+        <div class="slide"></div>
+    </li>
+    <li class="slide1">
+        <div class="slide1"></div>
+    </li>
+    <li class="slide2">
+        <div class="slide2"></div>
+    </li>
+    <li class="slide3">
+        <div class="slide3"></div>
+    </li>
+    <li class="slide4">
+        <div class="slide4"></div>
+    </li>
+</ul>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

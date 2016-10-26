@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body id="body">
+四 检测数据类型
+    1.typeof
+        1)typeof 要检测的数据类型
+        2)返回"number" "boolean" "string" "object" "function" "undefined"
+            null返回"object"
+            undefine返回"undefined"
+            [],{},/^$/返回"object',typeof不能对检测object下的数据类型
+        3)返回值都是字符串数据类型
+    2.instanceof
+    3.constructor
+    4.Object.prototype.toString.call()
+<script type="text/javascript">
+
+    var str=typeof (typeof (1));
+    console.log(str);//"string"
+    var str=typeof (typeof (typeof ([])));
+    console.log(str);//"string"
+//不管里面是什么,两层及以上的typeof肯定返回string
+    var oBody=document.getElementById("body");
+    console.log(typeof oBody);//"object"
+</script>
+</body>
+</html>

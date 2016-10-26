@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" href="css/reset.min.css"/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+        }
+        .box{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            background: green;
+            transition: all 1s;
+        }
+
+
+    </style>
+</head>
+<body>
+&nbsp;<div class="box" id="box"></div>
+<script src="js/zepto.min.js"></script>
+<script type="text/javascript">
+    var $box=$('#box');
+    $box.singleTap(function (ev) {
+        $(this).animate({
+            rotate:'360deg'
+        },1000,'linear', function () {
+            this.style.webkitTransform='rotate(0deg)';
+        });
+    }).on('touchstart', function () {//按下时
+        $(this).css('background','gray');
+    });
+    $box.doubleTap(function (ev) {
+        $(this).css('background','green');
+    });
+    $box.longTap(function (ev) {
+        $(this).css('background','orange');
+    });
+    //左滑 逆时针旋转360
+    var rotate=0;
+    $box.swipeLeft(function () {
+        rotate-=360;
+        $(this).css('transform','rotate('+rotate+'deg)')
+    });
+    $box.swipeRight(function () {//右滑顺时针旋转360
+        rotate+=360;
+        $(this).css('transform','rotate('+rotate+'deg)')
+    });
+    //zepto中的ajax,同jq中的
+    $.ajax({
+        url:'',
+        type:'get',
+        dataType:'json',
+        canhe:false,
+        success: function () {
+
+    }
+
+    })
+
+
+
+</script>
+</body>
+</html>

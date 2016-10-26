@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #time{
+            margin: 20px auto;
+            width: 300px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <div id="time">距离下课时间 <span>00:00:00</span></div>
+
+
+    <script type="text/javascript">
+        var time=document.getElementById("time");
+        var span=document.getElementsByTagName("span")[0];
+        //record();
+        var timer=null;
+       // window.setTimeout(record,1000);//每隔1s执行record函数一次
+        function record(){
+            window.clearTimeout(timer);//清除上一次定时器  不清是上一次的定时器执行完了
+            var curDate=new Date();//获取当前时间
+            var tarDate=new Date("2016/08/16 18:03:00");//目标时间
+            //计算这两个时间距离1970的毫秒数
+            var curDate1970=curDate.getTime();
+            var tarDate1970=tarDate.getTime();
+            //求出时间差的毫秒数
+            var timeMs=tarDate1970-curDate1970;
+            //时间换算为时分秒
+            var hours=Math.floor(timeMs/(1000*3600));
+            //换算分钟
+            var minutes=Math.floor((timeMs-hours*1000*3600)/(1000*60));
+            //换算秒
+            var seconds=Math.floor((timeMs-hours*1000*3600-minutes*1000*60)/1000);
+            if(hours+minutes+seconds===0||hours<0){
+                span.innerHTML="00:00:00";
+                return;
+            }
+            span.innerHTML=zero(hours)+":"+zero(minutes)+":"+zero(seconds);
+            timer=window.setTimeout(record,1000);//递归  定时器任务完成,但是定时器还在 任务执行完和清除是两个概念
+           //或者用 window.setTimeout(arguments.callee,1000);
+            //console.log(timer);
+
+        }
+        function zero(n){
+            return n<10?"0"+n:n;
+        }
+        //鼠标滑过定时器停止,再划过继续走
+        time.onclick= function () {
+            if(timer){//
+                window.clearTimeout(timer);//如果定时器存在就清除,任务清除,但定时器还在
+                timer=null;//如果不重新赋值,timer延续之前的值;重新赋值为了下次判断顺利
+            }else{
+                timer=window.setTimeout(record,1000);
+            }
+
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多级菜单</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            display: none;
+            list-style: none;
+            font-family: "Microsoft YaHei";
+            color: #333;
+        }
+        .first{
+            display: block;
+        }
+        .menu{
+            width: 300px;
+            margin: 30px;
+            padding: 10px;
+            background:-webkit-linear-gradient(left top,lightsteelblue,lightpink,lightskyblue);
+        }
+        .menu li{
+            position: relative;
+            line-height: 30px;
+        }
+        .menu li em{
+            position: absolute;
+            left: 0;
+            top: 7px;
+            width: 16px;
+            height: 16px;
+           background: url("icon.png") no-repeat -60px -28px;
+        }
+        .menu li em.open{
+            background-position: -40px -28px;
+        }
+        .menu li span{
+            -webkit-user-select: none;
+            margin-left:18px;
+
+        }
+        .second,.third,.four{
+            margin-left: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+<ul class="menu first">
+    <li>
+        <em></em><span>第一级第一个</span>
+        <ul class="second">
+            <li><span>第二级第一个</span></li>
+            <li>
+                <em></em><span>第二级第二个</span>
+                <ul class="third">
+                    <li><span>第三级第一个</span></li>
+                    <li>
+                        <em></em><span>第三级第二个</span>
+                        <ul class="four">
+                            <li><span>第四级级第一个</span></li>
+                            <li><span>第四级级第二个</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <span>第一级第二个</span>
+    </li>
+</ul>
+<script type="text/javascript" src="../../utils.js"></script>
+<script type="text/javascript">
+//    var title=document.getElementsByTagName("title")[0];
+//    var n=0;
+//    window.setInterval(function () {
+//        title.innerHTML=++n;
+//    },500);
+
+    //1.处理可以点击的span的cursor样式,只有span的上一个哥哥元素节点是em的才能加
+    var menu=utils.getElesByClass("menu")[0];
+    var spans=menu.getElementsByTagName("span");
+    for(var i=0;i<spans.length;i++){
+        var curSpan=spans[i];
+        //当前span的上一个元素节点
+        var pre=utils.prev(curSpan);
+        //pre存在,并且标签名是em,添加手型
+        if(pre&&pre.nodeName.toLowerCase()=="em"){
+            utils.css(curSpan,"cursor","pointer");
+        }
+    }
+    //2.把展开的点击事件委托给最外层的menu元素,事件委托离不开事件源
+    menu.onclick= function (e) {
+        e=e||window.event;
+        e.target= e.target|| e.srcElement;
+        //1)判断事件源是否为em或span
+//        if(e.target.nodeName.toLocaleLowerCase()=="a"||e.target.nodeName.toLocaleLowerCase()=="span"){}//条件太长,使用正则
+        var reg=/(em|span)/i;
+        if(reg.test(e.target.nodeName)){
+            //2)判断事件源的父亲的第一个ul孩子
+            //获取e.target的父亲,如果父亲有ul,才是符合条件的
+            var parent= e.target.parentNode;
+            //获取parent下的第一个ul和em
+            var firstUl=utils.children(parent,"ul")[0];
+            var firstEm=utils.children(parent,"em")[0];
+            var allUls=parent.getElementsByTagName("ul");
+            var allEms=parent.getElementsByTagName("em");
+            if(firstUl){
+                //3)显示或隐藏ul
+                //定义变量isBlock记录firstUl是显示还是隐藏
+                var isBlock=utils.css(firstUl,"display")=="block";
+                if(isBlock){//显示 e.target下的所有ul和em恢复默认
+                    for(var i=0;i<allEms.length;i++){
+                        utils.css(allUls[i],"display","none");
+                        allEms[i].className="";
+                    }
+
+                }else{//隐藏  e.target下的所有ul显示和em为-
+                    utils.css(firstUl,"display","block");
+                    firstEm.className="open";
+                }
+            }
+        }
+    };
+    //对多级菜单的数据和菜单的格式基本相同
+</script>
+</body>
+</html>

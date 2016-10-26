@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    //forEach 定义在
+    var ary=["a","b","c"];
+    var obj={name:"cat"};
+    ary.forEach(function (item,index,ary) {//forEach不兼容
+        //this->window 回调函数中的this为window
+//        console.log(item,index,ary);
+//        console.log(this);//--->obj
+    },obj);//第二个参数是修改回调函数中的this  返回值为undefined
+
+    //模拟forEach方法
+    Array.prototype.myForEach= function (callback,obj) {//obj参数是修改callback中的this
+        //callback执行次数取决于实例的长度
+        for(var i=0;i<this.length;i++){//原型中的this为当前实例
+            typeof callback=="function"&&callback.call(obj,this[i],i,this);
+        }
+    };
+    ary.myForEach(function (item,index,ary) {//forEach不兼容
+        //this->window 回调函数中的this为window
+        console.log(item,index,ary);
+        console.log(this);
+    },obj);
+
+    //map
+    var res=ary.map(function (item, index, ary) {
+
+    },obj);
+    Array.prototype.myMap= function (callback,obj) {
+        for(var i=0;i<this.length;i++){
+            if(typeof callback=="function"){
+                var val=callback.call(obj,this[i],i,this);//val为callback执行的返回值
+            }
+            ary.push(val);//将返回值放入数组
+        }
+        return ary;
+    };
+    /////////////////////////////////////////
+    var ary=[1,2,3];
+    ary.forEach();
+
+</script>
+</body>
+</html>

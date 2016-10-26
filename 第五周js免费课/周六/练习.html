@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<input type="button" value="按钮1"/>
+<input type="button" value="按钮2"/>
+<input type="button" value="按钮3"/>
+<input type="button" value="按钮4"/>
+<input type="button" value="按钮5"/>
+
+<!--<script type="text/javascript">
+    var ary=["red","yellow","pink","green","blue"];
+    //方法 bindEvent  点击按钮.body对应按钮变色
+   // function bindEvent(){
+        var oBody=document.body;
+        var oBtn=document.getElementsByTagName("input");
+        for (var i=0;i<oBtn.length;i++){
+            oBtn[i].index=i;
+            oBtn[i].onclick= function () {
+                oBody.style.backgroundColor=ary[this.index];
+            }
+        }
+
+</script>-->
+<!--<script type="text/javascript">
+    var ary=[1,2,3,4];
+    function fn(ary){
+        ary[0]=0;
+        ary=[0];
+        ary[0]=100;
+        return ary;
+    }
+    var res=fn(ary);
+    console.log(ary);
+    console.log(res);
+</script>-->
+<script type="text/javascript">
+    /*console.log(a);
+    a=12;
+    function fn(){
+        console.log(a);
+         a=13;
+    }
+    fn();
+    console.log(a);*/
+
+  /*  if(!("a" in window)){
+        var a=1;
+    }
+    alert(a);*/
+   /* var a=4;
+    function b(x,y,a){
+        alert(a);
+        arguments[2]=10;
+        alert(a);
+    }
+    a=b(1,2,3);
+    alert(a);*/
+
+    var a=9;
+    function fn(){
+        a=0;
+        return function(b){
+            return b+a++;
+        }
+    }
+    var f=fn();//f=function(b){return b+a++;}
+    var m=f(5);alert(m);//5
+    var n=fn()(5);alert(n);//5
+    var x=f(5);alert(x);//6
+    alert(a);//2
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul li{
+            width: 300px;
+            height: 200px;
+        }
+        /*shape:circle/ellipse/渐变半径*/
+        ul li:nth-child(1){
+            /*background: -webkit-radial-gradient(circle,red,blue,yellow);*/
+            /*background: -webkit-radial-gradient(ellipse,red,blue,yellow);*/
+            /*background: -webkit-radial-gradient(80px 5px,red,blue,yellow);*/
+            background: radial-gradient(80px 5px,red,blue,yellow);/*垂直/水平半径*/
+            background: -webkit-radial-gradient(80px 5px,red,blue,yellow);/*渐变点位置*/
+            /*background: radial-gradient(circle at 10px 50px,red,blue,yellow);*//*标准浏览器设置渐变位置*/
+        }
+        /*设置圆心 at*/
+        ul li:nth-child(2){
+            background: radial-gradient(circle at 10px,red,blue,yellow);/*一个时,为水平位置;两个时,水平/垂直位置*/
+            /*background: -webkit-radial-gradient(circle at 10px 50px,red,blue,yellow);*/
+            /*不支持前缀*/
+        }
+        ul li:nth-child(3) {
+            background: repeating-radial-gradient(100px 200px at center,red,blue,yellow);
+            background: -webkit-repeating-radial-gradient(100px 200px at center,red,blue,yellow);
+        }
+        /*重复径向渐变*/
+        ul li:nth-child(4){
+            /*background: repeating-radial-gradient(100px 200px at center,red,blue,yellow);*/
+            /*background: -webkit-repeating-radial-gradient(100px 200px at center,red,blue,yellow);*/
+        }
+        /*去掉过度区域*/
+        ul li:nth-child(4){
+            background: repeating-radial-gradient(blue 0px,blue 10px,yellow 10px,yellow 30px);
+            background: -webkit-repeating-radial-gradient(blue 0px,blue 10px,yellow 10px,yellow 30px);
+        }
+        ul li:nth-child(5){
+
+        }
+        ul li:nth-child(6){
+
+        }
+        ul li:nth-child(7){
+
+        }
+        ul li:nth-child(8){
+
+        }
+        ul li:nth-child(9){
+
+        }
+        ul li:nth-child(10){
+
+        }
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+<div class="div"></div>
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<script type="text/javascript">
+//设定起止位置:没有设置位置时，其默认颜色为均匀间隔;设置渐变位置就会按照渐变位置去渐变
+    //2
+
+</script>
+</body>
+</html>

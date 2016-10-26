@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/index.css" type="text/css"/>
+</head>
+<body>
+
+<ul class="box2">
+    <li>
+        <span>编号:</span>
+        <span id="userId">1</span>
+    </li>
+    <li>
+        <span>名字:</span>
+        <span id="userName">1</span>
+    </li>
+    <li>
+        <span>性别:</span>
+        <span id="userSex">1</span>
+    </li>
+    <li>
+        <span>分数:</span>
+        <span id="userScore">1</span>
+    </li>
+</ul>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript">
+    var userId=document.getElementById('userId'),
+            userName=document.getElementById('userName'),
+            userSex=document.getElementById('userSex'),
+            userScore=document.getElementById('userScore');
+    String.prototype.queryURLParameter= function () {
+        var obj={}, reg=/([^&#=?]+)=([^&#=?]+)/g;
+        this.replace(reg, function () {
+            var key=arguments[1],
+                value=arguments[2];
+            obj[key]=value;
+        });
+        return obj;
+    };
+    var obj=window.location.href.queryURLParameter(),
+        customId=obj.id;
+    ajax({
+        url:'/getInfo?id='+customId,
+        dataType:'JSON',
+        success: function (result) {
+            console.log(result);
+            userId.innerHTML=result.id;
+            userName.innerHTML=result.name;
+            userSex.innerHTML=result.sex==0?'男':'女';
+            userScore.innerHTML=result.score;
+        }
+    });
+</script>
+</body>
+</html>

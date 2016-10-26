@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .wrap{
+            position: relative;
+            width: 500px;
+            height: 40px;
+            margin: 30px auto;
+        }
+        .wrap input{
+            padding: 0 10px;
+            width: 476px;
+            height: 40px;
+            line-height: 40px;
+            outline: none;/*去表单默认边框*/
+        }
+        .wrap ul{
+            display: none;
+            list-style: none;
+            position: absolute;
+            top: 43px;
+            width: 498px;
+            border: 1px solid #ccc;
+        }
+        .wrap ul li{
+            height: 30px;
+            line-height: 30px;
+
+        }
+        .wrap ul li a{
+            display: block;
+            padding: 0 10px;
+            text-decoration: none;
+            color: #999;
+        }
+        .wrap ul li a:hover{
+            background: lightskyblue;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+    <input isSearch="yes" type="text" placeholder="请输入要搜索的内容"/>
+    <ul>
+        <li><a href="javascript:void 0">珠峰</a></li>
+        <li><a href="javascript:void 0">珠峰css</a></li>
+        <li><a href="javascript:void 0">珠峰h5</a></li>
+        <li><a href="javascript:void 0">珠峰js</a></li>
+    </ul>
+</div>
+<script></script>
+<script type="text/javascript">
+    var wrap=document.getElementById("wrap");
+    var input=wrap.getElementsByTagName("input")[0];
+    var ul=wrap.getElementsByTagName("ul")[0];
+    wrap.onkeyup=wrap.onclick= function (e) {//当输入框获取li内容,再对输入框操作时,wrap.onclick时,ul显示;和onkeyup执行的代码和逻辑相同
+        e=e||window.event;
+        e.target= e.target|| e.srcElement;
+        //1.判断这个事件源就是我找的验证框
+        if(e.target.getAttribute("isSearch")=="yes"){//e.target.parentNode==this
+            //2.输入内容时,显示ul;否则,不显示
+            //1)获取输入的value
+            var inputVal= e.target.value;
+            //2)空正则
+            var reg=/^\s*$/;
+            //3)判断是否输入内容
+            //Ⅰ 输入框没有内容(没有输入/删除完)时,隐藏
+            if(reg.test(inputVal)){
+                ul.style.display="none";//
+                return;
+            }
+            //Ⅱ 输入框有内容时,ul显示
+            ul.style.display="block";
+        }
+    };
+    ul.onclick= function (e) {
+        e=e||window.event;
+        e.target= e.target|| e.srcElement;
+        //1.判断点击的事件源是A
+        if(e.target.nodeName=="A"){
+            //2.将点击的a中的内容赋值给输入框
+            input.value= e.target.innerHTML;
+            //3.列表隐藏
+            this.style.display="none";
+        }
+    };
+
+
+
+</script>
+</body>
+</html>

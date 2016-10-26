@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+基本数据类型:
+1)number:parseInt parseFloat isNaN Number(""/[]/null返回0,undefined/{}返回NaN)
+2)string:null+5--5
+3)boolean:true/false(0,NaN,"",null,undefined) !  !!
+4)null
+5)undefined
+typeof:"number""string""boolean""null""undefined""object""function"
+引用数据类型
+1)对象:堆(存值) 栈()
+{}
+属性增加:
+属性名可以是任意的,但定义时与描述对象的内容相匹配
+obj.name="zhufeng";obj["name"]="zhufeng"
+for in循环遍历对象中只能用obj[key]  typeof key返回"string"
+[]
+newData()时间
+2)函数
+
+
+数组(Array )的常用方法:
+数组是特殊的对象
+length:
+属性length:数组有多少项
+索引(数组每一项前面的数字属性,可以通过索引获取具体的数组项):从0开始,最后一项的索引是obj.length-1;
+obj.length为undefined
+a[a.length]="值";//向数组的末尾追加一项
+length可以进行操作:length--;删除数组的最后一项;a.length++;在数组的末尾添加一项 用undefined补充(跳跃式添加时,
+用undefined补充)
+通过a.length属性遍历数组
+<script type="text/javascript">
+var a=[1,2,3];
+console.log(a[a.length]);//返回undefined
+a[a.length]="aa";//向数组的末尾追加一项
+//a[a.length+3]="aaa";//[1, 2, 3, "aa", 7: "aaa"]跳跃式添加时,用undefined补充
+//console.log(a);
+//length可以进行操作
+a.length--;
+console.log(a);//[1, 2, 3]删除数组的最后一项
+a.length++;
+console.log(a);//在数组的末尾添加一项 为undefined
+for(var i=0;i< a.length;i++){
+    console.log(a[i]);
+}
+</script>
+/*方法:作用 参数  返回值 原有数组是否改变
+1.增删改查
+1)push:向数组的末尾添加一项(a[a.length]="值";只能增加一项)
+要增加的数组项(a,b),多项用逗号隔开
+返回值数组的新长度
+原有数组改变
+<script type="text/javascript">
+    var ary=[1,2,3];
+    var res=ary.push(4,"s");
+    console.log(ary);//[1, 2, 3, 4, "s"]
+    console.log(res);//5
+    /* function sum(){
+     return 1;//sum()返回1 如果不return返回undefined
+     }*/
+</script>
+2)unshift:向数组的开头添加项
+要增加的数组项(a,b),多项用逗号隔开
+返回值数组的新长度
+原有数组改变
+<script type="text/javascript">
+    //unshift
+    var ary=[1,2,3];
+    var res=ary.unshift(0);
+    console.log(ary);//[0,1, 2, 3]
+    console.log(res);//4
+</script>
+3)shift:删除数组第一项
+        不需参数
+        删除的数组项
+        原有数组改变
+<script type="text/javascript">
+    //shift
+    var ary=[1,2,3];
+    var res=ary.shift();
+    console.log(ary);//[ 2, 3]
+    console.log(res);//1
+</script>
+
+4)pop:删除数组最后一项
+        不需参数
+        删除的数组项值
+        原有数组改变
+<script type="text/javascript">
+    //pop
+    var ary=[1,2,3];
+    var res=ary.pop();
+    console.log(ary);//[ 1, 2]
+    console.log(res);//3
+</script>
+5)splice:删除数组项
+  splice(n)从索引n开始删除到末尾
+  splice(n,m)从索引n开始删除m个
+  splice(n,m,x)从索引n开始删除m个,并用x去替换删除项
+  删除数组项组成的数组,即使为空[]
+  原有数组改变
+  push==>splice(length,0,"item")
+  ps:splice(n,0,"x")==>x默认插入n的前面
+  unshift==>splice(0,0,"item")
+  shift==>splice(0,1)
+  pop==>splice(length-1,1)
+  splice(0)==>利用返回值克隆数组 克隆的数组与原数组不同,因为地址不同
+<script type="text/javascript">
+    //splice
+    var ary=[1,2,3,"x","y","z"];
+    //var res=ary.splice(2,3);
+    //console.log(ary);//[ 1, 2,"z"]
+    //console.log(res);//[3, "x", "y"]
+    //var res=ary.splice(2);
+    //console.log(ary);//[1, 2]从索引2删除到末尾
+    //console.log(res);// [3, "x", "y", "z"]
+    //var res=ary.splice(3,1,"haha");
+   // console.log(ary);//[1, 2, 3, "haha", "y", "z"]
+    //console.log(res);// ["x"]
+    var res=ary.splice(3,0);
+    console.log(ary);//[1, 2, 3, "x", "y", "z"]
+    console.log(res);// [] 返回删除数组项组成的数组,及时为[]
+    var ary=[1,2,3];
+    //var res=ary.splice(ary.length-1,0,"haha");
+     //console.log(ary);//[1, 2,"haha",3]
+    var res=ary.splice(ary.length,0,"haha");//插入在索引项的前面
+    console.log(ary);//[1, 2, 3,"haha"]
+    ary.splice(0);// 利用返回值进行克隆数组\
+</script>
+6)slice:复制数组
+slice(n,m)从索引n开始复制到索引m-1(不包含m)
+slice(n)从索引n开始复制到末尾
+slice()==>slice(0)克隆数组 从开始复制到末尾
+slice(0)克隆数组
+新复制的数组
+原有数组不变
+<script type="text/javascript">
+    //slice
+    var ary=[1,2,3,"x", "y", "z"];
+    var res=ary.slice(2,5);
+    console.log(ary);//[1, 2, 3, "x", "y", "z"]
+    console.log(res);// [3, "x", "y"]
+    var ary=[1,2,3,"x", "y", "z"];
+    var res=ary.slice(2);
+    console.log(ary);//[1, 2, 3, "x", "y", "z"]
+    console.log(res);// [3, "x", "y", "z"]
+</script>
+2.数组拼接
+7)concat
+拼接数组
+要拼接的数组或者数组项,如果是多个用,隔开
+拼接好的数组
+原有不变
+eval:将字符串当作js代码执行,也就是去掉引号
+弹窗:alert();confirm("真的要离开吗");prompt("");
+<script type="text/javascript">
+    ary1=[1];
+    ary2=["x"];
+    var res=ary1.concat(ary2);
+    var res2=ary1.concat(ary2,["y"]);
+    console.log(res);// [1, "x"]
+    console.log(res2);//[1, "x", "y"]
+</script>
+8)join
+将数组中的每一项按照指定的分隔符拼接成字符串
+分隔符(字符串),不写,默认为","
+拼接好的字符串
+原有不变
+<script type="text/javascript">
+    var ary=[1,2,3,"x", "y", "z"];
+    var res=ary.join("+");// 1+2+3+x+y+z
+    var res=ary.join("");//123xyz
+    console.log(res);
+    ary=[1,2,3,4,5,6];
+    var res=ary.join("+");//1+2+3+4+5+6
+    console.log(eval(res));//将字符串当作js表达时执行  21
+</script>
+3.数组排序
+9)reverse
+倒序数组
+无
+倒序后的数组
+原有改变
+<script type="text/javascript">
+    var ary=[1,2,3,"x", "y", "z"];
+    var res=ary.reverse();
+    console.log(ary);//["z", "y", "x", 3, 2, 1]
+    console.log(res);//["z", "y", "x", 3, 2, 1]
+    console.log(res===ary);//true
+</script>
+10)sort
+按照指定规则排序
+升序:function(a,b){return a-b;}不加参数时,十以内排序
+降序:function(a,b){return b-a;}
+ps:这个匿名函数参数执行的次数和数组的长度有关
+排序的数组
+原有改变
+<script type="text/javascript">
+    var ary=[1,4,3,2, 5];
+    var res=ary.sort();
+    console.log(res);//[1, 2, 3, 4, 5] 不加参数时,十以内排序
+    var ary=[10,4,3,2, 5];
+    var res=ary.sort(function(a,b){
+        console.log("&&");
+       // console.log(a,b);
+        return a-b;
+    });
+    console.log(res);//[2, 3, 4, 5, 10]
+    /*function fn(fn){
+        console.log(fn);//函数定义形参,执行时没有传参,返回undefined
+        if(typeof fn=="function"){//保证传的参数是一个函数
+            fn();//函数执行
+        }
+    }
+    fn(function(){alert("fn");});*/
+</script>
+以上十个是兼容的
+4.其他(兼容性差)
+11)indexOf查看数组项在数组中首次出现的索引位置
+            要查看的数组项
+            如果数组中存在这个数组项,返回其首次出现索引,否则返回-1
+            原有不变
+12)lastIndexOf查看数组项在数组中最后出现的索引位置
+            要查看的数组项
+            如果数组中存在这个数组项,返回最后一次出现的索引,否则返回-1
+            原有不变
+<script type="text/javascript">
+    var ary=[123,456,"xyz"];
+    var res=ary.indexOf("xyz");
+    console.log(res);//2
+    var res=ary.indexOf("xz");
+    console.log(res);//-1
+    var ary=[123,456,"xyz",789,"xyz"];
+    var res=ary.lastIndexOf("xyz");
+    console.log(res);//4
+</script>
+13)forEach:循环遍历数组每一项
+            function(item,index,originAry){}  执行的次数和数组的长度相等
+            undefined
+            原有不变
+
+<script type="text/javascript">
+    var ary=["a","b","c"];
+    for(var i=0;i<ary.length;i++){//遍历数组
+        console.log(ary[i]);
+    }
+    var ary=["a","b","c"];
+    var res=ary.forEach(function(item,index,originAry){
+        console.log(arguments[0],arguments[1],arguments[2]);
+       // console.log(arguments);//["a", 0, Array[3]] ["b", 1, Array[3]]  ["c", 2, Array[3]]
+        //可以对item(每一项),index(每一行索引),originAry操作
+    });
+    console.log(res);//undefined
+   /* function sum(num1,num2){
+        console.log(arguments);//[1,2,3,4,5]有多少实参打出多少实参
+    }
+    sum(1,2,3,4,5);*/
+</script>
+14) map:同forEach
+    循环遍历数组每一项
+    函数
+    匿名函数参数的return的值组成的新的数组,新数组的长度和原来相同 如果没有return返回undefined
+    原有不变
+<script type="text/javascript">
+    //map
+    var ary=[1,2,3,4,5];
+    var res=ary.map(function(item,index,originAry){
+      console.log(arguments[0],arguments[1],arguments[2]);
+       // return item*100;//[100, 200, 300, 400, 500]
+        //return item*index;//[0, 2, 6, 12, 20]
+        //return originAry[index];//[1, 2, 3, 4, 5]
+       // return;//[undefined, undefined, undefined, undefined, undefined]
+        return {item:item,index:index};
+    });
+    console.log(res);
+</script>
+</body>
+</html>

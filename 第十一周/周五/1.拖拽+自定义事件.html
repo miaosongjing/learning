@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #EEE;
+            overflow: hidden;
+        }
+
+        .box {
+            position: absolute;
+            top: 100px;
+            left: 200px;
+            z-index: 0;
+            width: 100px;
+            height: 100px;
+            cursor: move;
+        }
+
+        .box img {
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .box2 {
+            top: 200px;
+            left: 300px;
+        }
+
+        .box3 {
+            top: 300px;
+            left: 500px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1" class="box"><img src="img/1.png"/></div>
+<div class="box box2" id="div2"><img src="img/2.png"/></div>
+<div class="box box3" id="div3"><img src="img/3.png"/></div>
+<script src="../../event_end.js"></script>
+<script type="text/javascript">
+    //面向对象的编程,主要是思想和管理,重管理轻逻辑;面向过程重逻辑
+    //确定一个主体对象(上下文),所有的行为和属性都依赖于这个主体
+    //EventTarget:管理节点上(13种节点类型,文本,注释等)的行为和其他行为对接的类
+
+
+    //确定使用类和类上的方法时注意一个原则:在类的方法上,this关键字指向当前类的实例;如果和事件绑定的原则冲突,则强制执行这里原则(用call和apply改变this指向,使其指向Drag类的实例)
+    function Drag(ele){//构造函数实现初始化实例的作用,把实例上要用到的一些私有属性和方法准备好
+        this.x=null;
+        this.y=null;
+        this.mx=null;
+        this.my=null;
+        //判断时,null为法定属性,undefined为非法定属性-->null和undefined区别:应该有,但是找不到为null,主动没有;不应该有,为undefined  null表示"没有对象"，即该处不应该有值。典型用法是：
+//        1. 作为函数的参数，表示该函数的参数不是对象。
+//2. 作为对象原型链的终点。
+//Object.getPrototypeOf(Object.prototype)
+//        undefined表示"缺少值"，就是此处应该有一个值，但是还没有定义。典型用法是：
+//1. 变量被声明了，但没有赋值时，就等于undefined。
+//2. 调用函数时，应该提供的参数没有提供，该参数等于undefined。
+//3. 对象没有赋值的属性，该属性的值为undefined。
+//4. 函数没有返回值时，默认返回undefined。
+        this.ele=ele;//被拖拽元素作为局部变量被保存在实例的ele属性上,在操作原型上方法时,可以通过实例找到这个元素
+//        on(ele,"mousedown",this.down);//注意一:this.down中的this应该指向实例,这种绑定方式导致this.down中的this指向ele,两者冲突//注意二:这里通过this.down找到原型上down方法,.是查找的途径,执行时和本身的this.没有关系
+        this.DOWN=processThis(this.down,this);
+        this.MOVE=processThis(this.move,this);
+        this.UP=processThis(this.up,this);
+//        var that=this;
+//        this.DOWN= function (e) {that.down.call(that,e);};//将down中的this指向实例
+//        this.DOWN= function (e) {that.down(e);};//将down中的this指向实例///////////////////////
+        on(this.ele,"mousedown",this.DOWN);//this.DOWN被触发时,this是?DOWN中的this是它被绑定的元素,down中的this被处理后,无论什么情况都是Drag类的实例
+
+    }
+    Drag.prototype.down= function (e) {
+        this.x=this.ele.offsetLeft;
+        this.y=this.ele.offsetTop;
+        this.mx= e.pageX;
+        this.my= e.pageY;
+        if(this.ele.setCapture){
+            this.ele.setCapture();
+            on(this.ele,"mousemove",this.MOVE);
+            on(this.ele,"mouseup",this.UP);
+        }else{
+            on(document,"mousemove",this.MOVE);
+            on(document,"mouseup",this.UP);
+        }
+        e.preventDefault();//阻止默认行为--选中盒子中的元素,css的解决办法是-webkit-user-agent:none
+
+    };
+    Drag.prototype.move= function (e) {
+        this.ele.style.left=this.x+(e.pageX-this.mx)+"px";
+        this.ele.style.top=this.y+(e.pageY-this.my)+"px";
+    };
+    Drag.prototype.up= function (e) {
+        if(this.ele.releaseCapture){
+            this.ele.releaseCapture();
+            off(this.ele,"mousemove",this.MOVE);
+            off(this.ele,"mouseup",this.UP);
+        }else{
+            off(document,"mousemove",this.MOVE);
+            off(document,"mouseup",this.UP);
+        }
+    };
+    function processThis(fn,obj){
+        return function (e) {fn.call(obj,e);}
+    }
+    var eles=document.getElementsByTagName("div");
+    for(var i=0;i<eles.length;i++){
+        var ele=eles[i];
+        new Drag(ele);//问题1:如果创建的实例没有赋值给一个变量,那么实例存在吗?存在,是一个匿名的实例-->数据和变量的关系:变量只是数据的标识符
+        //问题2:当用new创建实例时,发生了什么?
+        // 第一步:创建一个属于这个类的实例,并且把这个实例返回;
+        // 第二点:这个实例会有一些初始的属性,如__proto__,实例 可以使用原型方法;
+        // 第三点:以这个实例为上下文,自动运行构造函数(构造函数中一般不写return,创建实例时会默认返回实例)
+        //Drag有两个身份:类/自动运行函数(构造函数是用来初始化晚上休息休息休息休息休息休息休息下实例的)
+    }
+
+
+
+</script>
+</body>
+</html>

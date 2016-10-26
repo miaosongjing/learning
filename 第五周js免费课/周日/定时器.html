@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+   /*
+   * 定时器:
+   *    window.setTimeout(fn,1000)  1000ms后执行fn函数.只执行一次  可以不清除
+   *    window.setInterval()   每隔1000ms都会执行一次fn函数
+   *    异步 把所有代码执行完之后才开始执行所有定时器,定时器之间互不干扰,
+   *    定时器不阻塞代码运行,只是启动一个任务
+   *    定时器最小的时间间隔在6ms左右,不同浏览器时间间隔不同,所以不识别0ms
+   *    返回值:代表当前定时器是页面中第几个定时器的数字,并且这个值不断累加
+   *清除定时器
+   *    window.clearTimeout(代表第几个定时器的数字)
+   *    window.clearInterval(代表第几个定时器的数字)
+   *
+   *
+   *
+   * */
+  /* function fn(){
+       console.log(1);
+   }
+    var timer1=window.setTimeout(fn,1000);//执行完自动停止
+    var timer2=window.setInterval(fn,1000);//需要主动去停止,否则一直运行
+    console.log(timer1);//1定时器的返回值是当前页面的第几个定时器
+    console.log(timer2);//2
+    window.clearTimeout();
+    window.clearInterval();*/
+
+
+   /*function fn(){}
+   var timer1=window.setTimeout(fn,1000);//执行完自动停止
+   var n=0;
+   var timer2=window.setInterval(function (){
+       n++;
+       console.log(n);
+       if(n==5){
+           window.clearInterval(2);
+           // window.clearInterval(timer2);//结果同上
+       }
+   },1000);//需要主动去停止,否则一直运行
+   window.clearTimeout(fn,1000);*/
+
+
+  /* var n=0;
+   function fn(){}
+   var timer1=window.setTimeout(fn,1000);//执行完自动停止
+   var timer2=window.setInterval(function (){
+       n++;
+       console.log(n);
+       if(n==5){
+           window.clearInterval(2);
+       }
+   },2000);
+   var timer3=window.setTimeout(fn,0);
+   for(var i=0;i<5000;i++){
+       console.log(i);
+   }
+    alert("我在定时器下面");//等其他代码执行完才会执行定时器 定时器不在页面中,而是一个队列
+    //                          是一个任务,到时间在执行  计时同时开始,谁先到谁先执行*/
+
+
+
+   /* function fn1(){console.log(1);}
+    function fn2(){console.log(2);}
+    function fn3(){console.log(3);}
+   var n=0;
+   var timer1=window.setTimeout(fn1,1000);//执行完自动停止
+   var timer2=window.setInterval(fn3,3000);
+   var timer2=window.setTimeout(fn2,2000);
+   var timer4=window.setTimeout(fn2,2000);*/
+
+
+   /*function fn1(){console.log(1);}
+   function fn2(){console.log(2);}
+   function fn3(){console.log(3);}
+   var n=0;
+   var timer1=window.setTimeout(fn1,1000);//执行完自动停止
+   var timer2=window.setInterval(fn2,3000);
+   window.clearInterval(timer2);//清除定时器,只是取消任务,但定时器还在
+   var timer3=window.setTimeout(fn3,2000);
+   var timer4=window.setTimeout(function(){},2000);
+   console.log(timer4);*/
+
+   function fn1(){console.log(1);}
+   function fn2(){console.log(2);}
+   function fn3(){console.log(3);}
+   var n=0;
+   var timer1=window.setTimeout(fn1,1000);//执行完自动停止
+   var timer2=window.setInterval(fn2,3000);
+   //window.clearInterval(timer2);//清除定时器,只是取消任务,但定时器还在
+   timer2=null;//timer2不代表数字2而是代表null,不能清除定时器
+   var timer3=window.setTimeout(fn3,2000);
+   var timer4=window.setTimeout(function(){},2000);
+   console.log(timer4);//4清除定时器,只是取消任务,但定时器还在,所以这是第四个定时器
+    //while(true){}
+
+</script>
+</body>
+</html>

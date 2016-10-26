@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/index.css"/>
+</head>
+<body>
+<ul class="box2">
+    <li>
+        <span>编号:</span>
+        <span id="userId">1</span>
+    </li>
+    <li>
+        <span>姓名:</span>
+        <span id="userName">xx</span>
+    </li>
+    <li>
+        <span>性别:</span>
+        <span id="userSex">女</span>
+    </li>
+    <li>
+        <span>分数:</span>
+        <span id="userScore">90</span>
+    </li>
+
+</ul>
+<script src="js/ajax.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var userName=document.getElementById('userName'),
+            userId=document.getElementById('userId'),
+            userSex=document.getElementById('userSex'),
+            userScore=document.getElementById('userScore');
+    //html+css
+    //获取url地址栏中的用户id(queryURLParameter)
+    //按照API文档中的getInfo获取用户详细信息
+    //把获取的信息展示在页面中//id/name/sex/score
+    String.prototype.queryURLParameter= function () {
+        var obj={};
+        var reg=/([^#&=?]+)=([^#&=?]+)/g;
+        this.replace(reg,function(){
+            obj[arguments[1]]=arguments[2];
+        });
+        return obj;
+    };
+    var obj=window.location.href.queryURLParameter(),
+            customId=obj.id;
+    //获取用户详细信息
+    ajax({
+        url:'/getInfo?id='+customId,
+        dataType:'JSON',
+        success: function (result) {
+            if(result&&result.code==0){
+                var data=result.data;
+                userId.innerHTML=data.id;
+                userName.innerHTML=data.name;
+                userSex.innerHTML=data.sex===1?'女':'男';
+                userScore.innerHTML=data.score;
+            }
+        }
+    });
+</script>
+</body>
+</html>

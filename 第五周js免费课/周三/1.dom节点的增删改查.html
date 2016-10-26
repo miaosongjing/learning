@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="div1" teacher="jingjing">
+    <!-- id="div1" teacher="jingjing"属于行内属性
+    成对出现的都可以认为是属性-->
+    <p></p>
+    <ul id="ul1">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+
+<script type="text/javascript">
+    /*
+    *增: document.createElement(tagName)创建元素
+    * 父级.appendChild(要添加的元素)动态的在父级末尾添加元素/对已经存在的元素,就是更换元素在页面的位置
+    * 父级.insertBefore(要插入的新节点,被插入的节点);//在对应节点的前面插入元素
+    * 删:
+    *父级 .removeChild(要删除的子节点);
+    * 替换:
+    *父级.replaceChild(要替换的节点,被替换的节点)
+    * 克隆
+    *元素.cloneNode(true)是否深度克隆(带着子孙后代 默认false)
+
+    * */
+    var div1=document.getElementById("div1");
+    var ul1=document.getElementById("ul1");
+    //创建一个div标签,将其添加到div1的dom结构中
+    var oDiv=document.createElement("div");//js中创建div
+    oDiv.style.width="100px";
+    oDiv.style.height="100px";
+   // oDiv.style.backgroundColor="red";
+    //div1.appendChild(oDiv);//在父级上添加元素
+  //  div1.insertBefore(oDiv,ul1);//在ul1的前面插入oDiv
+   // div1.appendChild(ul1);//对已经存在的元素,就是更换元素在页面的位置
+    //删除
+    //div1.removeChild(ul1);
+    //替换
+    //div1.replaceChild(oDiv,ul1);//oDiv替换ul1
+    //克隆
+    //var newUl1=ul1.cloneNode(false);//布尔:克隆时候是否包括子孙后代
+    var newUl1=ul1.cloneNode(true);//布尔:克隆时候是否包括子孙后代
+    div1.appendChild(newUl1);
+</script>
+<script type="text/javascript">
+    /*js中获取和设置标签行内属性:改变html结构
+    * 设置setAttribute("属性名""属性值")
+    * 获取getAttribute("属性名")
+    * 删除removeAttribute("属性名")*/
+    div1.setAttribute("studentNumber","50");//通过js设置
+    div1.getAttribute("teacher");//通过js获取
+    div1.removeAttribuggte("studentNumber");//删除
+
+</script>
+</body>
+</html>

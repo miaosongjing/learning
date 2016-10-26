@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+五 for循环
+1.遍历一组元素中的每一个,给获取的每一个元素绑定事件
+2.格式 for(var i=0;i<5;i++){代码;}
+    必须具备的条件:
+    1)声明一个变量,设定初始值
+    2)规定循环的条件
+    3)执行循环体的内容
+    4)执行累加操作
+<script type="text/javascript">
+    for(var i=0;i<5;i++){
+        //i++;
+        i+=2;
+        console.log(i);
+       // break;//break后面的代码不再执行,跳出整个循环2,2
+        continue;//跳出本轮循环,继续执行循环体
+    }
+    console.log(i);
+</script>
+</body>
+</html>

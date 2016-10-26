@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet/less" href="index2.less"/><!--注意rel变化-->
+    <link rel="stylesheet" href="reset.min.css"/>
+
+</head>
+<body>
+<div class="box">珠峰培训</div>
+<!--http://www.css88.com/doc/less/features/     less官网-->
+<script>
+    //Ⅰ 在浏览器中调用LESS.JS:
+    //1.引入设置样式的LESS文件，注意：这里的rel='stylesheet/less'
+    //2.设置一些配置的参数-->加上第3,4步实现监听,less发生变化,页面不需要刷新就会发生改变
+    //3.引入我们的less.js
+    //4.开启监视模式,改变自动刷新  less.watch();
+    //Ⅱ node环境中
+    //1.安装:npm install less
+    //查看是否安装成功:lessc -v
+    //2.编译:lessc styles.less styles.css
+    //    lessc styles.less styles.css -x将编译的css压缩
+
+    //语法
+    //1.变量:和JS中的变量一样，只是LESS的变量定义不是使用VAR而是使用@
+    var less = {
+        env: "development",/*设置运行的环境(生产/开发环境),本地开发,生产是上线后的*/
+        //async: false,/*默认同步*/
+        //fileAsync: false,/*使用文件协议访问页面时异步加载导入的文件,默认是false,如有需要设置为true*/
+        poll: 1000,/*在监视模式下,两次请求的时间间隔(ms)*/
+        //dumpLineNumbers: "comments",/*直接输出源行信息到编译好的CSS的文件中时，有利于你调试指定行*/
+        //relativeUrls: false,/*是否调整相对路径*/
+//        rootpath: ":/a.com/"
+    };
+</script>
+<script type="text/javascript" src="less-2.5.3.min.js"></script>
+<script type="text/javascript">
+    //2.监视less文件,一旦改变自动刷新
+    less.watch();
+
+</script>
+</body>
+</html>

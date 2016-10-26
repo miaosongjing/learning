@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<!--<script type="text/javascript">
+    function sortAry(ary,type){
+        for(var i=0;i<ary.length-1;i++){
+            for(var j=0;j<ary.length-1-i;j++){
+                if(ary[j]>ary[j+1]){
+                    var temp=ary[j];
+                    ary[j]=ary[j+1];
+                    ary[j+1]=temp;
+                }
+            }
+        }
+        type===1?ary.reverse():void 0;
+    }
+    var ary=[2,3,4,5,2,1,0];
+    var res=sortAry(ary);
+    console.log(ary);
+</script>-->
+<script type="text/javascript">
+    function sortAry(ary,type){
+        for(var i=0;i<ary.length-1;i++){
+            for(var j=0;j<ary.length-1-i;j++){
+                if(ary[j]>ary[j+1]){
+                    var temp=ary[j];
+                    ary[j]=ary[j+1];
+                    ary[j+1]=temp;
+                }
+            }
+        }
+        type===1?ary.reverse():void 0;
+    }
+    var ary=[2,3,4,5,9,1,0];
+    var res=sortAry(ary);
+    console.log(ary);
+</script>
+</body>
+</html>

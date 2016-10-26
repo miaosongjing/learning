@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+   console.log( Math.abs(-5));//绝对值
+   console.log( Math.max(1,2,4,5,6));//最大
+   console.log( Math.max(1,2,3,"y"));// NaN如果一个是非有效数字就返回NaN
+   console.log( Math.max(1,2,3,null));//3 先Number() 再比较
+   console.log( Math.max(1,2,3,true));//3
+   console.log( Math.ceil(5.5));//向上取整
+   console.log( Math.floor(5.5));//向下取整
+   console.log( Math.random());//随机0-1小数
+   console.log( Math.round(5.5));//6四舍五入
+   console.log( Math.round(-5.5));//-5负数五舍六入
+   console.log( Math.round(-5.68));//-6
+   // Math.round(Math.random()*(m-n)+n);//获取n-m之间随机整数
+   console.log( Math.pow(2,3));//8 求幂次方
+    var a="12.53456px";
+   console.log(parseFloat(a).toFixed(3));
+
+</script>
+</body>
+</html>

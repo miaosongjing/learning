@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>6.ie6-8dom2事件</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        #div1{
+            margin: 30px auto;
+            width:100px;
+            height:100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<script src="zhufengEvent.js"></script>
+<script>
+    var oDiv = document.getElementById('div1');
+//    function fn1(){console.log(1); console.log(this===oDiv);}
+    function fn1(){console.log(1,this===oDiv);}
+    function fn2(){console.log(2);}
+    function fn3(){console.log(3);}
+    function fn4(){console.log(4);}
+    var n=0;
+    function fn5(){
+        console.log(5);
+        n++;
+        if(n==2){
+            zhufengEvent.off(oDiv,"click",fn2);//导致fn4从始至终不会执行,数组塌陷
+            zhufengEvent.off(oDiv,"click",fn3);
+        }
+
+    }
+    function fn6(){console.log(6);}
+    function fn7(){console.log(7);}
+    function fn8(){console.log(8);}
+    function fn9(){console.log(9);}
+    function fn10(){console.log(10);}
+    function fn11(){console.log(11);}
+    function fn12(){console.log(12);}
+//  绑定相同事件测试
+//    bind(oDiv,"click",fn1);
+////    bind(oDiv,"click",fn1);
+//    oDiv.attachEvent('onclick',fn1);//ie移除事件绑定
+
+    //执行顺序测试
+//    on(oDiv,"click",fn1);
+//    on(oDiv,"click",fn1);
+//    on(oDiv,"click",fn1);
+//    on(oDiv,"click",fn2);
+//    on(oDiv,"click",fn3);
+//    on(oDiv,"click",fn4);
+//    on(oDiv,"click",fn5);
+//    on(oDiv,"click",fn6);
+//    on(oDiv,"click",fn7);
+//    on(oDiv,"click",fn8);
+
+    zhufengEvent.on(oDiv,"click",fn1);
+    zhufengEvent.on(oDiv,"click",fn1);
+    zhufengEvent.on(oDiv,"click",fn1);
+    zhufengEvent.on(oDiv,"click",fn2);
+    zhufengEvent.on(oDiv,"click",fn3);
+    zhufengEvent.on(oDiv,"click",fn4);
+    zhufengEvent.on(oDiv,"click",fn5);
+    zhufengEvent.on(oDiv,"click",fn6);
+    zhufengEvent.on(oDiv,"click",fn7);
+    zhufengEvent.on(oDiv,"click",fn8);
+    zhufengEvent.on(oDiv,"click",fn9);
+    zhufengEvent.on(oDiv,"click",fn10);
+    zhufengEvent.on(oDiv,"click",fn11);
+    zhufengEvent.on(oDiv,"click",fn12);
+
+
+/*
+* debugger使用
+* F10:逐句调试
+* F11:进入方法进行调试 shift+F11 挑出当前方法
+* F8:逐个断点调试/挑出断点
+* 添加监视:add to watch,时时查看变量的值
+* ps:在使用外链文件时,ctrl+F5,强制刷新,不使用缓存
+*查看网络请求-->network
+*资源--source
+* 样式--Element
+*
+*
+*
+* */
+</script>
+F11进入某个方法
+F8挑出断点
+</body>
+</html>

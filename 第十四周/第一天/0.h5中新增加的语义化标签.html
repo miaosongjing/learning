@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+//    HTML+CSS
+//    h5中新增加的语义化标签:article nav header section footer figure(文章配图) figCaption(配图下的说明文字) aside(标注,对于文章没有重要作用,可以删除) details summary---使用h5标签,有利于seo优化;但在ie6--8中不兼容,处理方案:在低版本浏览器中把使用的h5中新增加的标签替换为div标签,插件html5.min.js实现这个功能
+
+//
+//    css中使用css3中一些常用的属性和变形动画
+//
+//    css采用less开发
+//    JS
+//    使用jquery
+//    局部滚动使用IScroll.js
+//    数据获取使用JQ中的jsonp从腾讯的服务器中拿数据,使用EJS引擎技术把内容绑定在页面中
+//
+//    第一步:
+//            新建页面:
+//                <!-- 一个页面基本都会存在的四个部分-->
+//             <title>珠峰培训--腾讯体育</title><!--标题-->
+//    <meta name="keywords" content=""/><!--网站的关键字-->
+//            <meta name="description" content=""/><!--网站的描述-->
+//            <link type="image/x-icon" rel="icon" href=""/><!--设置网站标题中的图片-->
+    //SEO搜索引擎优化:当用户在搜索引擎中输入关键字时,显示推荐内容,并且尽量靠前
+                //对于网页,网站中需要有相关的关键字,并且出现次数多一些,使搜索引擎尽可能多的收录
+                //网站描述是必须去做的,在搜索结果的下方展示;网站的描述会使搜索引擎多网页增加收录
+    //SEM竞价推广
+
+
+    //2.一般把h1作为logo区域,给它一张背景图,背景图中已经包含文字,在h1中又重写文字,是为了进行seo优化,使文字被搜索引擎收录,但文字不进行展示(用font-size:0)
+    //3.less使用:浏览器不能直接识别less代码,如果用less写完样式需要浏览器识别:
+    // 项目结束时,通过node安装less,通过lessc xx.less xx.css把less编译为css代码
+    // 开发中,通过less.js把less转为css,避免写一点less编译一次
+    //4.如何设置背景透明度
+    //5.如何设置三角箭头:
+    //1)切图
+    //2)字体图片或svg图片(使用代码绘制)
+    //3)使用&gt/&lt
+    //4)css3中transform
+    //6.使用EJS
+    //1)导入ejs
+    //2)指定模版:把需要动态绑定数据的HTML结构都放在模版中
+    //3)在模版中嵌套数据:假设模版中有一个数据,它是一个数组calendarData;数组中包含了每一个时间区域的数据,可以使用假设的值进行数据的嵌套,以后只需要把真实的数据按照假设的格式传递给模版即可
+    //要在模版中写js,需要把代码写在<%%>中
+    //在模版中输出时,把需要输出的内容写在<%==%>
+    //4)在js中,把真实的数据传递给模版
+    //把模版中的内容都获取--准备数据--使用EJS中的render方法把说数据和内容结合,再EJS会把最后的结果返回,最后把最后的结果放在指定的容器中即可
+
+
+
+</script>
+</body>
+</html>

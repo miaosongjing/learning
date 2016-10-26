@@ -1,0 +1,106 @@
+1.搭建h5页面,需要在head中添加meta标签(meta:vp)
+<meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    viewport:视口,告诉浏览器按照多大的宽度来渲染页面,换句话说,当前页面展示区域的宽度
+    width=device-width 设置视口的宽度=设备的宽度,默认值为980px
+    user-scalable=no 禁止用户手动缩放
+    initial-scale=1.0  设置屏幕默认 最大 最小缩放比例
+    maximum-scale=1.0
+    minimum-scale=1
+
+    高清屏:苹果手机是2倍高清屏幕的,就是看到的100*100图片,苹果手机按照200*200的尺寸进行渲染,如果真实图片本身是100*100,最后呈现出来的是被拉伸后变模糊的效果--->苹果手机上需要的素材图片都需要比看到的尺寸大一倍
+    DPI适配:作页面时,素材图片准备两套或三套,例如:
+        logo.png 100*100
+        logo@2x.png 200*200
+        logo@3x.png 300*300
+    媒体查询:@media--实现响应布局的核心
+       媒体设备:all  screen print
+       媒体条件:指定在什么条件下执行对应的样式
+       @media all and (-webkit-max-width:319px){//宽度<320px 注意加上-webkit-否则有时效果不能显示
+       }
+       @media all and (min-width:320px) and(max-width:359px){//宽度>320px <360px
+              }
+    苹果手机尺寸:5s及以下320px  6是375px  6plus 414px
+    常用安卓手机尺寸: 320  360  480  540  640  720
+2.响应式布局的解决方案:
+    1)流式布局法:长应用于移动端和pc端共用一套样式(先写pc端,再通过@meida调移动端)
+        容器的宽度一般使用相对于视口区域的百分比
+        其余样式:字体/宽度/内边距/外边距等按照设计稿标注尺寸的一半设置
+        对于有些屏幕尺寸,设置的固定值看起来不是特别高度时,使用@media进行微调整
+        特殊情况:设计稿640px,素材图是640px,在iphone6/6plus展示的时候,图片不够大,需要单独问设计师要一张更大的图片,@media all and (-webkit-min-device-pixel-ratio:2) and(min-width:321px){ 用640px的图片}
+        @media all and(min-width:641px){ 用1280px的图片}
+    2)rem响应式布局:应用于移动端(rem不兼容低版本浏览器)
+    rem:相对于根元素(html)的字体大小(font-size)计算
+    第一步:从ui设计师拿到psd设计稿 640*1136
+    第二步:在样式中给html设定font-size值,一般为100px,便于后面元素的计算;用10px计算的结果会和真实ui设计稿存在偏差,因为浏览器的最小字体是12px
+    第三步:写页面/样式
+    完全按照设计稿的尺寸来写.
+    写样式时,把得到的像素值/100,计算值对应的rem
+    第四步:根据当前屏幕宽度和设计稿宽度计算html的font-size值
+    设计稿 640px  font-size:100px
+    手机   320px            50px
+    手机   375              375/640*100
+    //根据当前屏幕宽度和设计稿宽度的比例,动态计算当前宽度下的font-size
+~function () {
+    var desW=640,//设计稿
+        winW=document.documentElement.clientWidth,
+        ratio=winW/desW;
+    document.documentElement.style,fontSize=ratio*100+'px';
+        }();
+
+3.Swiper使用方法--移动端轮播图
+1.首先加载插件，需要用到的文件有swiper.min.js和swiper.min.css文件。
+2.HTML内容。
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- 如果需要滚动条 -->
+    <div class="swiper-scrollbar"></div>
+</div>
+3.你可能想要给Swiper定义一个大小，当然不要也行。
+
+.swiper-container {
+    width: 600px;
+    height: 300px;
+}
+4.初始化Swiper：最好是挨着</body>标签
+
+<script>
+  var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'vertical',
+    loop: true,//无缝衔接滚动
+
+    // 如果需要分页器
+    pagination: '.swiper-pagination',
+
+    // 如果需要前进后退按钮
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+
+    // 如果需要滚动条
+    scrollbar: '.swiper-scrollbar',
+  })
+  </script>
+</body>
+
+其他使用参考:http://www.swiper.com.cn/api/basic/2014/1215/19.html API文档
+
+swiper实现loop无缝轮播:n个轮播区域时,为实现无缝轮播,在真实图片的开头和末尾分别添加了最后一张和第一张图片,图片个数从n个变为n+2个;初始化成功时,第一张图片就会存在一个从索引0切换到索引1的过程
+
+当前活动块个数:n=5
+0(n-2)   page3  page
+1        page1
+2        page2
+3        page3
+4(n-1)        page1

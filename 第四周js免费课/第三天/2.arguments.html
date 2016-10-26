@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+二arguments
+    函数自带属性,将实参存在一个类数组中
+<script type="text/javascript">
+    var fn=function(){};
+    console.dir(fn);
+    function sum(){
+        console.log(arguments);//函数自带属性,将实参存在一个类数组中[1, 2, 3] 0:1 1:2 2:3
+        var total=1+1
+    }
+    sum(1,2,3);
+    function sam(){
+        //首先需要一个基数,然后进行arguments的累加
+        var total=0;
+        for(var i=0;i<arguments.length;i++){
+            //console.log(arguments[i]);
+            total+=arguments[i];
+            //console.log(total);
+        }
+        console.log(total);
+        return total;//返回值  return;(return后面无内容时,返回undefined)代表函数运行到此停止
+    }
+    sam(3,4,5);
+    //函数执行时,会形成一个私有作用域,保护函数中变量;外界也不会获取函数中的变量--闭包
+    console.log(sam(3,"4",5));//函数不加return返回undefined
+    console.log(sam(3,4,5));//增加return返回12
+
+</script>
+</body>
+</html>

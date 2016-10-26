@@ -1,0 +1,23 @@
+@color:#fff;
+@url:'../image';
+@percentage:100%;
+.public{
+  width: 100px;
+  height: 100px;
+}
+.float{
+
+}
+.position(@pos:absolute,@left:0,@right:0,@bottom:auto,@zIndex:0){
+  position: @pos;
+  left: @left;
+  right:@right;
+  bottom:@bottom;
+  z-index:@zIndex;
+}
+.a{
+  color: @color;
+}
+.@{selector}{
+  background: url("@{url}/a.jpg") no-repeat;
+}

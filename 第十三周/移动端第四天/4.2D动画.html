@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .wrap{
+            perspective: 2000px;
+            transform-style: preserve-3d;
+        }
+        .a1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            transform: rotateX(45deg) scaleZ(0.5);
+            transition: 1s;
+            animation: move 1s 1 both;
+        }
+
+        @keyframes move {
+            0%{
+                transform: translate(0px);
+            }
+            100%{
+                transform: translate(100px);
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="a1"></div>
+</div>
+
+<script type="text/javascript">
+    //2D动画
+//一 transition属性
+    //1.只有两种状态,开始和结束
+    //2.通过伪类(hover),js代码或媒体查询才能触发,否则只有一个状,不会执行
+    //3.通过css属性值,由起始向结束实现平滑过渡的效果
+    //css中没有时间轴概念,所有的效果都是即时效果,但是在一定时间内可以实现某个效果
+    //4.细分属性
+    //transition-property:默认值all
+    //transition-duration:  必须设置
+    //transition-timing-function:动画效果 ease默认值 ease-in ease-out ease-in-out linear 贝塞尔曲线
+    //transition-delay:0s
+    //复合写法:transition:all 1s linear 2s 注意顺序
+    //transition:all 1s linear 2s,height 1s linear 2s 设置多个属性时,中间以逗号隔开
+
+ //二 animation帧动画
+    //1.通过keyframes,在一定时间内,可以设置任意时间点的状态;百分比是指duration的百分比
+    //2.只要设置了animation属性,动画会自动执行
+    //3.帧动画运行需要两步:
+    //通过keyframes设置动画名和运动轨迹
+    //通过animation调用关键字动画
+    //4.细分属性:
+    //animation-name 必写
+    //animation-duration  必写
+    //animation-timing-function  默认值easy
+    //animation-delay
+    //animation-direction:normal reverse alternate(动画至少执行两次) alternate-reverse
+    //animation-play-state:running paused 如果默认是running,就不要设置,否则iphone6/plus动画效果不出现
+    //animation-iteration-count:infinite无数次
+    //animation-fill-mode:none(默认值) backwards  forwards both  推荐设置为both
+    //三 2D变形方法transform
+    //1.2D空间:旋转  倾斜  缩放  平移
+    //旋转:transform:rotate()
+    //倾斜:transform:skew() 只设置一个参数,表示水平方向倾斜;两个参数,表示水平和垂直方向
+    //缩放:transform:scale() 只设置一个参数,表示水平/垂直方向缩放相同倍数;两个参数,表示水平/垂直方向缩放各自倍数
+    //平移:transform:translate() 只设置一个参数,表示水平方向的平移;两个参数,表示水平/垂直平移
+    //2.3D空间:翻转  多了一个Z轴
+    //从2D效果转为3D效果的设置:perspective 景深,一般800-2000之间(近大远小)  transform-style:preserve-3d
+    //transform:rotateX()围绕X轴上下翻转  rotateY()围绕Y轴左右翻转 rotateZ()围绕Z轴
+    //transform:scale3d() scaleX() scaleY() scaleZ()Z轴上的缩放,必须配合其他的变形一起使用,否则无效果
+    //transform:translate3d()可以开启硬件加速的功能,让动画更加流畅 translateX() translateY() translateZ()
+</script>
+</body>
+</html>

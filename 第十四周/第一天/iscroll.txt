@@ -1,0 +1,25 @@
+options.useTransform     true
+options.useTransition      true
+options.HWCompositing  true
+
+options.bounce  true
+options.click  false
+options.mouseWheel  false
+options.scrollX、options.scrollY
+
+options.tap  element.addEventListener('tap', doSomething, false); \\ Native or tap: 'myCustomTapEvent'
+
+scrollbars  flase
+fadeScrollbars  false
+
+myScroll.destroy();
+myScroll = null;
+
+beforeScrollStart，在用户触摸屏幕但还没有开始滚动时触发。
+scrollCancel，滚动初始化完成，但没有执行。
+scrollStart，开始滚动
+scroll，内容滚动时触发，只有在scroll-probe.js版本中有效，请参考onScroll event。
+scrollEnd，停止滚动时触发。
+flick，用户打开左/右。
+zoomStart，开始缩放。
+zoomEnd，缩放结束。

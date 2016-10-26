@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "Microsoft YaHei";
+            font-size: 14px;
+        }
+        ul{list-style: none;}
+        .box{
+            margin: 10px;
+            width: 300px;
+            padding: 10px;
+            border: 1px dashed green;
+            background: #ffe470;/*给一个默认颜色,不兼容浏览器使用纯色,兼容的浏览器使用渐变色---渐进增强*/
+        background: -webkit-linear-gradient(top left,steelblue,indianred,yellowgreen);
+        background: -moz-linear-gradient(top left,steelblue,indianred,yellowgreen);
+        background: -o-linear-gradient(top left,steelblue,indianred,yellowgreen);
+        background: linear-gradient(top left,steelblue,indianred,yellowgreen);
+        }
+        .box li{
+            position: relative;
+            line-height: 30px;
+        }
+        .box li em{/*em相对于li定位*/
+            position: absolute;
+            left: 0;
+            top: 7px;
+            width: 16px;
+            height: 16px;
+            background: url("icon.png") no-repeat -59px -28px;
+            cursor: pointer;
+        }
+        .box li em.open{
+            background-position: -42px -28px;
+        }
+        .box li span{
+            display: block;
+            padding-left: 20px;
+        }
+        .box .two,.box .three,.box .four{
+            display: none;
+            margin-left: 20px;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="box" id="box">
+<ul>
+    <li>
+        <em></em><span>第一级第一个</span>
+        <ul class="two">
+            <li><span>第二级第一个</span></li>
+            <li>
+                <em></em><span>第二级第二个</span>
+                <ul class="three">
+                    <li> <span>第三级第一个</span></li>
+                    <li> <span>第三级第二个</span></li>
+                    <li>
+                        <em></em><span>第三级第三个</span>
+                        <ul class="four">
+                            <li> <span>第四级第一个</span></li>
+                            <li> <span>第四级第二个</span></li>
+                            <li> <span>第四级第三个</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span>第二级第三个</span>
+                <ul class="three">
+                    <li> <span>第三级第一个</span></li>
+                    <li> <span>第三级第二个</span></li>
+                    <li> <em></em><span>第三级第三个</span></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <em></em><span>第一级第一个</span>
+        <ul class="two">
+            <li><span>第二级第一个</span></li>
+            <li>
+                <em></em><span>第二级第二个</span>
+                <ul class="three">
+                    <li> <span>第三级第一个</span></li>
+                    <li> <span>第三级第二个</span></li>
+                    <li>
+                        <em></em><span>第三级第三个</span>
+                        <ul class="four">
+                            <li> <span>第四级第一个</span></li>
+                            <li> <span>第四级第二个</span></li>
+                            <li> <span>第四级第三个</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span>第二级第三个</span>
+                <ul class="three">
+                    <li> <span>第三级第一个</span></li>
+                    <li> <span>第三级第二个</span></li>
+                    <li> <em></em><span>第三级第三个</span></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><span>第一级第二个</span></li>
+</ul>
+</div>
+<script src="../../utils.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var box=document.getElementById("box");
+    var spanList=box.getElementsByTagName("span");
+    //1.把前面有em的span添加手型
+    for(var i=0;i<spanList.length;i++){
+        var curSpan=spanList[i];
+        var curPre=utils.prev(curSpan);//获取当前span的上一个哥哥元素节点
+        if(curPre&&curPre.tagName.toLowerCase()=="em"){
+            curSpan.style.cursor="pointer";
+        }
+    }
+    //2.点击span或em把下级展开/收缩-->父亲的儿子中的第一个ul显示---事件委托
+    box.onclick= function (e) {
+        e=e|| window.event;
+        var tar= e.target|| e.srcElement;
+        if(/^(em|span)$/i.test(tar.tagName)){
+            var parent=tar.parentNode;//->获取父亲
+            var firstUl=utils.children(parent,"ul")[0];//->获取父亲子级的第一个ul
+            var oEm=utils.children(parent,"em")[0];//->获取父亲子级中的第一个em
+            if(firstUl){//第一个ul存在时,如果显示使其隐藏,如果隐藏使其显示
+                var isBlock=utils.css(firstUl,"display")==="block"?true:false;
+
+                if(isBlock){//当前是显示
+                    //当外层收起时,里层所有的ul都要隐藏,所有的em移除open样式
+                    var allUl=parent.getElementsByTagName('ul'),allEm=parent.getElementsByTagName('em');
+                    for(var i=0;i<allEm.length;i++){
+                        allUl[i].style.display="none";
+                        utils.removeClass(allEm[i],"open");
+                    }
+                }else{//当前是隐藏的
+                    firstUl.style.display="block";
+                    oEm?utils.addClass(oEm,"open"):null;
+                }
+
+            }
+        }
+
+    }
+
+
+</script>
+</body>
+</html>

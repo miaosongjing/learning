@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        li{
+            height: 30px;
+            line-height: 30px;
+        }
+        .bg1{
+            background-color: blueviolet;
+        }
+        .bg0{
+            background-color: peachpuff;
+        }
+       .bgc{
+            background-color: powderblue;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <!--li{$$$$$$}*10-->
+    <li>000001</li>
+    <li>000002</li>
+    <li>000003</li>
+    <li>000004</li>
+    <li>000005</li>
+    <li>000006</li>
+    <li>000007</li>
+    <li>000008</li>
+    <li>000009</li>
+    <li>000010</li>
+</ul>
+<!--<script type="text/javascript">
+    var lis=document.getElementsByTagName("li");
+    /*for(var i=0;i<lis.length;i++){
+        if(i%2==0){
+            lis[i].className="bg0";
+        }else{
+            lis[i].className="bg1";
+        }
+    }*/
+    for(var i=0;i<lis.length;i++){
+        lis[i].className="bg"+(i%2);
+        //利用字符串拼接
+        //鼠标移入背景颜色变为bgc,移出时恢复之前
+        //添加自定义属性index,储存lis[i]的i值  不能直接在html中添加,浏览器在加载时会直接干掉它不认识的属性
+        lis[i].index=i;
+        //console.log(i);//0,1,2,3,.....9
+        var bg=null;
+        lis[i].onmouseover=function(){
+           // console.log(i);//10
+            //代码从上到下在全局作用于中执行,for循环会一直执行,等到i=10;
+            // 函数会开辟一个内存空间,将函数体中代码当作字符串储存,当触发这个函数时,函数才会在一个新的栈内存中运行-&#45;&#45;异步
+           // lis[i].className="bgc";//不执行
+            bg=this.className;//将当前的className储存在bg
+            this.className="bgc";
+            //或者lis[this.index].className="bgc";
+        }
+        lis[i].onmouseout=function(){
+            this.className=bg;
+        }
+    }
+
+</script>-->
+<script type="text/javascript">
+    var oLis=document.getElementsByTagName("li");
+    console.log(oLis);//HTMLCollection[10]
+    for(var i=0;i<oLis.length;i++){
+        //oLis[0].index="1";
+        //console.log(oLis[0]);
+        if(i%2==0){
+            oLis[i].className="bg0";
+           //或者 oLis.item(i).className="bg0";
+            oLis[i].index="bg0";//添加自定义属性,储存当前元素的className
+            //
+        }else{
+            oLis[i].className="bg1";
+            oLis[i].index="bg1";
+        }
+       // i%2==0?oLis[i].className="bg0":oLis[i].className="bg1";
+       // i%2==0?(oLis[i].className="bg0",oLis[i].index="bg0"):(oLis[i].className="bg1",oLis[i].index="bg1");用括号包括起来,作为一个整体
+        //鼠标移入
+        oLis[i].onmouseover= function () {
+            this.className="bgc";
+        }
+        oLis[i].onmouseout= function () {
+            this.className=this.index;
+        }
+
+    }
+
+</script>
+
+</body>
+</html>

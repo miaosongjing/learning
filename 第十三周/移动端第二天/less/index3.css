@@ -1,0 +1,10 @@
+.box {
+  background: #000000;
+}
+.box3 {
+  width: 50px;
+}
+.box4 {
+  z-index: 4;
+  background: #eee;
+}

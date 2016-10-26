@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    var xhr=new XMLHttpRequest;
+    xhr.open('HEAD','json/data.json',true);
+    //使用head请求,因为获取服务器的时间只需要获取相应头信息即可,使用HEAD更加合理
+    //必须使用异步,在readyState==2时可以获取服务器时间;同步的话只能在readyState==4时才可以作其他操作
+    xhr.onreadystatechange= function () {
+        if(xhr.readyState==2&&xhr.status==200){
+            var time=xhr.getResponseHeader('Date');//获取的是格林尼治时间字符串
+            time=new Date(time);//把格林尼治时间字符串转为北京时间字符串
+            console.log(time);
+        }
+    }
+    xhr.send(null);
+
+</script>
+</body>
+</html>

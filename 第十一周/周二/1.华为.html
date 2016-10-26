@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "Microsoft YaHei";
+            font-size: 16px;
+        }
+        ul{
+            list-style: none;
+        }
+        ul{
+            margin: 0 auto;/*实现块级元素在父级元素中水平居中  前提是设置当前元素的宽度*/
+            width: 1200px;
+            height: 89px;
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        li{
+            float: left;
+            line-height: 89px;
+            color: #333;
+
+        }
+        li i{
+            display: inline-block;
+            width: 44px;
+            height: 44px;
+            background: url("icon14.png") no-repeat;
+            /*行内元素只能设置水平方向的margin*/
+            vertical-align: middle;
+            /*文字 行内和行内块级元素默认对齐方式是基线对齐baseline
+            基线:英文最下方*/
+            margin-right: 13px;
+            /*背景图片从内边框开始填充,所以只能用margin*/
+            /*当盒子没有border和background时,margin和padding效果是一样的*/
+        }
+
+
+    </style>
+</head>
+<body>
+<!--
+.jpg普通图片
+.gif动态图
+.png透底的图片
+
+-->
+<ul>
+    <li><i></i>500强企业 品质保证</li>
+    <li><i></i>7天退货 15天换货</li>
+    <li><i></i>99元起免运费</li>
+    <li><i></i>448家维修网点 全国联保</li>
+</ul>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

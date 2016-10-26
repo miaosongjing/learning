@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            /*实现当前屏幕只有一屏*/
+            background: #eee;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            background: green;
+            position: absolute;
+            left: 200px;
+            top: 100px;
+            cursor: move;
+            z-index: 0;
+        }
+        #box2{
+            top: 200px;
+            left: 300px;
+            z-index: 0;
+        }
+        #box3{
+            top: 300px;
+            left: 500px;
+            z-index: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="box" id="box"></div>
+<div class="box" id="box2"></div>
+<div class="box" id="box3"></div>
+<script type="text/javascript" src="../../event_end.js"></script>
+<script type="text/javascript">
+    var box=document.getElementById("box");
+    var box2=document.getElementById("box2");
+    var box3=document.getElementById("box3");
+    //如果将方法都绑定在外面,鼠标没有摁下,当移动到盒子上时,就会不断触发mousemove方法
+    on(box,'mousedown',down);
+    on(box2,'mousedown',down);
+    on(box3,'mousedown',down);
+
+    var minL= 0,minT= 0,maxL=(document.documentElement.clientWidth||document.body.clientWidth)-box.offsetWidth,maxT=(document.documentElement.clientHeight||document.body.clientHeight)-box.offsetHeight;
+    var n=0;
+    //避免图片拖拽出虚影的行为,把图片的默认行为禁止
+    var imgList=document.getElementsByTagName("img");
+    for(var i=0;i<imgList.length;i++){
+        on(imgList[i],"mousemove", function (e) {e.preventDefault();});
+    }
+
+    function down(e){
+    //1.记录鼠标和盒子的起始位置
+        this['strX']= e.clientX;//move中要用到,所以保存在自定义属性上
+        this['strY']= e.clientY;
+        this['strL']= this.offsetLeft;
+        this['strT']=this.offsetTop;
+
+    //2.绑定move和up事件
+        //ps:JS盒子模型中的13个属性的某些获取到的样式值不会是小数,如:offsetLeft/offsetTop-->如果元素的left值是小数,通过offsetLeft获取的结果会进行四舍五入
+        this['MOVE']=processThis(move,this);
+        this['UP']=processThis(up,this);
+        on(document,'mousemove',this['MOVE']);
+        on(document,'mouseup',this['UP']);
+
+    //3.在拖拽开始时,结束当前盒子正在运行的动画
+        window.clearInterval(this.flyTimer);
+        window.clearInterval(this.dropTimer);
+
+    //4.按下谁,谁在上面(zIndex)
+        this.style.zIndex=++n;
+    }
+    function move(e){
+        //1.计算最新位置
+        var curL= e.clientX-this['strX']+this['strL'];
+        var curT= e.clientY-this['strY']+this['strT'];
+        //2.边界判断
+        curL=curL<minL?minL:(curL>maxL?maxL:curL);
+        curT=curT<minT?minT:(curT>maxT?maxT:curT);
+        //3.位置赋值
+        this.style.left=curL+'px';
+        this.style.top=curT+'px';
+        //4.计算水平方向运动速度
+        if(!this['prev']){//刚开始时
+            this['prev']=this.offsetLeft;//记录每次mousemove盒子距离body的偏移
+        }else{//每17ms计算一次
+            this['speedFly']=this.offsetLeft-this['prev'];//记录当前距离上一次mousemove的水平偏移
+            this['prev']=this.offsetLeft;
+        }
+    }
+    function up(){
+        //1.解除绑定
+        off(document,'mousemove',this['MOVE']);
+        off(document,'mouseup',this['UP']);
+        //2.开始运动
+        fly.call(this);//让fly中的this变为当前操作的元素
+        drop.call(this);
+    }
+    function processThis(fn, obj) {
+        return function (e) {
+            fn.call(obj, e)
+        }
+    }
+    //水平
+    //水平运动的速度和即将结束拖拽时的速度有关:即将结束时如果拖拽的快,那么水平的速度就快;反之,则慢
+    //mousemove触发的次数和时间的长短有关:时间越长,触发的次数越多;时间为浏览器的最小反应时间-->浏览器存在一定的反应时间,假设谷歌浏览器的反应时间是10ms,它是如何识别mousemove事件呢?在反应事时间到的时候,检测当前的位置距离上一次的位置是否发生位移改变,发生位移变化时认为是事件执行;反之,认为没有触发事件执行
+
+    function fly(){
+        var _this=this;
+        //1)设置初始速度
+        var speedFly=_this['speedFly'];
+        //3.清除定时器
+        if(Math.abs(speedFly)<0.5){
+            window.clearInterval(_this.flyTimer);//因为offsetLeft获取的值会进行四舍五入,加减小于一个0.5的值,对最后的结果没有影响(盒子的位置不在变化),此时清除定时器
+            return;
+        }
+        //2.设置定时器
+        _this.flyTimer=window.setInterval(function () {
+            //1)每次乘以一个小于1的值,实现速度递减至最后停止(值为0.98时实现的效果最好)
+            speedFly*=0.98;
+            //2)计算每次运动后的位置
+            var curL=_this.offsetLeft+speedFly;
+            //3)运动至边界时反方向运动
+            if(curL>maxL){
+                speedFly*=-1;
+                curL=maxL;
+            }else if(curL<minL){
+                speedFly*=-1;
+                curL=minL;
+            }
+            //4).位置赋值
+            _this.style.left=curL+'px';
+        },17);//一般各个浏览器的最小反应时间为17ms
+
+    }
+
+//    垂直方向
+    function drop(){
+        //1设置垂直速度为9.8(重力加速度)
+        var _this=this,speedDrop=9.8,flag=0;//下落速度
+        //2.设置定时器
+        _this.dropTimer=window.setInterval(function () {
+            //6)清除定时器://如果盒子在边界上,flag累加;否则,flag为0
+            if(flag>1){
+                window.clearInterval(_this.dropTimer);
+                return;
+            }
+            //1)实现速度衰减
+            speedDrop*=0.98;
+            //2)让下落的速度越来越快,反弹的时候越来越慢(下落的速度为正,反弹的速度为负),实现
+            speedDrop+=10;
+            //3)计算本次运动后的位置
+            var curT=_this.offsetTop+speedDrop;
+            //4)运动至边界时反方向运动;计算flag
+            if(curT>maxT){//如果盒子在边界上,flag累加;否则,flag为0;最后盒子一直在边界上,就一直进行累加
+                speedDrop*=-1;
+                curT=maxT;
+                flag++;
+            }else{
+                flag=0;
+            }
+            //5)位置赋值
+            _this.style.top=curT+'px';
+        },17);
+    }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #box {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            box-shadow: 3px 3px 3px #ccc;
+            overflow: hidden;
+        }
+        #box img{
+            width: 100%;
+            height: 100%;
+            border: none;
+            vertical-align: top;
+        }
+        #box span{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: green;
+            opacity: 0.7;
+            filter:alpha(opacity=70);
+            line-height: 200px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            left: -200px;
+            top: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <img src="images/1.png" />
+    <span class="mask">我是遮罩</span>
+</div>
+<script src="../../utils.js"></script>
+<script src="../../animate.js"></script>
+
+<script type="text/javascript">
+    var box=document.getElementById("box");
+    var span=box.getElementsByTagName("span")[0];
+    box.onmouseenter= function (e) {//onmouseenter代替onmouseover
+        e=e||window.event;
+        //1.先判断鼠标从哪个方向进来的
+        var res=getDirection(this,e);
+        //2.把遮罩盒子移动到鼠标进入的方向
+        switch (res){
+            case 0:
+                utils.css(span,{left:-200,top:0});
+                break;
+            case 1:
+                utils.css(span,{left:0,top:200});
+                break;
+            case 2:
+                utils.css(span,{left:200,top:0});
+                break;
+            default :
+                utils.css(span,{left:0,top:-200});
+
+        }
+        //3.遮罩盒子运动
+        animate(span,{left:0,top:0},500);
+
+    };
+    box.onmouseleave= function (e) {//onmouseleave代替onmouseout
+
+        var res=getDirection(this,e);
+        switch (res){
+            case 0:
+                animate(span,{left:-200,top:0},500);
+                break;
+            case 1:
+                animate(span,{left:0,top:200},500);
+                break;
+            case 2:
+                animate(span,{left:200,top:0},500);
+                break;
+            default :
+                animate(span,{left:0,top:-200},500);
+        }
+    };
+    //getDirection 获取鼠标进入/离开方向
+    function getDirection(box,e){
+        //1.鼠标的坐标
+        var x= e.clientX-box.offsetLeft-box.offsetWidth/2;
+        var y=box.offsetTop+box.offsetHeight/2- e.clientY;
+        //2.坐标对应的角度
+        var angle=Math.atan2(y,x)*180/Math.PI;//Math.atan2()计算弧度值 rad*180/PI 弧度转角度  1rad=180/PI
+        //角度的区间是[180,-180]
+        //+180->[0,360]
+        //除以90->[0,4]之间
+        //Math.round()四舍五入-->0/4 1 2 3
+        //%4-->0  1  2   3
+        //0->左 1-->下  2-->右  3-->上
+        return (Math.round((angle+180)/90))%4;
+
+
+
+
+    }
+
+//快速选中:双击 或者 ctrl+w
+</script>
+</body>
+</html>

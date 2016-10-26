@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/swiper.min.css"/>
+    <style type="text/css">
+
+        .swiper-container{
+            width: 500px;
+            height: 300px;
+        }
+        .swiper-wrapper,.swipe-slide{
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-pagination{/*分页*/
+            width: 100%;/*实现居中*/
+            bottom: 10%;
+
+        }
+        .swiper-pagination-bullet{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img data-src="banner/banner1.jpg" class="swiper-lazy"/>
+            <div class="swiper-lazy-preloader"></div>
+        </div>
+        <div class="swiper-slide">
+            <img data-src="banner/banner2.jpg" class="swiper-lazy"/>
+            <div class="swiper-lazy-preloader"></div>
+
+        </div>
+        <div class="swiper-slide">
+            <img data-src="banner/banner3.jpg" class="swiper-lazy"/>
+            <div class="swiper-lazy-preloader"></div>
+
+        </div>
+        <div class="swiper-slide">
+            <img data-src="banner/banner4.jpg" class="swiper-lazy"/>
+            <div class="swiper-lazy-preloader"></div>
+
+        </div>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <!-- 如果需要滚动条 -->
+    <div class="swiper-scrollbar"></div>
+</div>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script>
+    var mySwiper=new Swiper('.swiper-container',{
+        direction:'horizontal',//滑动方向
+        loop:true,//循环模式
+        autoplay:1000,//自动轮播
+        effect:'slide',//cube 3D效果  flip 卡片效果  coverflow翻页效果  slide左右滑动,默认值
+        //如果需要分页器
+        pagination:'.swiper-pagination',
+        paginationonClickable:true,//分页可点击
+        //前进/后退按钮
+        nextButton:'.swiper-button-next',
+        prevButton:'.swiper-button-prev',
+        //图片延迟加载
+        lazyLoading:true,  //然后修改图片的src和添加类名 每张图片下添加<div class="swiper-lazy-preloader"></div>
+
+        onSlideChangeEnd: function () {
+            //滑块结束滑动时,执行
+        },
+        onInit: function () {
+            //初始化结束,执行
+        },
+        //滚动条
+//        scrollbar:'.swiper-scrollbar'
+    });
+</script>
+
+</body>
+</html>

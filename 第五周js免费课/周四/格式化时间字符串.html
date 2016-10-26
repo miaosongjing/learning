@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var str='2016-8-11 17:01:02'; //改成2016年08月11日 17时01分02秒
+    var ary=str.split(" ");//["2016-8-11", "17:01:02"]
+    var ary1=ary[0].split("-");//["2016", "8", "11"]
+    var ary2=ary[1].split(":");//["17", "01", "02"]
+    var str=ary1[0]+"年"+addZero(ary1[1])+"月"+addZero(ary1[2])+"日"+ary2[0]+"时"+ary2[1]+"分"+ary2[2]+"秒";
+    console.log(str);// 2016年8月11日17时01分02秒
+    //格式化时间字符串
+   /*思路1:1.按照空格拆分字符串
+   2.拿出数组第一项,按照-拆分
+   3.拿出数组第二项,按照:拆分*/
+    var time="2016-8-11 17:01:02";
+    //小于10补0
+    function addZero(n){
+        return n<10?"0"+n:n;
+    }
+    function formatTime(timeStr){
+        var ary=timeStr.split(" ");
+        var str1=ary[0];
+        var str2=ary[1];
+        var ary1=str1.split("-");
+        var ary2=str2.split("-");
+        return ary1[0]+"年"+addZero(ary1[1])+"月"+addZero(ary1[2])+"日"+ary2[0]+"时"+ary2[1]+"分"+ary2[2]+"秒";
+    }
+    var str=formatTime(time);
+    console.log(str);
+    //思路2:用replace一个个替换(没办法补0)
+    //思路3:正则
+
+
+</script>
+</body>
+</html>

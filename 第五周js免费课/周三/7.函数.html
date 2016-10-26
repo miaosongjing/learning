@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="div1" style="width: 100px;height:100px;background: red;"></div>
+
+
+<script type="text/javascript">
+    var div1=document.getElementById("div1");
+    div1.onmouseover=function(){};
+    function fn(){};//函数名
+    var obj={
+        name:"tianxi",
+    //    englishName:obj.name+"allen"//报错Cannot read property 'name' of undefined 此时obj还没有堆内存的引用地址
+    }
+    //引用数据类型的赋值步骤:开辟堆内存空间=>将键值对/函数体当作字符串存入空间=>将空间地址赋值给变量
+    //在地址赋值之前,变量还没有空间地址,因此不能用变量操作
+    //函数声明
+
+   // var sum= function () {}//函数   函数名应具有一定的代表性
+   /* function sum(num1,num2){//函数表达式  {函数体}
+        console.log(num1+num2);
+    }*/
+    //这个函数只能求1+2的和=>需求任意两个数的和=>如果1,2是两个变量就好了=>但是这两个变量不能在函数体声明
+    //=>变量从外面进来
+    //形参:定义时放在参数位置的 ,相当于在函数体内声明的变量 如果不定义报错num1 is not defined
+    // 实参:函数执行时放在参数位置的
+    //sum();//执行 函数名();
+   /* function sum(){//函数表达式  {函数体}
+        console.log(num1+num2);
+    }
+    sum();//如果不定义报错num1 is not defined*/
+
+   /* function sum(){
+        var num1;
+        var num2;
+        console.log(num1+num2);
+    }
+    sum();
+    /*function sum(num1,num2){
+        console.log(num1+num2);//NaN
+        console.log(num1);
+        console.log(num2);//undefined 形参如果定义,但是执行时没有传实参,在函数体内就是undefined
+    }
+    sum(7);//NaN*/
+   /* function sum(num1,num2){
+        //定义一个变量和
+        var total=0;
+        if(typeof num1!="undefined"){
+            total+=num1;
+        }
+        if(typeof num2!="undefined"){
+            total+=num2;
+        }
+        console.log(total);
+    }
+    sum(7);//7
+    sum(7,"8");//78  如果是字符串,要做有效性验证*/
+   /* function sum(num1,num2){
+        //定义一个变量和
+        var total=0;
+        if(typeof num1!="undefined"){
+            if(!isNaN(num1)){
+                total+=Number(num1);
+            }
+        }
+        if(typeof num2!="undefined"){
+            if(!isNaN(num2)){//isNaN先强制Number(),再判断
+                total+=Number(num2);
+            }
+        }
+        console.log(total);
+    }
+    sum(7,"8");//78
+    //任意两个数求和  不确定参数个数时,可以不定义形参,使用arguments
+    //arguments:函数执行时,arguments是默认的类数组,存储所有实参的集合
+    /*  function sum(){
+       //console.log(arguments);//[1, 2, 3, 4, "5", "6px"]
+        //console.log(arguments.callee===sum)//true 两个引用数据类型进行比较不相等,除非地址相同
+        // arguments.callee在函数体内相当于函数本身  预解释
+     var total=0;
+        for(var i=0;i<arguments.length;i++){
+            !isNaN(arguments[i])?total+=Number(arguments[i]):void 0;
+        }
+        console.log(total);//仅仅是在控制台打印
+       // return total;//函数返回值必须用return,return后是什么,函数就留下什么,
+        return {total:total,ji:"积"}//当要返回多个内容时 用对象形式 //函数如果没有return 默认返回undefined
+        alert("ok");// return下面的代码不执行
+    }
+    var res=sum(1,2,3,4,"5","6px");//res接收sum函数返回值
+    //所有的赋值都是先把右边的计算好后再赋值给左边
+   // console.log(res.total);*/
+    //return可以认为是函数的出口,可以是对象 参数也可以是一个对象或者数组或者函数
+   /* true&&alert();
+    var a=a||b;
+    var a=a&&b||c;*/
+    //有名字的函数是实名函数,没有名字是匿名函数  匿名函数不能单独出现,只能赋值给其他属性或者自运行
+   /* (function (){alert(0);})();最常用自运行
+    !function (){alert(0);}();
+    +function (){alert(0);}();
+    -function (){alert(0);}();
+    ~function (){alert(0);}();*/
+  /*  function sum(){
+        return (function(){
+            alert(1);
+        })();//等自运行函数的运行结果return给res
+    }
+
+    var res= sum();//undefined
+   //res();// Uncaught TypeError: res is not a function(anonymous function)*/
+    var ary=[1,2];
+    (function fn(ary){
+        var ary;//与外面ary地址相同
+        ary[0]=0;
+        console.log(ary)
+        ary=[];
+        console.log(ary)
+        ary[0]=0;
+        console.log(ary);
+    })(ary)
+    console.log(ary);
+</script>
+<script>
+    function sum(num1,num2){
+        //定义一个变量和
+        var total=0;
+        if(typeof num1!="undefined"){
+            if(!isNaN(num1)){
+                total+=Number(num1);
+            }
+        }
+        if(typeof num2!="undefined"){
+            if(!isNaN(num2)){//isNaN先强制Number(),再判断
+                total+=Number(num2);
+            }
+            }
+       }
+        console.log(total);
+    }
+    sum(7,"8");//78
+</script>
+形参 实参  函数赋值 arguments arguments.callee  return 自运行函数
+</body>
+</html>

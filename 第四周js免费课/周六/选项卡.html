@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        #tab{
+            width: 408px;
+            height: 334px;
+            margin: 20px auto;
+        }
+        #tab ul{
+
+        }
+        #tab ul li{
+            float: left;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border:1px solid #dddddd;
+        }
+        #tab div{
+            display: none;
+            clear: both;
+            width: 406px;
+            height: 300px;
+            font-size: 20px;
+            border: 1px solid #dddddd;
+        }
+        #tab ul li.active{
+            background: -webkit-linear-gradient(top left,#f57614,#7ca627);
+        }
+        #tab div.active{
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<div id="tab">
+    <ul>
+        <li class="active">昨天</li>
+        <li>今天</li>
+        <li>明天</li>
+        <li>未来</li>
+    </ul>
+    <div class="active">昨天不开心</div>
+    <div>今天不开心</div>
+    <div>明天不会开心</div>
+    <div>未来就不期待</div>
+</div>
+<script type="text/javascript">
+    var oTab=document.getElementById("tab");
+    var oLis=oTab.getElementsByTagName("li");
+    var oDivs=oTab.getElementsByTagName("div");
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].index=i;
+        oLis[i].onmouseover= function () {
+            for(var j=0;j<oLis.length;j++){
+                oLis[j].className="";
+                oDivs[j].className="";
+            }
+            this.className="active";
+            oDivs[this.index].className="active";
+        }
+    }
+</script>
+</body>
+</html>

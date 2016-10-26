@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+/*
+*字符串中的""''交叉使用
+* */
+/*//字符串中的""''交叉使用
+ var str="ji"ngji"ng";
+    console.log(str);//Uncaught SyntaxError: Unexpected identifier 未捕获的语法错误,错误的标识符
+    // 一般是js代码中书写不规范造成错误，例如少了一个逗号、分号，或双引号里面包含了双引号等*/
+/*//str的length属性
+    var str="today is a fun day";
+    console.log(str.length);//18 空格也算是一个字符
+    str.length--;
+    console.log(str.length);//不能用length--删除最后一个字符*/
+/*//通过索引找到对应的字符
+    var str="today is a fun day";
+    var res=str.charAt(9);
+    console.log(res);//a
+    res=str.charAt(5);
+    console.log(res);//""空字符串
+    res =str.charAt(30);
+    console.log(res);//不存在返回""空字符串
+    res=str.charCodeAt(12);
+    console.log(res);
+    res=str.charCodeAt(100);
+    console.log(res);//当索引对应的字符不存在时,编码返回NaN*/
+ /* //截取字符串
+    //substr(n,m)从n开始截取m个  原有不变
+    //substring(n,m)从n开始截取到m-1  原有不变  当参数为负时,返回空的字符串
+    //slice(n,m)从n开始截取到m-1,支持负数
+    var str="today is a fun day";
+    var res=str.substr(6,2);
+    console.log(res);//is
+    console.log(res.length);
+    console.log(str);
+    res=str.substring(6,10);//is a
+    console.log(res);
+    res=str.substring(10,6);//n和m可以交换位置 截取内容相同
+    console.log(res);
+    res=str.substring(-1,-2);
+    console.log(res);//当参数为负时,返回空的字符串
+    console.log(typeof res);
+    console.log(str);
+    var str="today is a fun day";
+    res=str.slice(-5,-1);
+    console.log(res);//n da
+    res=str.slice(-1,-5);
+    console.log(res);// 参数n>m,负责返回值为空字符串
+var res=str.substr(0);
+console.log(res);
+var res=str.substr();
+console.log(res);
+res=str.slice(0);
+console.log(res);
+res=str.slice();
+console.log(res);
+res=str.substring(0);
+console.log(res);
+res=str.substring();
+console.log(res);*/
+
+/*//大小写转换  .toUpperCase()  .toLowerCase()  原有不变
+    res=str.toUpperCase();
+    console.log(res);
+    console.log(res.toLowerCase());*/
+    //查看字符在字符串中的索引
+  /*  var str="today is a fun day";
+    var res=str.indexOf("z");
+    console.log(res);//-1 当字符串中不存在要查询的字符时返回-1
+    res=str.indexOf("a");
+    console.log(res);//3 indexOf索引字符在字符串中首次出现的位置
+    res=str.indexOf("");
+    console.log(res);//0
+    res=str.indexOf("");
+    console.log(res);//-1*/
+//替换replace(old,new)  返回替换好的,原有不变
+   /* var str="zhufeng2015peixun2016";
+    var res=str.replace("2015","JJJ")
+    console.log(res);
+    console.log(str);
+str=str.replace("2015",function(item,index,orignAry){
+    console.log(arguments);//["2015", 7, "zhufeng2015peixun2016"]item在原有字符串中匹配到的字
+    // 符,index是索引,originAry原有字符串
+    return "二零一五";
+})
+*/
+    /*//拆分 split() 按照制定字符拆分
+    var str="zhufeng$2016";
+    var res=str.split("$");
+    console.log(res);//["zhufeng", "2016"]
+    res=str.split("s");
+    console.log(res);
+    var res=str.split();
+    console.log(res);//["zhufeng$2016"]指定字符为空或者字符串不存在时,返回原字符串组成数组
+    var res=str.split("");
+    console.log(res);//["z", "h", "u", "f", "e", "n", "g", "$", "2", "0", "1", "6"]
+    //返回单个字符为一项组成的数组
+    res=str.split("s");
+    console.log(res);
+*/
+
+
+
+
+</script>
+</body>
+</html>

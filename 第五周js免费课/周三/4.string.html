@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    /*
+     * js中常用的字符串方法
+     *length属性:字符串中字符个数  str.length--;不能删除最后一项,因此str.length不能进行操作
+     *index:可以通过索引获取某一个字符
+     * 1.通过索引获取指定字符
+     *1)charAt(index)如果索引对应的位置没有字符,返回空字符""(如果对象是数组,返回undefined)
+     * 2)charCodeAt(index)通过索引获取对应字符的编码
+     * 2.复制和截取字符串
+     *3)substr(n,m)从n开始截取m个   substr(n)从n开始截取至末尾 substr()全部截取返回的字符串和原有字符串完全相同
+     *4)substring(n,m)从n开始截取m-1  substring(n)c从n开始截取到末尾  substring()全部截取 不支持负数,返回""
+     *5)slice(n,m)和substring相同;支持负数索引,负数时相当于slice(str.length+n,str.length+m)
+     * 3.大下写转换
+     * 6)toLowerCase()转换为小写
+     * 7)toUpperCase()转化为大写
+     *4.获取指定字符/连续字符串在字符串中出现的索引位置--没有兼容问题
+     * 8)indexOf(字符)返回字符在字符串中首次出现的位置,没有出现返回-1
+     * 9)lastIndexOf(字符)返回字符在字符串中最后出现的位置,没有出现返回-1
+     *5.把字符串按照指定分隔符拆分为数组,同数组中的join
+     * 10)split(指定字符)拆分
+     * split(reg)参数也可以是一个正则--匹配字符串\
+     * 6.替换字符串
+     * 11)replace(old,new)返回替换好的新字符串 原有不变
+     * replace(old,fn)用fn的返回值替换old在原有字符串中匹配到的字符
+     *replace(reg,function(item,index,orignAry){})
+     *
+     * */
+    var str = "zhufengpeixun";//成对引号之间交叉使用
+    console.log(str.length);//13
+    /*for (var i = 0; i < str.length; i++) {
+        console.log(str[i]);
+    }*/
+    str.length--;
+    console.log(str.length);//13
+    //获取字符
+    console.log(str.charAt(0));//z
+    console.log(str.charAt(str.length-1+5));//""空字符串
+    //复制字符串
+    var res=str.substr(3,4);
+    console.log(res);//feng
+    var str = "zhufengpeixun";
+    var res=str.substring(3,7);//feng
+    console.log(res);
+    var res=str.substring(-3,-7);
+    console.log(res);//""
+    var res=str.slice(-3,-1);
+    console.log(res);//xn
+    //indexOf
+    var str = "zhufengpeixun";
+    var res=str.indexOf("z");
+    console.log(res);//0
+    //判断当前浏览器的版本
+    if(window.navigator.userAgent.indexOf("MSIE8")>-1){
+
+    }
+    //split
+    var str="zhufengpeixun";
+    var res=str.split("");//字符串之间有空字符
+    console.log(res);//["z", "h", "u", "f", "e", "n", "g", "p", "e", "i", "x", "u", "n"]
+    var str=" zhufeng peixun ";
+    var res=str.split(" ");
+    console.log(res);//["", "zhufeng", "peixun", ""]
+    //replace
+    var str="zhufengpeixun";
+    var res=str.replace("zhu","珠");
+    console.log(res);//珠feng peixun
+    console.log(str);//zhufengpeixun
+    str=res;
+    console.log(str);//珠feng peixun
+    var str="zhufengpeixun";
+    var res=str.replace("zhu",function(){
+        console.log(arguments);//["zhu", 0, "zhufengpeixun"]
+        return "珠";
+    });
+    console.log(res);//珠feng peixun
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

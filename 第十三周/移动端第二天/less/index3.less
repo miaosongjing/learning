@@ -1,0 +1,49 @@
+//函数:
+//color:参数:代表颜色值的字符串,返回： color
+
+.box{
+  background: color("#000");
+}
+//data-uri 将小图片转为base64编码;尤其在移动端项目节省图片的加载时间,是图片优化的一种方法;但是大图片不能转码,可以使用base工具(tool.css-js.com);项目中慎用,在移动端项目中,一些大图没有办法处理时,通过base工具
+@url:"../image/";
+.box1{
+  //background: data-uri("@{url}/1.jpg");
+}
+
+//default:只能边界条件中使用，没有匹配到其他自定义函数（mixin）的时候返回true，否则返回false
+
+
+
+//unit:移除或者改变属性值的单位。
+@w100:100px;
+.box3{
+  width: unit(unit(@w100)-50,px);
+}
+//extract:提取,返回集合中指定索引的值
+@color:#000,#fff,#ccc,#eee;
+.box4{
+  z-index:length(@color);
+  background: extract(@color,length(@color));
+}
+
+//Math方法:ceil floor round sqrt percentage abs sin asin cos acos tan atan pi pow mod(取余数) min max
+//
+//rgb(@red,@green,@blue)  rgba
+//hsl(@hue色相,@saturation饱和度,@lightness亮度){}
+//saturate(@value,@amount)增加饱和度
+//desaturate(@value,@amount)增加饱和度
+//lighten(@value,@amount)增加亮度
+//darken(@value,@amount)降低亮度
+//fadein(@color,@amount)降低透明度
+//fadeout(@color,@amount)增加透明度
+//greyscale(@color)灰度
+
+@c:#f60;
+.box5{
+  width: 100px;
+  height: 100px;
+  background: @c;
+  &:hover{
+  background: darken(@c,5%);
+}
+}

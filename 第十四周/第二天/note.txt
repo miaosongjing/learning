@@ -1,0 +1,88 @@
+1.hyBird:混合式APP开发
+    APP:手机应用,Native App 需要使用的技术:IOS系统需要使用object-c,安卓系统需要java-native
+    特点:不可以跨平台,需要针对不同的系统使用不同的技术开发两套产品
+        native APP直接运行在手机的操作系统中,基本手机上的相关功能都可以操作,如拍照,读取短信,读取照片,获取手机的重力感应实现摇一摇和相关游戏
+        更新需要用户主动选择,不能第一时间把最新产品展示给用户
+        ios平台开发一个app上传到app store需要7天的审核期,再次期间审核失败,再次上传还需要七天,有可能导致产品不能按时发布
+    H5:一个HTML页面,需要把页面在手机的浏览器或APP应用中运行-->webApp  运行在浏览器中的(PC端和移动端浏览器),在ios和安卓平台上的浏览器大部分都是webkit内核,所以移动端作的H5页面不需处理兼容
+    特点:可以跨平台,做出一套应用,在IOS和安卓手机上访问
+        webApp运行在手机的某一个应用中,如在浏览器打开页面,不可以直接操作手机上的相关功能,需要寄宿的环境支持
+        想更新就更新,用户看到的总是最新的
+
+    //移动端-H5-响应式布局-webApp-场景应用-微信二次开发,都是一样的
+    //工作中,我们这类前端开发可以做的产品:pc端和移动端共用一套项目的,例如:猎豹和华为,需要响应式布局;pc和移动端不能共用的,例如:京东,淘宝..移动端的需要做响应式
+    //在移动端开发的HTML(H5)运行的环境:
+            //移动端的浏览器:UC,QQ,百度
+            //原生APP(Native App)的webView中:hybrid模式
+            // 例如:在微信中打开一个页面,我们的H5就是运行在微信中的webView
+          页面运行在微信引入的qq浏览器中--微信的最新改版
+
+原理:把开发的h5页面运行在Native App的webView中;一般来说，都是由JS编写代码来完成App壳子搭建的，这样开发的App也就不会在使用JAVA或者Object-c了.
+目前市面上比较流行的框架有：React Native、phoneGap、appcan、APICloud、ionicframework、appMobi、WeX5...
+H5和Native App是如何的实现交互与通信:
+    1)jsBridge(微信平台的JS SDK就是基于这个开发的)
+    第一种常用方式：WebView有一个方法，叫setWebChromeClient，可以设置WebChromeClient对象，而这个对象中有三个方法，分别是onJsAlert,onJsConfirm,onJsPrompt，当js调用window对象的对应的方法，即window.alert，window.confirm，window.prompt，WebChromeClient对象中的三个方法对应的就会被触发
+    使用JS调取微信接口的DEMO：
+    //引入微信提供好的一个JS：http://res.wx.qq.com/open/js/jweixin-1.0.0.js (App把这个JS中提供的方法注入到了web view中，引入这个JS实现调用App的一些方法)
+     wx.config({debug: false,
+                appId: "你的AppID",
+                timestamp: '时间戳(需要后台生成)',
+                nonceStr: '字符串(需要后台生成)',
+                signature: '签名(需要后台生成)',
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']//->功能列表，我们要使用JS-SDK的什么功能                });
+     wx.ready(function () {//微信检测到已经准备就绪的时候就会把我们的callback执行
+     //获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
+         wx.onMenuShareTimeline({
+            title: '分享标题',
+            link: "分享的url,以http或https开头"
+            imgUrl: "分享图标的url,以http或https开头"
+          });         //获取“分享给朋友”按钮点击状态及自定义分享内容接口
+         wx.onMenuShareAppMessage({
+            title: '分享标题',
+            desc: "分享描述",
+            link: "分享的url,以http或https开头",
+            imgUrl: "分享图标的url,以http或https开头",
+            type: 'link'
+          });
+    });
+h5运行在浏览器的对象是window,h5可以运用window提供的方法进行操作;h5运行在微信的webView中,微信向自身的webView中注入一个对象wxBridge,这个对象提供h5需要调用的方法,只要h5运行在webView中,就可以通过wxBridge调取方法---原生App把h5需要调用的方法存放在同window相似的全局对象中,只要h5在这个webView中运行,就可以调用这些方法
+    2)伪装的URL或者伪装的协议
+    H5开发人员和App人员协商一套协议或者伪装的URL地址;前端按照之前指定的协议发送请求,把fn传递给App;App开发者实现对应的功能:第一:实现具体业务操作的功能，例如调取摄像头拍照；第二:劫持H5中发送的URL地址，然后把符合事先制定的规则的URL拦截下来，通过解析URL后面的参数值等调取对应的功能;操作结束后将对应的内容和fn拼接为字符串返回H5(类似于JSONP)
+    function fn(img){打开摄像头拍照后执行的后续操作 img是拍下来的照片}
+    window.location.href="zhufeng://phone?callback=fn";
+        zhufeng:// 就是我们事先制定的一个假协议，所有这种协议的都代表需要调取App的某个功能
+        phone 这个标识就是事先制定的需要调取拍照功能
+        callback=fn 把自己JS中的某一个方法传递给App，App可以在拍照完成后执行这个方法，并且把保存的照片传递给这个方法
+
+
+二事件
+1.点击
+[pc]:
+    click mouseover(mouseenter) mousemove mouseout(mouseleave) mousedown  mouseup mousewheel keydown keyup
+[移动端]:
+    input代替keyup和keydown
+    单击 双击 长按 上滑 下滑 左滑 右滑 拖拽 缩放  旋转 常规的这些操作,移动端没有提供对应的事件类型,所有的操作效果由以下的事件模拟:
+    单手指:touchstart touchmove touchend(手指离开) touchcancel(触摸以外终止)
+    多手指:gesturestart gesturechange gestureend gesturecancle
+    单击:
+        排除双击,300ms内是否触发第二次touchstart
+        排除长按,750ms内是否手指离开屏幕
+        排除滑动,手指在屏幕上是否偏移,为了防止误操作,偏移值在30px/10px以内的不属于滑动
+    双击:
+        排除滑动
+    左右上下滑动方向:
+        x/y轴的偏移.如果changX>changeY为左右滑动,否则为上下滑动;偏移值为负数,为左/下,否则为右/上
+        移动端的click:存在300ms延迟
+        解决办法:把click替换为touchstart touchmove touchend;使用fastclick.js处理
+2.移动端事件操作常用的事件库
+    (swiper事件库)
+    百度云的TOUCH事件库  touch-0.2.14.min.js
+    hammer.js 国际常用的手势事件库
+    Zepto.js 移动端类库,pc端类库是JQuery
+    1)z比q更小更轻,更适合移动端 因为没有低版本兼容,z中提供q中部分常用方法
+    2)z用法和q相同
+    3)z中的animate动画支持css3的transform变形
+    JQ中的动画方法:animate hide show toggle fadeIn fadeOut fadeToggle slideDown slideUp slideToggle ...但是zepto中只有animate,但支持css3的transform变形
+    4)z中提供移动端专用方法,都是touch模型封装好的,如
+    tap点击 singleTap单击 doubleTap双击 longTap长按 swipe滑动  swipeLeft/Right/Down/Up个方向滑动
+    $('#box').singleTap(function(ev){})

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<script type="text/javascript" src="ajax惰性思想.js"></script>
+<script type="text/javascript">
+//    //    var xhr = new XMLHttpRequest;
+//    //    //->创建AJAX对象,在IE6及以下浏览器中不兼容,我们需要使用下述的三种方式来处理一下兼容
+//    function createXHR(){
+//        var xhr=null;
+//        //if (new ActiveXObject('Microsoft.XMLHTTP')) {} 这样写不行，因为如果不兼容的话，我们执行new ActiveXObject直接报错，所以不能这样检测是否兼容，需要使用TEY CATCH检测
+//        if(window.XMLHttpRequest) {
+//            xhr = new XMLHttpRequest;
+//        }else{
+//            try {
+//                xhr = new ActiveXObject('Microsoft.XMLHTTP');
+//            } catch (e) {
+//                try {
+//                    xhr = new ActiveXObject('Msxml2.XMLHTTP');
+//                } catch (e) {
+//                    try {
+//                        xhr = new ActiveXObject('Msxml3.XMLHTTP');
+//                    } catch (e) {
+//                    }
+//                }
+//            }
+//        }
+//        return xhr;
+//    }
+//    var xhr=createXHR();
+//    var xhr2=createXHR();
+//    //->每一次执行createXHR都会从头到尾的验证哪一个兼容,但我们想要的是：在第一次执行时从头验证,获取到XHR，并且知道那一个是兼容的，之后不需要再从头到尾在验证一遍--采用惰性思想解决
+
+//    //惰性思想:--js高阶编程技巧,能够执行一次就搞定的绝对不会执行多次
+//              //使用惰性思想的单例模式为高级单例模式
+//    var utils=(function () {
+//        var flag="getComputedStyle" in window;//true为标准浏览器 false为ie6-8浏览器
+//        function getCss(){
+//            if(flag){
+//                return window.getComputedStyle(curEle, null)[attr];
+//            }
+//            return curEle.currentStyle[attr];
+//        }
+//        return {
+//            getCss:getCss
+//        };
+//    })();
+//    utils.getCss();
+//    utils.getCss();
+
+var xhr=createXHR();
+    console.log(xhr);
+</script>
+</body>
+</html>

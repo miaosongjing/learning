@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #wrap{
+            width: 200px;
+            height: 200px;
+            margin: 200px auto;
+            perspective: 2000px;
+
+        }
+        .item{
+            transform-style: preserve-3d;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            animation: move 5s infinite both;
+            transform-origin: 100px 100px -100px;/*改变旋转中心点,默认基准点在z轴上的坐标是在0位置,所以需要移动-100px,将基准点移动到正方体中心位置*/
+        }
+        .item li{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 196px;
+            height: 196px;
+            line-height: 196px;
+            border: 2px solid #000;
+            background: rgba(152,251,152,.6);
+            font-size: 30px;
+            text-align: center;
+            list-style: none;
+            color: #fff;
+        }
+        /*六面层级放置--2d铺开--每面翻转,注意基准线--动画旋转,注意基准点*/
+        .item li:nth-child(1){
+            top: -200px;
+            transform-origin:bottom ;/*以底部线为基准前翻转*/
+            transform: rotateX(90deg);
+        }
+        .item li:nth-child(2){
+            top: 200px;
+            transform-origin:top ;/*以上边线为基准后翻转*/
+            transform: rotateX(-90deg);
+        }
+        .item li:nth-child(3){
+            left: -200px;
+            transform-origin:right ;/*以右边线为基准左反转*/
+            transform: rotateY(-90deg);
+        }
+        .item li:nth-child(4){
+            left: 200px;
+            transform-origin:left ;/*以左边线为基准右翻转*/
+            transform: rotateY(90deg);
+        }
+        .item li:nth-child(5){
+            transform: translateZ(-200px);
+        }
+        .item li:nth-child(6){
+            transform: translateZ(0px);
+        }
+        @keyframes move {
+            0%{
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            100%{
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <ul class="item">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

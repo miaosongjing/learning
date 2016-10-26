@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+             list-style: none;
+         }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        #wrap{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        /*1.实现大图层级排列*/
+        #wrap>img{
+            width: 100%;
+            height: 100%;
+            position: fixed;/*不随鼠标滚动*/
+            left: 0;
+            top: 0;
+        }
+        #wrap ul{
+            position: absolute;
+            /*ul的text-align: center和li的display: inline-block;实现li居中显示*/
+            text-align: center;
+            width: 100%;
+            bottom: 10%;
+            z-index: 15;
+        }
+        #wrap ul li{
+            display: inline-block;
+            width: 110px;
+            height: 110px;
+            border: 10px solid rgba(255,255,255,0.5);
+            overflow: hidden;
+            border-radius: 50%;
+            margin: 0 10px;
+
+        }
+        #wrap ul li img{
+            width: 100%;
+            height: 100%;
+            /*transition: 1s;*/
+        }
+        /*URL 带有后面跟有锚名称 #，指向文档内某个具体的元素。元素的id名和#后面的名称一致
+          :target 选择器可用于选取当前活动的目标元素。*/
+        /*2.点击小图标显示大图片,用:target,a标签的锚点定位*/
+        :target{
+            z-index: 10;
+        }
+        /*3.为每一个元素增加动画:可以使用animation也可以使用transform*/
+        #bg1:target{
+            animation: slideLeft 1s 1 both;
+            /*transform: translate(-500px);*/
+        }
+        #bg2:target{
+           animation: slideTop 1s 1 both;
+            /*transform: scale(0.2);*/
+        }
+        #bg3:target{
+            animation: zoomIn 1s 1 both;
+            /*transform: scale(1.2);*/
+        }
+        #bg4:target{
+            animation: zoomOut 1s 1 both;
+        }
+        #bg4:target{
+            animation: zoomOut 1s 1 both;
+        }
+        #bg5:target{
+            animation: rotate 1s 1 both;
+        }
+        @keyframes slideLeft {
+            0%{
+                transform: translate(-500px);
+            }
+            100%{
+                transform: translate(0);
+            }
+        }
+        @keyframes slideTop {
+            0%{
+                transform: translate(0,-500px);
+            }
+            100%{
+                transform: translate(0,0);
+            }
+        }
+        @keyframes zoomIn {
+            0%{
+                transform: scale(0.2);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+        @keyframes zoomOut {
+            0%{
+                transform: scale(1.2);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+        @keyframes rotate {
+            0%{
+                transform: rotate(0deg) scale(0);
+
+            }
+            100%{
+                transform: rotate(720deg) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <img src="image/1.jpg" alt="" id="bg1"/>
+    <img src="image/2.jpg" alt="" id="bg2"/>
+    <img src="image/3.jpg" alt="" id="bg3"/>
+    <img src="image/4.jpg" alt="" id="bg4"/>
+    <img src="image/5.jpg" alt="" id="bg5"/>
+    <ul>
+        <li><a href="#bg1"><img src="image/1.jpg"/></a></li>
+        <li><a href="#bg2"><img src="image/2.jpg"/></a></li>
+        <li><a href="#bg3"><img src="image/3.jpg"/></a></li>
+        <li><a href="#bg4"><img src="image/4.jpg"/></a></li>
+        <li><a href="#bg5"><img src="image/5.jpg"/></a></li>
+    </ul>
+</div>
+<!--href="#bg1" 点击a跳出对应图片-->
+
+
+</body>
+</html>

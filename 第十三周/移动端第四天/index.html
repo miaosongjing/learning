@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        /*html{*/
+            /*font-size: 100px;/!*一般为100px,便于计算*!/*/
+        /*}*/
+        /*css中的适配*/
+        /*设计稿宽度/设备宽度=100/设备根元素字体大小*/
+        /*@media all and (min-device-width: 320px) {*/
+            /*html{*/
+                /*font-size: 50px;*/
+            /*}*/
+        /*}*/
+        #div1{
+            width: 0.86rem;
+            height: 0.86rem;
+            background: red;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+
+<script type="text/javascript">
+//移动适配:页面在不同屏幕尺寸的移动设备上,显示的效果和设计稿相同--在不同尺寸的设备上,页面间隙/留白/图片大小等发生变化,但是比例和设计稿相同
+    //rem相对于根元素的字体大小,根据不同设备更改根元素的字体大小
+    var div1=document.getElementById('div1');
+    var desW=640;//设计稿宽度
+    var winW=document.documentElement.clientWidth;//设备宽度
+    //设备缩小多少,那么设备根元素的字体大小就缩小多少
+    var desWfontSize=100;//假设设计稿宽度的设备上,根元素字体大小为100px
+    var size=document.documentElement.style.fontSize=winW/desW*100+'px';//当前设备上根元素的字体大小
+
+
+    div1.onclick=function(){
+        console.log(size);
+    }
+
+</script>
+</body>
+</html>

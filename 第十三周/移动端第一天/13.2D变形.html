@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul li{
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            background: red;
+
+        }
+        /*正值为顺时针旋转*/
+        .div1:hover{
+            transform: rotate(45deg);
+            transition: 1s;
+
+        }
+
+        /*
+        skewX()  正值代表向左倾斜
+skewY()  正值代表向下倾斜
+
+        */
+        .div2:hover{
+            transform: skew(30deg);
+            transition: 1s;
+        }
+        /*scale() 缩放函数 默认值是1 */
+        .div3{
+            background: orange;
+        }
+        .div3:hover{
+            transform: scale(0.3,0.5);
+            transition: 1s;
+        }
+        /*translate() 位移函数*/
+        .div4{
+            background: blue;
+        }
+        .div4:hover{
+            transform: translate(100px,100px);
+            transition: 1s;
+        }
+
+        .div5{
+            background: pink;
+        }
+        .div5:hover{
+            /*transform: translate(50px) rotate(45deg);*//*translate写在前面,则其他运动的基准点发生改变*/
+            transform: translate(50px) rotate(45deg);
+            transition: 1s;
+        }
+        .div6{
+            background: grey;
+        }
+
+        .div7{
+            width: 50px;
+            height: 50px;
+            background: #ffe470;
+        }
+        /*元素变形的基准点:默认是元素的中心
+        rotate skew scale 可以改变元素的中心点
+        translate的基准点是元素的中心*/
+        .div8{
+            background: grey;
+        }
+        .div8:hover{
+            /*transform: scale(0.5);*/
+            transform-origin:left ;
+            transform: translate(150px);
+            transition: 1s;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<ul>
+    <li class="div1"></li>
+    <li class="div2"></li>
+    <li class="div3"></li>
+    <li class="div4"></li>
+    <li class="div5"></li>
+    <li class="div6">
+        <div class="div7"></div>
+    </li>
+    <li class="div8"></li>
+    <li class="div9"></li>
+
+</ul>
+<div class="div1"></div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

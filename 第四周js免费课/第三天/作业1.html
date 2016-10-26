@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function sum(){
+        var total=0;
+        for(var i=0;i<arguments.length;i++){
+            //遍历每一个实参
+            var cur=Number(arguments[i]);
+            //将每个实参转为数字
+            if(!(isNaN(cur))){
+                //判断是否为有效数字,如果是进行累加
+                total+=arguments[i];
+            }
+        }
+        console.log(total);
+    }
+    sum(1,2,"a","3",5,6);
+
+</script>
+</body>
+</html>

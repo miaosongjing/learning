@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+一对象
+    1.由多组键值对(属性名:属性值)组成,键值对用来描述对象,键值对之间用","隔开
+    2.获取指定属性的属性值
+        1)对象.属性名
+        2)对象["属性名"]
+    3.增加
+    4.修改
+    5.删除:真删除和假删除
+二for in循环
+    for in循环用来遍历对象 在遍历时,键值对有多对就遍历多少次;如果属性名中有数字,先遍历数字的属性(从小到大),然后再循环其他属性
+
+<!--<script type="text/javascript">
+    var obj={
+        name:"珠峰",
+        age:18
+    }
+    console.log(obj);//输出Object {name: "珠峰", age: 18}
+    //获取指定属性值
+    //1.对象.属性名
+    //2.对象[属性名]
+    console.log(obj.name);
+    console.log(obj.age);
+    //怎样修改对象中的属性值
+    obj.age="8岁";
+    //获取属性=值   =赋值
+    console.log(obj);
+    //增加属性
+    obj.height="165cm";
+    console.log(obj);//Object {name: "珠峰", age: "8岁", height: "165cm"}
+    //修改和新增方式相同,原来没有属于新增
+    //删除属性
+    //真删除:将属性从对象中去除
+    delete obj.age;
+    console.log(obj);//Object {name: "珠峰", height: "165cm"}
+    //假删除:属性保留属性名,用null代替属性值
+    obj.age=null;
+    console.log(obj);//Object {name: "珠峰", height: "165cm", age: null}
+</script>-->
+<script type="text/javascript">
+    var obj={
+        name:"马立琪",
+        age:26,
+        marriage:"unmarried",
+        11:26
+    }
+    //console.log(obj.11);//Uncaught SyntaxError: missing ) after argument list
+    //报错,属性名可以是数字,如果是数字的属性名,只能用[""]方式获取
+    //当使用for in循环时候,遍历属性值只能采用obj[""]的方式,因为对象的属性名可能时数字
+    console.log(obj["11"]);
+
+</script>
+<script type="text/javascript">
+    var obj={
+        name:"大白",
+        age:"20岁",
+        height:"200cm",
+        2:333,
+        1:15837958052
+
+    };
+    for(var attr in obj){
+        console.log(attr);
+        //attr代表对象属性名
+        //obj代表要遍历的对象
+        console.log(obj[attr])
+        //for in循环遍历属性值时必须使用obj[attr],而不能用obj.attr,因为对象中的属性名可能是数字
+    }
+</body>
+</html>

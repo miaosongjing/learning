@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+     *{
+         padding: 0;
+         margin: 0;
+     }
+        ul{
+            list-style: none;
+            overflow: hidden;
+        }
+        li{
+            float: left;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid pink;
+        }
+        div{
+            display: none;
+            border: 1px solid black;
+            width: 406px;
+            height: 300px;
+            font-size: 20px;
+            background-color: palegoldenrod;
+        }
+        li.cur{
+            background-color: yellowgreen;
+        }
+        div.cur{
+            display:block;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li class="cur">秋天</li>
+    <li>夏天</li>
+    <li>春天</li>
+    <li>冬天</li>
+</ul>
+<div class="cur">硕果累累</div>
+<div>雷雨交加</div>
+<div>百花齐放</div>
+<div>雪花飞舞</div>
+<script type="text/javascript">
+    var oLis=document.getElementsByTagName("li");
+    var oDivs=document.getElementsByTagName("div");
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].index=i;
+        oLis[i].onclick= function () {
+            for(var j=0;j<oLis.length;j++){
+                oLis[j].className="";
+                oDivs[j].className="";
+            }
+            this.className="cur";
+            oDivs[this.index].className="cur";
+        }
+    }
+
+
+
+
+</script>
+</body>
+</html>

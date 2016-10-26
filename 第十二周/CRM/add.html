@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/index.css" type="text/css" charset="utf-8"/>
+</head>
+<body>
+    <div class="box2">
+        <div>
+            <span>姓名:</span>
+            <input type="text" id="userName"/>
+        </div>
+        <div>
+            <span>年龄:</span>
+            <input type="text" id="userAge"/>
+        </div>
+        <div>
+            <span>电话:</span>
+            <input type="text" id="userPhone"/>
+        </div>
+        <div>
+            <span>地址:</span>
+            <input type="text" id="userAddress"/>
+        </div>
+        <div class="submit" id="submit">提交</div>
+    </div>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript">
+
+    var userName=document.getElementById("userName"),
+        userAge=document.getElementById("userAge"),
+        userPhone=document.getElementById("userPhone"),
+        userAddress=document.getElementById("userAddress"),
+        submit=document.getElementById("submit");
+    //3.0.判断是修改还是增加:URL后面是否问号传参
+    //3.1 获取URL后面的参数值,以对象键值对方式保存
+    String.prototype.queryURLParameter= function () {
+        var obj={},
+            reg=/([^?=&#]+)=([^?=&#]+)/g;
+        this.replace(reg, function () {
+            var key=arguments[1],
+                value=arguments[2];
+            obj[key]=value;
+        });
+        return obj;
+    };
+    //3.2 获取当前页面的参数信息
+    var urlObj=window.location.href.queryURLParameter(),
+        customeId=urlObj['id'],
+    //3.3 isFlag记录是否为修改操作,true代表修改,false代表增加
+        isFlag=typeof customeId=="undefined"?false:true;
+    //3.4 如果是修改,获取对应客户信息,并增加到文本框中
+    if(isFlag){
+        //3.4.1 通过AJAX获取指定客户信息
+        ajax({
+            url:'/getInfo?id='+customeId,
+            dataType: 'JSON',
+            success: function (jsonData) {
+                if(jsonData&&jsonData['code']==0){
+                    var data=jsonData['data'];
+                    userName.value=data['name'];
+                    userAge.value=data['age'];
+                    userPhone.value=data['phone'];
+                    userAddress.value=data['address'];
+                }
+            }
+        })
+    }
+    //2 增加客户信息
+    submit.onclick= function () {
+        //2.1.准备发送给服务器的数据:获取四个文本框中内容,将内容保存在一个对象中,便于后面转为json格式字符产串
+        var obj={
+            name:userName.value,
+            age:userAge.value,
+            phone:userPhone.value,
+            address:userAddress.value
+        };
+        //3.4.2.通过接口传递给服务器
+        //UPDATE SEND AJAX
+        if(isFlag){
+            obj.id=customeId;
+            ajax({
+                url:'/updateInfo',
+                type:'post',
+                dataType: 'JSON',
+                data:JSON.stringify(obj),//请求主体中的内容为json格式字符串
+                success:function(jsonData){
+                    if(jsonData&&jsonData['code']==0){
+                        //成功后,跳转到首页(js中跳转页面window.location.href=xxx,不赋值是获取当前页面的地址)
+                        window.location.href='index.html';
+                        return;
+                    }else{
+                        alert(jsonData.msg)
+                    }
+                }
+            });
+            return;
+        }
+
+        //2.2.通过接口传递给服务器
+        //ADD SEND AJAX
+        ajax({
+            url:'/addInfo',
+            type:'post',
+            dataType: 'JSON',
+            data:JSON.stringify(obj),//请求主体中的内容为json格式字符串
+            success:function(jsonData){
+                if(jsonData&&jsonData['code']==0){
+                    //成功后,跳转到首页(js中跳转页面window.location.href=xxx,不赋值是获取当前页面的地址)
+                    window.location.href='index.html';
+                    return;
+                }
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>

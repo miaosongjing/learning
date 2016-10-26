@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body style="height: 3000px">
+常见常用的需要阻止的事件的默认行为:
+    1.a标签的点击跳转行为
+    2.鼠标滚动事件(有时候需要阻止,不兼容)if(container.addEventListener)container.addEventListener("DOMMouseScroll",fn,false);
+    3.上下文菜单(右键菜单)document.oncontextmenu= function () {return false;}
+浏览器事件的兼容性问题:
+    1.事件对象本身获取的方式不同:标准浏览器是由浏览器动态的传递一个参数,这个参数是一个事件对象;ie是有一个全局的对象叫window.event,这是事件对象;chrome浏览器是两种方式都支持
+    2.DOM2级事件的方式完全不同:绑定的方法/事件触发时this指向(当前元素/window)/执行的顺序/一个方法被重复绑定在一个事件上
+
+
+<script type="text/javascript">
+    var ele=document.createElement("div");
+    document.body.appendChild(ele);
+    //with运算符的作用和缺点
+    //常见的需要阻止的事件有哪些?具体的代码
+    //总结事件的兼容性问题
+    with(ele.style){
+        width="150px";
+        height="250px";
+        backgroundColor="gray";
+        position="absolute";
+        display="none";
+    }
+    document.documentElement.oncontextmenu= function (e) {
+        e.preventDefault();
+        with(ele.style){
+            display="block";
+            left= e.pageX+"px";
+            top= e.pageY+"px";
+        }
+
+
+        return false;
+    };
+    function bind(curEle,eventType,eventFn){
+        if(document.addEventListener){
+            curEle.addEventListener(eventType,eventFn,false);
+            return;
+        }
+        //ie
+        var tempFn= function (e) {
+            eventFn.call(curEle,e);
+        };
+        tempFn.photo=eventFn;
+        if(!curEle["myBind"+eventType]){curEle["myBind"+eventType]=[];}
+        var ary=curEle["myBind"+eventType];
+        if(ary&&typeof ary=="Array"){
+            for(var i=0;i<ary.length;i++){
+                var cur=ary[i];
+                if(cur.photo==eventFn){return;}
+                ary.push(tempFn);
+                curEle.attachEvent("on"+eventType,eventFn);
+            }
+        }
+    }
+    function unbind(curEle,eventType,eventFn){
+        if(document.removeEventListener){
+            curEle.removeEventListener(eventType,eventFn,false);
+            return;
+        }
+       //ie
+        var ary=curEle["myBind"+eventType];
+        if(ary&&typeof ary=="Array"){
+            for(var i=0;i<ary.length;i++){
+                var cur=ary[i];
+                if(cur.photo==eventFn){
+                    ary.splice(i,1);
+                    curEle.detachEvent("on"+eventType,eventFn);
+                    break;
+                }
+            }
+        }
+    }
+    //创建事件池 将不重复的方法添加
+    function on(curEle,eventType,eventFn){
+        //创建事件池
+        if(curEle["myEvent"+eventType]){curEle["myEvent"+eventType]=[];}
+        var ary=curEle["myEvent"+eventType];
+        //判断方法是否重复
+        for(var i=0;i<ary.length;i++){if(ary[i]==eventFn){return;}}
+        //不重复时添加
+        ary.push(eventFn);
+        //解决this问题
+        bind(curEle,eventType,run);
+    }
+    //run方法:执行每一个方法
+    function run(e){
+        e=e||window.event;
+        var flag= e.target?true:false;
+        if(!flag){
+            e.target= e.srcElement;
+            e.stopPropagation= function () {
+                e.returnValue=false;
+            };
+            e.preventDefault= function () {
+                e.cancelBubble=true;
+            };
+            e.pageX= e.clientX+(document.documentElement.scrollLeft||document.body.scrollLeft);
+            e.pageY= e.clientY+(document.documentElement.scrollTop||document.body.scrollTop);
+        }
+        var ary=this["myEvent"+this.type];
+        for(var i=0;i<ary.length;i++){
+            var cur=ary[i];
+            if(typeof cur=="function"){
+                cur.call(this,e);
+            }else{
+                ary.splice(i,1);
+                i--;
+            }
+        }
+    }
+    //移除某个方法
+    function off(curEle,eventType,eventFn){
+        var ary=curEle["thisEvent"+eventType];
+        if(ary&&typeof ary=="Array"){
+            for(var i=0;i<ary.length;i++){
+                var cur=ary[i];
+                if(cur==eventFn){
+                    cur=null;
+                    break;
+                }
+            }
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

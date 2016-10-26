@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>模拟百度搜索</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            font-size: 14px;
+            font-family: "Microsoft YaHei";
+            color: #555;
+        }
+        ul{
+            list-style: none;
+        }
+        input{
+            outline: none;
+        }
+        .box{
+            margin: 10px auto;
+            width: 300px;
+        }
+        .box input{
+            border: 1px solid #ccc;
+            width: 288px;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 5px;
+        }
+        .box ul{
+            display: none;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+        .box ul li{
+            padding: 0 5px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        .box ul li:hover{
+            background: #eee;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="text" id="searchInp"/>
+    <ul id="searchList" >
+        <!--<li>珠峰培训</li>-->
+        <!--<li>珠峰培训怎么样</li>-->
+        <!--<li>珠 峰培训就业</li>-->
+        <!--<li>珠峰培训NODE培训</li>-->
+    </ul>
+</div>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<!--<script type="text/javascript" src="js/baiduSearch.js"></script>-->
+<script type="text/javascript">
+    var searchModule=(function (){
+        var $searchInp=$('#searchInp'),
+                $searchList=$('#searchList'),
+                interval=100;
+        //bindHTML 向百度服务器发送jsonp请求,把数据获取到之后绑定在页面中
+        function bindHTML(){
+            var searchKey=$searchInp.val();//获取文本框中的内容
+            //2.绑定数据
+            function callback(data){
+                //获取数据
+                data=data['s'];
+                //拼接字符串
+                var str='';
+                $.each(data, function (index, item) {
+                    if(index<=3){//匹配内容很多,只要前四个
+                        str+='<li>'+item+'</li>';
+                    }
+                });
+                //3.列表展示
+                if(str.length===0){
+                    $searchList.html(str);
+                    return;
+                }
+                $searchList.html(str).stop().slideDown(300);//默认列表是隐藏的,绑定后结束正在运行动画,动画展示列表
+            }
+            //1.发送请求
+            $.ajax({
+                url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + searchKey,
+                dataType: 'jsonP',
+                jsonp: 'cb',
+                success: callback
+            });
+        }
+        //事件绑定和模块入口
+        function init() {
+            //1.文本框获取焦点或输入内容时,判断文本框中是否有内容:有,绑定数据;没有,隐藏展示框
+            $searchInp.on('focus keyup keydown', function () {
+                var val=$(this).val();
+                if(val.length>0){
+                    bindHTML();
+                    return;
+                }
+                $searchList.stop().slideUp(interval);
+            }).on('blur', function () {
+                //失去焦点时,收起列表 加定时器延迟是为了先触发列表的点击事件,再触发文本框的失去焦点事件
+                window.setTimeout(function () {
+                    $searchList.stop().slideUp(interval);
+                },50);
+
+            });
+            //2.事件委托处理:点击li,让当前li中的内容放入文本框,并且隐藏列表;点击文本框,什么都不做;否则展示框消失  点击会触发文本框的失去焦点事件,所以应该先click再blur-->所有事件进行事件委托
+            $(document).on('click', function (e) {
+                var tar= e.target,
+                        tarTag=tar.tagName.toUpperCase(),
+                        $tar=$(tar);//把原生对象tar转为jquery对象
+                if(tarTag==='LI'&&tar.parentNode.id=='searchList'){
+                    $searchInp.val($tar.html());
+                    $searchList.stop().slideUp(interval);
+                    return;
+                }
+                if(tar.id=='searchInp'){
+                    return;
+                }
+                $searchList.stop().slideUp(interval);
+            });
+        }
+        return {
+            init:init
+        };
+    })();
+    searchModule.init();
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #div1{
+            width: 293px;
+            height: 202px;
+            overflow: hidden;/*放大后图片大于盒子,所以hidden*/
+        }
+        #div1 img{
+            transition: 1s;
+        }
+        #div1:hover img{
+            transform: scale(1.2);
+        }
+        /*下图片*/
+        #icon{
+            margin: 20px auto;
+            width: 60px;
+            height: 60px;
+            background: url("image/yl.png") no-repeat -91px -4px;
+
+        }
+        @keyframes move {
+            0%,50%,100%{
+                transform: rotate(0deg);
+            }
+            25%{
+                transform: rotate(-30deg);/*负值,逆时针:向左*/
+            }
+            75%{
+                transform: rotate(30deg);/*正值,顺时针:向右*/
+            }
+        }
+        #icon:hover{
+            animation: move 0.5s linear infinite both;/*注意用匀速,看着更流畅*/
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    <img src="image/hs.jpg" alt=""/>
+</div>
+<div id="icon"></div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        div{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: move;
+            -webkit-user-select: none;
+            overflow: hidden;
+            background: gray;
+        }
+        div img{
+            width: 100px;
+            height: 100px;
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+<div id="div1"><img src="images/banner1.jpg" alt=""/></div>
+<div id="div2" style="left: 100px;top: 100px;background: orange"><img src="images/banner4.jpg" alt=""/></div>
+<div id="div3" style="left: 200px;background: purple"><img src="images/banner2.jpg" alt=""/></div>
+<div id="div4" style="left:400px;background: pink"><img src="images/banner3.jpg" alt=""/></div>
+
+
+<script type="text/javascript">
+    //1.解决DOM二级事件的绑定的方法的不同
+    //ie用attachEvent,标准浏览器用addEventListener,现在统一用bind来绑定事件,用unbind移除事件
+    //2.绑定到事件上的方法,在事件触发运行的时候,this指向被绑定的元素
+//    ele.attachEvent("on"+type, function () {fn.call(ele);});//解决this关键字,但是移除fn时找不到
+    //通过这两个方法,培养:跨作用域考虑代码的写法
+
+    /**
+     * bind:dom2级事件的绑定
+     * @param ele 被绑定时间的元素
+     * @param type 事件的类型
+     * @param fn  绑定的方法
+     */
+//    function bind(ele,type,fn){
+//        if(ele.addEventListener){
+//            ele.addEventListener(type,fn,false);
+//        }else{
+////            ele.attachEvent("on"+type,fn);//fn中的this为window,
+////            ele.attachEvent("on"+type, function () {fn.call(ele);});
+//            //需要两步:把function () {fn.call(ele);}保存-->通过fn将其识别
+//            //1:定义一个保存改造fn方法的数组
+//            if(!ele["aBind"+type]){//为了便于后面的方法使用,定义在元素的自定义属性上(一般不定义变量为全局变量);为避免改变内置属性和方法,添加前缀;不同的行为创建不同的数组,添加type区分符("aBind"属性的前缀,type数组区分符)
+//                //ele.click是个方法,模拟ele被点击的动作
+//                ele["aBind"+type]=[];
+//            }
+//
+//            var a=ele["aBind"+type];//为方便写代码,把很长的属性名赋值给短的变量名
+//            //6.避免fn被重复绑定的判断
+//            for(var i=0;i< a.length;i++){
+//                if(a[i].origin==fn){return;}
+//            }
+//            //2:把fn改造,使fn执行时,this指向ele
+//            var fnTemp=function () {fn.call(ele);};
+//            //3.给改造后的方法fnTemp添加自定义属性,便于unbind移除时找到
+//            fnTemp.origin=fn;
+//            //4:把改造后的fnTemp保存在数组中:执行unbind移除绑定时可以找到它;以及判断是否被重复绑定
+//            a.push(fnTemp);
+//            //5.将改造后的方法绑定在事件上
+//            ele.attachEvent("on"+type,fnTemp);
+//
+//
+//        }
+//
+////属性特征:可读 可写 可枚举 不可枚举(forEach遍历不出来的公有属性)
+//
+//    }
+
+//    function unbind(ele,type,fn){
+//        if(ele.removeEventListener){
+//            ele.removeEventListener(type,fn,false);
+//        }else{
+//            ele.detachEvent("on"+type,fn);
+//            //通过fn把真正绑定在事件上的方法识别
+//            var a=ele["aBind"+type];
+//            if(a&& a.length>0){
+//                for(var i=0;i< a.length;a++){
+//                    if(a[i].origin==fn){//通过origin属性找到改造后的方法
+//                        ele.detachEvent("on"+type,a[i]);//移除
+//                        return;
+//                    }
+//                }
+//            }
+//        }
+//    }
+    //on run off->解决方法执行的顺序问题<--ie无法解决顺序问题,我们把ie的事件机制重写--订阅/发布模式
+    //on:订阅/绑定/约定->把方法保存在一个事件池中
+    //run:通知-->到事件池遍历执行保存在里面的方法
+    //off:把对应的方法从程序池中移除
+    function on(ele,type,fn){
+        if(ele.addEventListener){
+            ele.addEventListener(type,fn,false);
+            return;
+        }
+        //for:ie
+        if(!ele["aEvent"+type]){
+            ele["aEvent"+type]=[];
+            ele.attachEvent("on"+type,function () {run.call(ele);});
+        }
+        var a=ele["aEvent"+type];
+        //避免在数组里出现重复项
+        for(var i=0;i< a.length;i++){if(a[i]==fn)return;}
+        a.push(fn);
+//        bind(ele,type,run);
+        //不使用bind方法来解决被绑定的方法中的this指向
+//        ele.attachEvent("on"+type,function () {fn.call(ele);});//如果这样,on有多少次,每个fn方法各自被执行多少次-->解决,放在113行,因为只执行一次
+
+
+    }
+    function run(){
+        var e=window.event;
+        var type= e.type;
+        if(!e.target){
+            e.target= e.srcElement;
+            e.pageX=(document.documentElement.scrollLeft||document.body.scrollLeft)+ e.clientX;
+            e.pageY=(document.documentElement.scrollTop||document.body.scrollTop)+ e.clientY;
+            e.stopPropagation= function () {e.cancelBubble=true;};
+            e.preventDefault= function () {e.returnValue=false;};
+        }
+        var a=this["aEvent"+type];
+        if(a&& a.length){
+            for(var i=0;i< a.length;i++){
+                if(typeof a[i]=="function"){
+                    a[i].call(this,e);//方法执行时this指向被绑定的DOM元素
+                    //a[i]();this为数组a
+                }else{
+                    a.splice(i,1);//对应off中的数组塌陷
+                    i--;
+                }
+            }
+        }
+    }
+    function off(ele,type,fn){
+        var a=ele["aEvent"+type];
+        if(a&& a.length){
+            for(var i=0;i< a.length;i++){
+                if(a[i]==fn){
+                    a[i]=null;
+                    break;
+                }
+            }
+        }
+    }
+
+
+//var b=[1,2,3, function () {console.log(this);}];//this是当前数组
+//    b[4]();
+//    var obj={attr1:fn1,attr2:fn2};
+//    obj.attr1();//-->obj[0]();this为obj
+
+</script>
+</body>
+</html>

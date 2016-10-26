@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+//gitHub:一个网站,可以注册账号,在自己的仓库下创建多个git仓库,用来管理和维护我们的产品源代码,或者是基于仓库发布自己的产品(通过git命令进行操作的)
+// 全球权威的,前端开发师所需要的框架 类库 插件的源代码基本上都是在GitHub上托管
+    //把自己所了解的关于框架 类库 插件的源代码在gitHub上找到,fork到自己的仓库一份,有时间研究以下源代码;后期写一些插件或类库,上传到github上供别人研究使用....
+    //1.源理:GitHub只是一个资源文件托管的平台,把项目资源文件上传到这个平台,平台帮我们发布,以后只需要输入对应的网址就可以把这个平台托管文件的源代码返回到用户的客户端进行渲染
+    //2.使用GitHub:注册一个账号
+    //1)创建一个仓库:一个账号可以创建多个仓库,每个仓库可以存储和管理一个项目;readme.md文件:对仓库的说明,里面的内容采用mark语法将进行编写(API说明http://wowubuntu.com/markdown/)
+    //2)$ git clone 地址:把远程仓库中的文件下载到本地,此时本地的这个文件夹和远程仓库保持连接,可以用过连接把本地的文件推送到远程仓库上,也可以从远程仓库上下载最新的文件
+    //3)上传文件:
+    //->$ git add -A  把所有文件增加到暂存区
+    //->$ git commit -m'备注信息,如:update index.html'  把暂存区文件添加到地址区
+    //->$ git push origin master
+    //->输入仓库的用户名+密码
+    //4)使用GitHub发布项目,创建自己的静态博客:
+    //1.创建一个新的仓库(新仓库默认分支为master,如果我们托管的是源代码的话,都是把源代码上传到master分支下-->git push origin master)
+    //2.基于当前仓库发布博客
+    //Settings-->Options-->GitHub Pages--->Launch automatic page generator(按钮)-->continue to Layouts(按钮)-->Publish Page(可以选择模版,也可以后期上传自己的项目来展示)
+    //提示:Your project page has been created at http://miaofei.github.io/resume/. Read more at https://help.github.com/pages--->https://用户名.github.io/仓库名/,地址在settings下也能看到
+    // github在访问页面时,如果不指定访问的xxx.html,默认找index.html,所以我们在使用生成的地址时可以省略编写myBox/index.html,但是只有index.html才可以省略
+    //GitHub默认为当前仓库创建gh-pages分支,GitHub默认生成的项目的资源文件都在gh-pages下,如果需要管理项目发布的文件,需要在gh-pages下进操作
+    //3.为了方便后期管理,把仓库的默认分支切换为gh-pages:Settings-->Branches-->Default branch-->切换到gh-pages
+    //4.将自己开发的项目文件上传到gh-pages下,用最新的简历代码替换默认生成的文件
+
+    //将仓库中的代码克隆到本地:$ git clone 远程仓库地址
+    //删除除.git以外的文件
+    //将需要展示上传的文件复制到项目文件中
+    //$ git add .
+    //$ git commit -m"备注信息"
+    //$ git push origin gh-pages 传到的是gh-pages分支下
+    //输入用户名和密码
+    //然后就可以把地址告诉别人
+    //5.锦上添花:把地址生成一个二维码,让别人扫码访问(草料二维码生成器http://cli.im/)
+
+
+
+</script>
+</body>
+</html>

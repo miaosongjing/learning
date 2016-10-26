@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            list-style: none;
+            margin: 100px 100px;
+        }
+        ul li{
+            display: inline-block;
+            margin: 0 3px;
+            width: 8px;
+            height: 70px;
+            background: dodgerblue;
+            border-radius: 5px;
+            animation: move 1s infinite;
+        }
+        /*放大和缩小过程:垂直方向缩小;每个元素动画相同,延迟加载时间不同*/
+        ul li:nth-child(1){
+            animation-delay: 0s;
+        }
+        ul li:nth-child(2){
+            animation-delay: 0.2s;
+
+        }
+        ul li:nth-child(3){
+            animation-delay: 0.4s;
+        }
+        ul li:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+        @keyframes move {
+            0%{
+                transform:scaleY(1);
+            }
+            50%{
+                transform:scaleY(0.5);
+            }
+            100%{
+                transform:scaleY(1);
+            }
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+
+</ul>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

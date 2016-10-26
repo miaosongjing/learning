@@ -1,0 +1,193 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+.header {
+    height: 580px;
+    position: relative;
+}
+.wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 89px;
+    background: url("../image/nav-b.png") repeat-x;
+    z-index: 10;
+}
+.nav {
+    width: 100%;
+}
+
+.nav h1 {
+    float: left;
+    margin-top: 18px;
+}
+.nav ul {
+    float: right;
+}
+.nav ul li {
+    float: left;
+}
+.nav ul li a {
+    position: relative;
+    display: block;
+    padding: 0 30px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    line-height: 89px;
+    cursor: pointer;
+}
+.nav ul li a span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .1);
+    opacity: 0;
+    z-index: -1;
+}
+.nav ul li a:hover {
+    color: #ffffff;
+}
+.nav ul li a:hover span {
+    opacity: 1;
+    animation: move 0.5s 1 both;
+}
+
+@keyframes move {
+    0% {
+        transform: scale(0, 1);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+/*BANNER*/
+.banner {
+    position: relative;/*relative自带层级 */
+    width: 100%;
+    height: 100%;
+}
+
+/*箭头*/
+.prev,.next{
+    position: absolute;
+    top: 50%;
+    margin-top: -22px;
+    width: 44px;
+    height: 44px;
+    z-index: 10;
+}
+.prev{
+    left: 70px;
+}
+.next{
+    right: 70px;
+}
+/*slideA*/
+.slideA{
+    width: 100%;
+    height: 100%;
+    background: #183e84;
+}
+.slideA dl{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+.slideA dl dt{
+    position: absolute;
+    top: 0;
+    left: -40px;
+    transform: translate(-50px);/*默认向左移50px*/
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.slideA dl dd{
+    position: absolute;
+    left: 50%;
+    color: #ffffff;
+    font-size: 18px;
+    transform: translate(50px);/*默认向右移50px*/
+    transition: 0.5s;
+    opacity: 0;
+}
+/*当添加类名slideCur时,添加动画效果 注意opacity
+
+    调试:控制台选中元素-->右键--edit as HTML*/
+.slideCur dl dt,.slideCur dl dd{
+    opacity: 1;
+    transform: translate(0px);
+}
+
+.slideA dl dd.one{
+    top: 228px;
+    width: 394px;
+    height: 162px;
+}
+.slideA dl dd.other{
+    top: 415px;
+}
+
+/*slideB*/
+.slideB{
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #ff6a00;
+}
+.slideImg1,.slideImg2{
+    position: absolute;
+    width: 100%;
+    text-align: center;/*实现行内元素的居中*/
+}
+.slideImg1{
+    top: 100px;
+    transform: translate(50px);
+    opacity: 0;
+    transition: 0.5s;
+}
+/*当添加类名slideCur时,添加动画效果 注意opacity*/
+.slideCur .slideImg1{
+    opacity: 1;
+    transform: translate(0px);
+}
+.slideImg2{
+    bottom: 45px;
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.5s;
+}
+.slideCur .slideImg2{
+    opacity: 1;
+    transform: scale(1);
+}
+/*MEDIA*/
+@media screen and (min-width: 1000px) {
+    /*窗口大于1000px时 ,屏幕宽度为1000,并且居中*/
+    .nav,.slideA dl {
+        width: 1000px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width:768px){
+    .nav ul{
+        display: none;
+    }
+    span{
+        background: url("../image/icon-24.png") no-repeat;
+        background-size: 370px 126px;
+    }
+}
+
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<script type="text/javascript" src="ajax惰性思想.js"></script>
+<script type="text/javascript">
+    var xhr=createXHR();
+    xhr.open("get","getList",true);
+    //HTTP METHOD:客户端向服务器端发送请求的方式,每一种都可以向服务器传递数据,也可以从服务器获取数据,从本质意义上讲,以下方式没有区别
+    //1.get:应用于从服务器端获取数据(给服务器的少,获取的多,项目中最常用的请求方式) 使用get请求给服务器传递内容一般使用URL问号传参的方式
+//    xhr.open("get","/getList?num=12")
+    //2.post:应用于向服务器推送数据(给服务器的多,获取的少),(如用户注册)  使用post请求给服务器传递内容一般使用请求主体的方式
+//    xhr.open("post","/getList?num=12");
+//    xhr.send('{"name":"zhufeng","age":7}');//->SEND中存放的内容就是请求主体内容(一般传递给服务器的请求主体内容都是JSON格式的字符串)
+    //3.put:应用于给服务器上增加资源文件(如:上传图片)
+    //4.delete:应用于从服务器上删除资源文件
+    //5.head:应用于只获取服务器的响应头信息
+
+    //注:get 和 post的区别
+//    1)大小限制问题
+//    GET请求传递给服务器的内容存在大小限制,POST理论上没有限制
+//    原因:GET通过URL问号传参的方式传参给服务器,每个浏览器对于URL的长度存在限制:谷歌8KB、火狐7KB、IE2KB,如果URL的长度超出限制浏览器会把,超出的部分截取;POST将内容放在请求主体中传递给服务器的，理论上不存在大小的限制，但是在真实项目中为了保证传输的速度，我们一般也会限制大小，例如：之前做的图片上传，一般限定用户上传图片的大小在2M以内
+//    2)缓存问题
+//    GET请求会出现默认的缓存(这个缓存是浏览器和服务器之间的一些猫腻,不一定是304,我们项目中一般是不想要这些缓存的,因为不可控,项目中真正使用的缓存都是我们使用相关技术去实现的),而POST请求浏览器不会给其默认进行缓存
+//    清除GET请求的缓存:在每一次请求的URL地址后面加随机数
+//    xhr.open('GET','/getAllList?name=zf&age=8&_='+Math.random());
+//
+//    3)安全问题
+//    GET请求相对于POST请求不太安全,因为GET请求把传递给服务器的内容放在URL上了,而有一种黑客手段叫做URL劫持,可以获取我们传递给服务器端的内容,所以项目中客户端如果需要传递一个重要信息给服务器我们一般都使用POST请求,例如：用户登录的用户名密码就是利用POST请求给服务器
+
+
+
+</script>
+</body>
+</html>

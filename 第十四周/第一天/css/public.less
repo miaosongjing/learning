@@ -1,0 +1,15 @@
+//编写的是公共样式和组件
+@color-text:#555;//变量  重复私用多次的,存为变量
+@color-border:#ddd;
+@color-white:rgb(255,255,255);
+@color-blue:#346aff;
+@color-blue-lighten:#eff3ff;
+@box-width:1040;
+//css3过渡动画
+.transition(@property:all,@duration:1s,@timing-function:linear,@delay:0s){
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments;
+  -ms-transition: @arguments;
+  -o-transition: @arguments;
+  transition: @arguments;
+}

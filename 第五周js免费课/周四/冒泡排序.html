@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    var ary=[5,1,3,4,2];
+    //思路:每个与它后面的比大小,大的话交换位置,最终大的放末尾
+    //进行ary.length-1轮 每轮进行ary.length-1-i次
+    var flag=false;//记录上一轮是否有位置交换,如果有位置交换,继续本轮,如果没有说明排序完成,后面的所以轮不必继续
+    for(var i=0;i<ary.length-1;i++){//比较ary.length-1轮
+        //i=0 4次  ary.length-1-i次
+        //i=1 3次  ary.length-1-i次
+        //i=2 2次  ary.length-1-i次
+        //i=3 1次  ary.length-1-i次
+        for(var j=0;j<ary.length-1-i;j++){//不用和自己比,放在后面的大的也不用比,总共为ary.length-1-i次
+            if(ary[j]>ary[j+1]){//只要条件成立,上一轮就会有位置交换,只要没有位置交换就说明排序完成
+                flag=true;//说明有位置交换
+                var temp=ary[j];
+                ary[j]=ary[j+1];
+                ary[j+1]=temp;
+            }
+        }
+        if(flag){//只要条件成立,说明上一轮有位置交换,继续比较,并把flag回复默认
+            flag=false;
+        }else{//没位置交换,说明排序完成,循环可以停止
+            break;
+        }
+    }
+    console.log(ary);
+</script>
+</body>
+</html>

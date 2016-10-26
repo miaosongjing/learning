@@ -1,0 +1,303 @@
+@import (reference) "public";//导入public.less,reference表示只导入不编译
+
+html,body{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: @color-text;
+  font: 12px "Microsoft YaHei";
+  background: #f4f4f4;
+}
+a,a:hover,a:active{
+  color: @color-text;
+}
+//HEADER
+.header{
+  @H:63;//用变量统一控制高度
+  border-bottom: 1px solid @color-border;
+  height: unit(@H,px);
+  background: @color-white;
+  .box{//less中的作用域
+    margin: 0 auto;
+    padding: 0 10px;
+    width: unit((@box-width)-20,px);//变量-20 unit()给某个值加单位
+    height: unit(@H,px);
+    .logo{
+      float: left;
+      margin-right: 60px;
+      width: 160px;
+      height: unit(@H,px);
+      background: url("../img/kbs-pc/kbs-logo.png") no-repeat center center;
+      font-size: 0;
+    }
+    .nav{
+      float: left;
+      height: unit(@H,px);
+      line-height: unit(@H,px);
+      text-align: center;
+      a{
+        float: left;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        width: 90px;
+        height: unit((@H)-8,px);
+        font-size: 16px;
+        font-weight: 700;
+        //.nav a.bg
+        &.bg{
+          color: @color-white;
+          background:@color-blue;
+        }
+        //.nav:hover
+        &:hover{
+          border-top-color:@color-blue;
+        }
+        //.nav .liveQQ
+        &.liveQQ{
+          width: unit(@H, px);
+          height: unit(@H, px);
+          border-top: none;
+          border-bottom: none;
+          //background: url("../img/kbs-pc/live-qq-logo.jpg") no-repeat center center;  将图片作为背景图时,由于显示图片偏小,应用background-size不兼容,所以在a标签中添加img标签
+          img{
+            width: 46px;
+            height: 46px;
+            line-height: unit(@H, px);
+            vertical-align: middle;
+          }
+        }
+      //  .nav .downLoad
+        &.downLoad{
+          position: relative;
+          .weChat{
+            z-index: 100;
+            position: absolute;//定位相对父级边框以内
+            left: -15px;
+            top: unit((@H)-4,px);
+            padding: 0 15px;
+            width: 90px;
+            height: 0;
+            overflow: hidden;
+            .transition(@duration: 0.3s);
+            //background: rgba(255,255,255,0.5);//背景透明,子元素不透明,但是不兼容
+            //opacity: 0.5;
+            //filter:alpha(opacity=50);//这样设置透明度会导致容器中的所有元素都会透明
+            //解决办法:在weChat上设定一个遮罩层
+            img{
+              display: block;//去除和p之前空格引起的间隙
+              width: 90px;
+              height: 90px;
+            }
+            p{
+              font-size: 14px;
+              font-weight: normal;
+              line-height: 20px;
+            }
+          }
+          .weChatBg{
+            .weChat;//函数调用,将weChat的样式拿来复用
+            background: @color-white;
+            opacity: 0.8;
+            filter:alpha(opacity=80);
+          }
+          &:hover{
+            .weChat,.weChatBg{
+              padding: 18px 15px;
+              width: 90px;
+              height: 130px;
+            }
+          }
+        }
+      }
+
+    }
+    .login{
+      float: right;
+      margin-top: unit(((@H)-28)/2, px);
+      border-radius: 2px;
+      width: 46px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      color: @color-white;
+      background: @color-blue;
+      font-size: 14px;
+      &:hover{
+         background: darken(@color-blue,10%);//darken()调节颜色的亮度,将颜色变深  lighten()颜色变浅
+       }
+    }
+  }
+}
+//CONTENT
+.content{
+  margin: 20px auto;
+  width: unit(@box-width,px);
+  //height:auto; 需要在js中计算:屏幕高度-header区域高度-margin
+}
+
+.iScrollIndicator{
+  opacity: 0.3;
+  filter:alpha(opacity=30);
+}
+//MENU
+.menu{
+  position: relative;
+  float: left;//实现和右侧区域在一行显示
+  border: 1px solid @color-border;
+  width: 198px;
+  //height:auto; 需要在js中计算:content-2
+  background: @color-white;
+  //overflow-y: auto;//可以出现滚动条
+  //overflow-x: hidden;
+  overflow: hidden;
+  .menuItem{
+    a{
+      display: block;
+      position: relative;
+      padding-left: 24px;
+      border-left: 5px solid transparent;
+      width: 169px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
+      &.bg,&:hover{
+        color: @color-blue;
+        border-left-color: @color-blue;
+        background:@color-blue-lighten ;
+      }
+      i,i:after{//i:after在i元素的末尾追加虚拟子元素,其定位相对于i
+        display: none;
+        position: absolute;
+        top: 19px;
+        right: 5px;
+        width: 0;
+        height: 0;
+        font-size: 0;
+        border: 6px solid transparent;
+        border-left-color: @color-blue ;
+      }
+      i:after{
+        content: '';
+        top: -6px;
+        right: -3px;
+        border-left-color:@color-blue-lighten ;
+
+      }
+      &.bg{//有bg样式时,i显示
+        i,i:after{
+          display: block;
+
+        }
+      }
+
+    }
+
+}
+
+}
+//conRight
+.conRight{
+  float: right;
+  width: 820px;
+  height: 100%;
+}
+//calendar
+.calendar{
+  @H:80;
+  position: relative;
+  border: 1px solid @color-border;
+  width: 100%;
+  height:unit(@H,px);
+  overflow: hidden;
+  background: @color-white;
+  .btnLeft{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: unit(@H, px);
+    width: 24px;
+    i{
+      position: absolute;
+      top: unit(((@H)-18)/2, px);
+      left: -1.5px;
+      width: 0;
+      height: 0;
+      font-size: 0;
+      border: 9px solid transparent;
+      border-right-color: #999;
+      &:after{
+        position: absolute;
+        top: -9px;
+        left: -6px;
+        content: '';
+        width: 0;
+        height: 0;
+        font-size: 0;
+        border: 9px solid transparent;
+        border-right-color: @color-white;
+      }
+    }
+    &:hover{
+      i{
+        border-right-color: blue;
+      }
+    }
+
+  }
+  .btnRight{
+    .btnLeft;
+    left: auto;//不需要left,这么设置;如果没有,以left为主
+    right: 0;
+    i{
+      left: 7.5px;
+      border-right-color: transparent;
+      border-left-color: #999;
+      &:after{
+        left: -12px;
+        border-right-color: transparent;
+        border-left-color:@color-white;
+      }
+    }
+    &:hover{
+      i{
+        border-right-color: transparent;
+        border-left-color: blue;
+      }
+    }
+  }
+  .container{
+    position: relative;
+    margin: 5px 24px;
+    width: 770px;
+    height: unit((@H)-10,px);
+    overflow: hidden;
+    .wrapper{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 7700px;
+      //width:auto;js动态计算a的个数*110
+      height: 100%;
+      .slide{
+        float: left;
+        height: 100%;
+        width: 110px;
+        &.bg,&:hover{
+          background: @color-blue-lighten;
+          color: @color-blue;
+        }
+        span{
+          display: block;
+          font-size: 16px;
+          text-align: center;
+          line-height: 27px;
+          &.week{
+            margin-top: 9px;
+          }
+        }
+      }
+
+    }
+
+  }
+}

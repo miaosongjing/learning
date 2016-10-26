@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        li{
+            float: left;
+            border: 1px solid blue;
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 20px;
+        }
+        .clear:after{
+            display: block;
+            content: '';
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+        div{
+            display: none;
+            width: 304px;
+            height: 300px;
+            line-height: 150px;
+            border: 1px solid blue;
+        }
+        li.cur{
+            background-color: yellowgreen;
+        }
+        div.cur{
+            display: block;
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+<!--1.选项卡的思路-->
+
+<!--2.自定义属性-->
+<!--第一层 点击元素(鼠标经过的元素)-->
+<ul class="clear">
+    <li class="cur">夏天</li>
+    <li>秋天</li>
+    <li>冬天</li>
+</ul>
+<div class="cur">夏天电闪雷鸣</div>
+<div>秋天枫叶飘飘</div>
+<div>冬天冰天雪地</div>
+<!--第二层 和第一层一一对应的显示和隐藏的元素-->
+<script type="text/javascript">
+    //思路:将所有元素的类名消除,给选择的元素添加类名
+    //第一步 获取要操作的所有元素
+    //第二步 消除所有元素的类名
+    //第三步  给选择的元素添加类名
+    //第四步  绑定点击事件,并执行
+    var oLis=document.getElementsByTagName("li");
+    var oDivs=document.getElementsByTagName("div");
+    function tabC(n){
+        //n代表函数执行时的实参
+        for(var i=0;i<oLis.length;i++){
+            oLis[i].className="";
+            oDivs[i].className="";
+        }
+        //console.log(n);
+        oLis[n].className="cur";
+        oDivs[n].className="cur";
+    }
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].index=i;
+        oLis[i].onclick=function(){
+           // console.log(i);
+            tabC(this.index);
+            //传入参数应该为当前操作元素的索引值
+
+        }
+    }
+
+
+
+
+</script>
+<!--<script type="text/javascript">
+    var oLis=document.getElementsByTagName("li");
+    var oDivs=document.getElementsByTagName("div");
+    //循环每一个要操作的li,给每一个li绑定点击事件,点击时候同时执行另一个方法
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].index=i;
+        oLis[i].onclick=function(){
+            for(var j=0;j<oLis.length;j++){
+                oLis[j].className="";
+                oDivs[j].className="";
+            }
+            this.className="cur";
+            oDivs[this.index].className="cur";
+        }
+    }
+</script>-->
+</body>
+</html>

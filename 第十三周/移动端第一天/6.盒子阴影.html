@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul li{
+            margin: 20px auto;
+            width: 100px;
+            height: 100px;
+            border: 2px solid green;
+            list-style: none;
+        }
+        /*盒子阴影:box-shadow: h   v       blur      spread   color  inset;
+                            水平 垂直   模糊半径    扩展半径   颜色    内阴影
+                          正值:向右/下
+                          负值:向左/上
+
+*/
+        /*外阴影*/
+        ul li:nth-child(1){
+            box-shadow:  10px 10px 20px 0 rgba(0,0,0,.5);
+        }
+        /*模糊半径:越大,阴影越模糊*/
+        ul li:nth-child(2){
+            box-shadow:  5px 5px 30px 2px pink;
+        }
+        /*扩展半径:负值向内收缩*/
+        ul li:nth-child(3){
+            box-shadow:  0px 10px 10px -5px orange;
+        }
+        /*内阴影*/
+        ul li:nth-child(4){
+            box-shadow:  0px 10px 10px -5px orange inset;
+        }
+        /*多层阴影:中间以逗号隔开*/
+        ul li:nth-child(5){
+            box-shadow:  2px 3px 10px 5px red,4px 5px 10px 5px green,6px 7px 10px 5px black;
+        }
+
+        /*文本阴影  text-shadow : x y blur  color */
+        ul li:nth-child(6){
+            font-size: 30px;
+            text-shadow: 1px 1px 3px #000;
+            /*多层阴影*/
+            /*text-shadow: 1px 1px 3px #000,2px 2px 3px red;*/
+        }
+        /*文字添加边框*/
+        ul li:nth-child(7){
+            font-size: 30px;
+            -webkit-text-stroke: 1px pink;
+            /*color: transparent;/!*实现镂空*!/*/
+        }
+
+
+    </style>
+</head>
+<body>
+
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li>珠峰</li>
+    <li>珠峰</li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #box{
+            position: relative;
+            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+            background: #008000;
+
+        }
+        #mark{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="box">
+
+</div>
+<script type="text/javascript">
+    //onmouseenter和onmouseover都是鼠标移入的行为,但是onmouseenter浏览器默认阻止它的冒泡传播(mark的onmouseenter行为触发时,不会传播到box;onmouseover需要主动阻止)
+    //
+    var box=document.getElementById("box");
+    box.onmouseenter= function (e) {
+        e=e||window.event;
+        var mark=document.createElement("div");
+        mark.id="mark";
+        this.appendChild(mark);
+        mark.style.left= e.clientX-this.offsetLeft+5+"px";
+        mark.style.top= e.clientY-this.offsetTop+5+"px";
+
+    };
+    box.onmousemove= function (e) {
+        e=e||window.event;
+        var mark=document.getElementById("mark");
+        if(mark){
+            mark.style.left= e.clientX-this.offsetLeft+5+"px";
+            mark.style.top= e.clientY-this.offsetTop+5+"px";
+        }
+
+    };
+    box.onmouseleave= function (e) {
+        e=e||window.event;
+        var mark=document.getElementById("mark");
+        if(mark){
+            this.removeChild(mark);
+        }
+
+    };
+
+
+
+
+</script>
+
+<script type="text/javascript">
+//    var box=document.getElementById("box");
+//    //以下代码会出现问题:但鼠标移动过快时,鼠标进入mark盒子,触发box的onmouseover,由于事件的冒泡传播机制,导致box的onmouseover被重新触发,导致红色盒子被不断创建
+//    box.onmouseover= function (e) {
+//        e=e||window.event;
+//        var mark=document.createElement("div");
+//        mark.id="mark";
+//        this.appendChild(mark);
+//        mark.style.left= e.clientX-this.offsetLeft+5+"px";
+//        mark.style.top= e.clientY-this.offsetTop+5+"px";
+//        //-->阻止mark盒子的onmouseover行为的冒泡传播
+//        mark.onmouseover=function(e){
+//            e=e||window.event;
+//            e.stopPropagation? e.stopPropagation(): e.cancelBubble=true;
+//        };
+//        mark.onmouseout=function(e){
+//            e=e||window.event;
+//            e.stopPropagation? e.stopPropagation(): e.cancelBubble=true;
+//        };
+//
+//    };
+//    //冒泡传播机制:当鼠标进入红盒子mark时,大盒子box的onmouseover会被触发,导致不断创建mark
+//    //依然有问题:鼠标快速移动,首先会到mark上,此时浏览器在计算mark的位置,计算完成,mark到达指定位置,此时鼠标有重新回到box上,触发box的onmouseover,也触发mark的mouseout,mark的onmouseout被触发,也会传播到box的mouseout,会把mark先删除再创建,导致闪动
+//    box.onmousemove= function (e) {
+//        e=e||window.event;
+//        var mark=document.getElementById("mark");
+//        if(mark){
+//            mark.style.left= e.clientX-this.offsetLeft+5+"px";
+//            mark.style.top= e.clientY-this.offsetTop+5+"px";
+//        }
+//
+//    };
+//    box.onmouseout= function (e) {
+//        e=e||window.event;
+//        var mark=document.getElementById("mark");
+//        if(mark){
+//            this.removeChild(mark);
+//        }
+//
+//    };
+
+
+
+
+</script>
+</body>
+</html>

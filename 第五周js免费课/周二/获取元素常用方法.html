@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .cursor:nth-child(1){
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        .cursor:nth-child(2){
+            width: 50px;
+            height: 50px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer" class="cursor">
+        <div id="middle">
+            <div id="inner"></div>
+            <ul class="cursor"></ul>
+            <p name="aa" class="cursor"></p>
+            <a href=""></a>
+        </div>
+    </div>
+    FE  front engineer
+    RD  research development
+    PM  product manager
+    1.document.getElementById
+        在document对象 getElementById()方法   "outer"参数
+        id范围(context上下文)是document,因为在整个文档中只出现一次
+        getElementById只能是document才能调用
+        如果页面不存在这个id,返回null
+        同一id出现多次,只能获取第一个
+        ie低版本中,name属性被当做id使用
+    <script type="text/javascript">
+        var outer=document.getElementById("oute");
+        console.log(outer);//null
+        if(outer){}//判读这个元素是否存在
+    </script>
+    2.context.getElementsByClassName 低版本ie不兼容
+    获取的是一组元素,即使只有一个,也需要通过索引获取(有索引有length叫做类数组)
+    获取不到返回[]
+    3.context.getElementsByTagName("tagName")通过标签名获取
+    返回一个类数组
+    4.document.getElementsByName("")获取表单元素
+    在标准浏览器除了表单元素也可以添加name属性,在ie低版本中,只能给表单元素使用
+    5.document.documentElement;//html
+     document.body;//body
+    6.document.documentElement.clientWidth||document.body.clientWidth获取浏览器可视窗口的宽
+      document.documentElement.clientHeight||document.body.clientHeight获取浏览器可视窗口的高
+        兼容任何浏览器
+    document.querySelector()获取第一个选择器对应的文档中的所有节点
+    document.querySelectorAll()获取对应的Element节点组成数组
+    不兼容==>一般用于移动端,语法类似jQuery
+<script type="text/javascript">
+    var outer=document.getElementById("outer");
+    var cursor=outer.getElementsByClassName("cursor");
+    console.dir(cursor);
+    document.getElementsByTagName("*");//获取这个范围内所有元素
+    //s;//Uncaught ReferenceError: s is not defined
+    var names=document.getElementsByName("aa");
+    console.log(names);
+    var html=document.documentElement;//html ==>document.getElementsByTagName("html")[0]
+    var body=document.body;//body ==>document.getElementsByTagName("body")[0]
+
+    var divs=document.querySelectorAll("div");
+    console.log(divs);//[div#outer, div#middle, div#inner]
+    var divs=document.querySelectorAll("#middle");
+    console.log(divs);//[ div#middle]
+    var divs=document.querySelectorAll(".cursor");
+    console.log(divs);//[div#outer.cursor, ul.cursor]
+    var divs=document.querySelectorAll("#middle .cursor");
+    console.log(divs);//[ul.cursor,p.cursor]
+    var divs=document.querySelectorAll("#middle .cursor[name='aa']");
+    console.log(divs);//[p.cursor]
+    var divs=document.querySelector("div");
+    console.log(divs);
+    var divs=document.querySelectorAll("#aaa");
+    console.log(divs);//[p.cursor]
+</script>
+    <script type="text/javascript">
+        window.location.href="www.baidu.com";//跳转
+    </script>
+</body>
+</html>

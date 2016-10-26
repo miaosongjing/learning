@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            position: relative;
+            width:400px;
+            height: 400px;
+            background: lightsteelblue;
+            margin: 30px auto;
+        }
+        #mark{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: greenyellow;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box" class="box">
+        <!--<div id="mark"></div>-->
+    </div>
+
+<script type="text/javascript">
+    var box=document.getElementById("box");
+    //onmouseenter可以取代onmouseover,前者没有事件传播,onmouseleave可以取代onmouseout
+    box.onmouseenter= function () {
+        //创建div
+        var div=document.createElement("div");
+        //为div添加id:mark和样式
+        div.id="mark";
+        //将mark添加在box中
+        box.appendChild(div);
+
+//        div.onmouseover= function (e) {
+//            e=e|| window.event;
+//            e.stopPropagation? s.stopPropagation(): e.cancelBubble=true;
+//        };
+//        div.onmouseout= function () {
+//            e=e|| window.event;
+//            e.stopPropagation? s.stopPropagation(): e.cancelBubble=true;
+//        };
+        console.log("over");
+    };
+    box.onmousemove= function (e) {
+        e=e|| window.event;
+        var l= e.clientX-this.offsetLeft+10;
+        var t= e.clientY-this.offsetTop+10;
+        var mark=document.getElementById("mark");
+        if(mark){//mark通过js添加,move事件和over事件之间变换是瞬间的;如果js还没有结束就触发move事件,mark就获取不到,会出现报错
+            mark.style.left=l+"px";
+            mark.style.top=t+"px";
+        }
+
+
+    };
+    box.onmouseleave= function () {
+        var mark = document.getElementById("mark");
+        if (mark) {
+            box.removeChild(mark);
+        }
+        console.log("out");
+    }
+</script>
+</body>
+</html>

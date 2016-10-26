@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="div1" class="c1" zhufeng="珠峰"><!--// zhufeng="珠峰"自定义属性是存值-->
+    <P id="p"></P>
+    <span></span>
+    <ul id="ul1">
+        <li></li>
+        <li id="li"></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div id="btn" style="width:100px;height: 30px;background: red"></div>
+<!--<script type="text/javascript">
+    /*
+    * 创建元素
+    * 添加元素   父级.appendChild  默认添加到末尾,如果是已经存在的元素就是更换位置
+    *           父级.insertBefore(要插入的,被插入的);
+    * 删除元素   父级.removeChild(要删除)
+    * 替换元素  父级.replaceChild(new,old);
+    * 克隆元素   节点.cloneNode(true)
+    *
+    *
+    * */
+    var div1=document.getElementById("div1");
+    var p=document.getElementById("p");
+    var ul=document.getElementById("ul");
+    var img=document.createElement("img");//注意小括号内有引号
+    div1.appendChild(img);//注意没有引号   ()内什么时候要引号 什么时候不需要
+    div1.appendChild(p);
+    div1.insertBefore(img,p);
+    div1.removeChild(p);
+    div1.replaceChild(img,p);
+    var newUl=ul.cloneNode(true);//注意克隆的写法 参数true/false   默认false
+    div1.appendChild(newUl);
+
+
+    ul.className="c1";//对系统的内置属性是赋值
+    ul.classNameHa="c1";//对自定义属性是存值
+
+
+</script>-->
+<script type="text/javascript">
+    /*
+    * 元素标签的行内属性的获取和删除
+    * setAttribute("属性名","属性值")如果属性值是对象
+    *     会强制转化为字符串{}.toString()=[object,Object]第一个object代表数据类型,Object代表类
+    * .getAttribute("属性名")
+    * removeAttribute("属性名")
+    * */
+    div1.setAttribute("name",["jingjing","miaomiao"]);
+    console.log(div1.getAttribute("name"));
+    div1.removeAttribute("name");
+    console.log({}.toString());
+</script>
+</body>
+</html>

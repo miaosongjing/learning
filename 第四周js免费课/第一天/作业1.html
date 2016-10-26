@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body,div,input{
+            padding: 0;
+            margin: 0;
+        }
+        input{
+            width: 100px;
+            height: 30px;
+        }
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+
+
+
+
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<input type="button" value="点击"/>
+<input type="button" value="点击"/>
+<input type="button" value="点击"/>
+<script>
+    var oBox=document.getElementById("box");
+    var oBtn=document.getElementsByTagName("input")
+    oBtn[0].onclick=function(){
+        oBox.style.backgroundColor="black";
+    }
+    oBtn[1].onclick=function(){
+        oBox.style.backgroundColor="yellow";
+    }
+    oBtn[2].onclick=function(){
+        oBox.style.backgroundColor="pink";
+    }
+
+</script>
+</body>
+</html>

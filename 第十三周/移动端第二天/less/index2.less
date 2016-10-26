@@ -1,0 +1,142 @@
+@color:#FFF;
+//1.变量:
+// 定义一个变量,存一个值;当需要为样式属性名赋值时,添加变量
+//变量存储共用的的URL.选择器
+//@url:'../image/';
+//.box{
+//  color: @color;
+//  background: url("@{url}/1.jpg") no-repeat;
+//}
+//.box2{
+//  background: url("@{url}/1.jpg") no-repeat;
+//}
+//变量值的传递
+//@name: "珠峰培训";
+//@var: "name";
+
+//2.Mixin混合
+.public{
+  width: 100px;
+  height: 100px;
+}
+//1.less中的函数:
+//.xxx{不需要传参,可以当作样式给某个元素;又可以当作方法给其他元素}
+//.xxx(){可以传参,不会进行编译,只能作为方法被调用,不能被共用}
+//2.extend伪类来实现样式的继承
+.box1{
+   .public;//征用:把原有的样式克隆一份相同的使用,如果public加上(),public本身不会编译
+}
+.box2{
+  &:extend(.public);//共用:和原来的选择器共用一套样式,需要保证原来的选择器不加()
+}
+//或者
+.box3:extend(.public){}
+
+//3命名空间和作用域:定义了命名空间就创建了一个私有的作用域，在这个私有作用域中使用的变量都是先看一下自己作用域中有没有，没有的话，在向上一级查找（类似于JS的作用域链）。
+@v:1;
+.bom{//形成私有作用域
+  @v:10;
+  &:hover{
+    z-index:@v;
+  }
+}
+//4、!important:在调用的混合集后面追加 !important 关键字，可以使混合集里面的所有属性都继承 !important:
+.share{
+  width: 100px;
+  height: 100px;
+  .link{
+    width: 200px;
+    height: 200px;
+  }
+  &:hover{
+    background: #EEE;
+  }
+}
+.bom{
+  .share !important;//把share及子孙元素的样式都继承
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//5、Parametric Mixins:可以设定形参,还有返回值,例如：处理CSS3的兼容问题
+.sum(@x,@y){
+  @result:@x+@y;
+}
+.aa{
+  .sum(10,20);
+  z-index: @result;
+}
+//6、Mixin Guards:函数的重载:通过条件不同,使用不同的样式.可以在mixin中设置条件when()；常用的条件运算符：>、>=、<、<=、=；
+.sum1(@x) when(@x<10) and(@x>0){
+  background: red;
+}
+.sum1(@x) when(@x<=10){
+  background:green;
+}
+.sum1(@x) when(@x>10){
+  background:blue;
+}
+.aa1{
+  .sum1(12);
+}
+//我们设定的条件还可以使用IS函数：iscolor、isnumber、isstring、iskeyword、isurl、ispixel、ispercentage...
+.sum2(@x) when(iscolor(@x)){
+  background:green;
+}
+.sum2(@x) when(isnumber(@x)){
+  background:blue;
+}
+.aa2{
+  .sum2(#FFF);/*注意值不加''*/
+}
+//与&特性结合实现'if'类型的语句
+
+//三 loops:循环/递归,应用于多栏布局
+.fun(@n,@i:1) when (@i<=@n){
+  .box-@{i}{
+    & when(@i=1){
+      width: 100px;
+  }
+    & when(@i=2){
+      width: 200px;
+    }
+  }
+  .fun(@n,@i+1);
+}
+.fun(@n:4);
+//Merge:从多个属性中将值，集合到某一个样式属性的列表中（也就是多样式效果）。在编写的时候，+代表以逗号分隔，+_代表多个之前以空格分隔。
+.transform(@v:1){
+  -webkit-transform+_:scale(@v) ;
+}
+.aa3{
+  .transform(1.5);
+}
+.aa4{
+  .transform(1.5);
+  -webkit-transform+_:rotate(45deg) ;
+}
+//Parent Selectors:&运算符其实就是让当前的选择器和父级选择器按照特定的规则进行连接
+//改变选择器顺序
+.box55{
+  width: 100px;
+  height: 50px;
+  &-top{
+    font-size: 15px;
+  }
+}
+.box66{
+  width: 100px;
+  height: 50px;
+  .link &{//倒置连字符
+    font-size: 15px;
+  }
+}
+//Import Directives:从其他样式表中导入样式
+//@import "common";/*导入共同方法库*/
+@import (reference) "common";/*不编译公共方法*/
+.box77{
+  .center;
+  width: 100px;
+  height: 100px;
+}
+
+
+

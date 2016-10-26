@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+
+    <title></title>
+    <link rel="stylesheet" href="css/reset.min.css" type="text/css"/>
+    <style type="text/css">
+
+        html{
+            font-size: 100px;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            font-size: .14rem;
+            color:#000;
+        }
+        .header{
+            width: 100%;
+            height: .5rem;
+            line-height: .5rem;
+            background: -webkit-linear-gradient(top left,#85bae4,#b1d410,#e0f2be);
+        }
+        .header span,.content li span{
+            float: left;
+            width: 25%;
+            text-align: center;
+        }
+        h1{
+            font-size: .18rem;
+        }
+        .content li{
+            height: .4rem;
+            line-height: .4rem;
+
+        }
+        .content li:nth-child(even){
+            background: #ccc;
+        }
+
+
+    </style>
+</head>
+<body>
+<header class="header">
+    <h1>
+        <span>编号</span>
+        <span>姓名</span>
+        <span>性别</span>
+        <span>分数</span>
+    </h1>
+</header>
+<section class="content">
+    <ul>
+        <!--<li>-->
+            <!--<span>01</span>-->
+            <!--<span>天天</span>-->
+            <!--<span>男</span>-->
+            <!--<span>99</span>-->
+        <!--</li>-->
+    </ul>
+</section>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/template" id="conTemplate" charset="utf-8">
+    <%$.each(adata,function(index,item){%>
+    <li>
+        <span><%=item.id%></span>
+        <span><%=item.name%></span>
+        <span><%=item.sex===1?'女':'男'%></span>
+        <span><%=item.score%></span>
+    </li>
+    <%})%>
+
+
+</script>
+<script type="text/javascript" src="js/ejs.min.js"></script>
+<script type="text/javascript">
+    //rem
+    document.documentElement.style.fontSize=document.documentElement.clientWidth/320*100+'px';
+    //数据绑定的方法:字符串拼接/EJS模版引擎动态绑定
+    //1.字符串拼接弊端:开发效率低,,js代码结构乱,不方便后期维护
+    //2.EJS模版引擎渲染页面中的数据
+    //1)1、导入EJS  <script charset="UTF-8" type="text/javascript" src="js/ejs.min.js"><//script>
+    //2)准备需要绑定的数据:使用AJAX或者JSONP等技术从服务器获取，然后把获取回来的数据进行解析重构
+    //3)在HTML页面新建的script标签(type="text/template")中设定模板:把需要写的JS循环判断放在<%%>中，如果需要输出用<%=%>;
+    //4)在js中获取模版,使用ejs.render()向指定模版中提供数据:EJS按照规则把数据和HTML标签拼接成字符串
+    //5)把拼接好的数据放入页面指定容器
+
+
+    function bindHTML(data){
+        //把HTML的script中制作的模版互获取
+        var template=$('#conTemplate').html();
+        //使用EJS中的render向指定模版中提供需要的数据:EJS按照规则把数据和HTML标签拼接成字符串
+        var result=ejs.render(template,{adata:data});
+
+        //把拼接好的数据放入页面指定容器
+        $('.content>ul').html(result);
+        //Ⅱ 字符产拼接
+//        var str='';
+//        $.each(data,function (index,item){//zepto中提供each方法遍历数字
+//            str+='<li>';
+//            str+='<span>'+item.id+'</span>';
+//            str+='<span>'+item.name+'</span>';
+//            str+='<span>'+(item.sex==1?'女':'男')+'</span>';
+//            str+='<span>'+item.score+'</span>';
+//            str+='</li>';
+//
+//        });
+//        $('.content>ul').html(str);
+    }
+    $.ajax({
+        url:'json/userList.json',
+        type:'get',
+        dataType:'json',
+        cache:false,
+        success: bindHTML
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<input type="text" id="input" placeholder="请输入"/><!--placeholder="请输入"不兼容,可以使用value模拟-->
+
+<script type="text/javascript">
+    /*
+    * 键盘事件keyBoardEvent
+    * 原型结构:keyBoardEvent->UIEvent->Event->Object
+    * keyCode:键盘编码
+    *           回车:13
+    *           0-9:48-57
+    *           space:32
+    *           backspace:8
+    *           left:
+    *           top:
+    *           right:
+    *           bottom:
+    *
+    *
+    * */
+    input.onkeyup= function (e) {
+        e=e||window.event;
+//        console.log(e);
+        console.log(e.keyCode);
+    }
+</script>
+</body>
+</html>

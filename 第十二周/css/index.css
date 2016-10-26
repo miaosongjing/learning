@@ -1,0 +1,13 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Microsoft YaHei";
+    color: #000;
+}
+.box{
+    margin: 50px auto;
+    width: 300px;
+    height: 300px;
+    border: 10px solid greenyellow;
+    background: pink;
+}

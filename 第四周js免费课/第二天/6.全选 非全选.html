@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        div{
+            width: 350px;
+        }
+        input[type=button]{
+            width: 100px;
+            height: 30px;
+            border-color: yellow;
+            border-radius: 3px;
+
+        }
+        input[type=checkbox]{
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<div id="btn">
+    <input type="button" value="全选"/>
+    <input type="button" value="非全选"/>
+    <input type="button" value="反选"/>
+
+</div>
+<div id="list">
+    <input type="checkbox"/><label>1111</label><br/>
+    <input type="checkbox"/><label>2222</label><br/>
+    <input type="checkbox"/><label>3333</label><br/>
+    <input type="checkbox"/><label>4444</label><br/>
+    <input type="checkbox"/><label>5555</label><br/>
+    <input type="checkbox"/><label>6666</label><br/>
+</div>
+<script type="text/javascript">
+    var oBtn=document.getElementById("btn");
+    var oList=document.getElementById("list");
+    var oBtns=oBtn.getElementsByTagName("input");
+    // console.log(oOn);//[input,input,input]类数组,索引从0开始
+    var oLists=oList.getElementsByTagName("input");
+    //绑定全选按钮,让oLists中所有的input状态都是checked
+    oBtns[0].onclick= function () {
+        // 通过索引值获取对应按钮
+        for(var i=0; i<oLists.length;i++){
+            //设置的初始值和类数组的第一个索引值相同
+            // oLists.length为类数组的长度 实现无论数长度如何变化,全部都能够选取
+            oLists[i].checked=true;//选中用true/"checked"  非选中用false
+        }
+    }
+    oBtns[1].onclick=function(){
+        for(var i=0; i<oLists.length;i++){
+            oLists[i].checked=false;
+        }
+    }
+    oBtns[2].onclick=function(){
+        for(var i=0; i<oLists.length;i++){
+            if(oLists[i].checked){
+                oLists[i].checked=false;
+            }else{
+                oLists[i].checked=true;
+            }
+        }
+    }
+</script>
+</body>
+</html>

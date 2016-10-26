@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<!--tfoot一般放在thead和tbody之间   -->
+<!--表格相关的元素都是行内块级元素-->
+<table cellspacing="10" cellpadding="10"><!--cellspacing单元格之间的距离  cellpadding内容与边框之间的距离 都是标签属性,不是css属性-->
+    <caption>
+<!--表格标题 默认居中-->表格标题
+    </caption>
+    <thead>
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>住址</th>
+        </tr>
+    </thead>
+    <tbody><!--tbody可以自动生成  不需要写-->
+    <tr>
+        <td colspan="2" rowspan="2">天天</td><!--colspan合并列 rowspan合并行  写在td中-->
+        <!--<td>明明</td>-->
+        <td>洋洋</td>
+    </tr>
+    <tr>
+        <!--<td>天天</td>-->
+        <td>明明</td>
+        <!--<td>洋洋</td>-->
+    </tr>
+    <tr>
+        <td>天天</td>
+        <td>明明</td>
+        <td>洋洋</td>
+    </tr>
+    <tr>
+        <td>天天</td>
+        <td>明明</td>
+        <td>洋洋</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td>单元格</td>
+        <td>单元格</td>
+        <td>单元格</td>
+    </tr>
+    </tfoot>
+</table>
+
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

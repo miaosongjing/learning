@@ -1,0 +1,82 @@
+.public,
+.box2,
+.box3 {
+  width: 100px;
+  height: 100px;
+}
+.box1 {
+  width: 100px;
+  height: 100px;
+}
+.bom:hover {
+  z-index: 10;
+}
+.share {
+  width: 100px;
+  height: 100px;
+}
+.share .link {
+  width: 200px;
+  height: 200px;
+}
+.share:hover {
+  background: #EEE;
+}
+.bom {
+  width: 100px !important;
+  height: 100px !important;
+}
+.bom .link {
+  width: 200px !important;
+  height: 200px !important;
+}
+.bom:hover {
+  background: #EEE !important;
+}
+.aa {
+  z-index: 30;
+}
+.aa1 {
+  background: blue;
+}
+.aa2 {
+  background: green;
+  /*注意值不加''*/
+}
+.box-1 {
+  width: 100px;
+}
+.box-2 {
+  width: 200px;
+}
+.aa3 {
+  -webkit-transform: scale(1.5);
+}
+.aa4 {
+  -webkit-transform: scale(1.5) rotate(45deg);
+}
+.box55 {
+  width: 100px;
+  height: 50px;
+}
+.box55-top {
+  font-size: 15px;
+}
+.box66 {
+  width: 100px;
+  height: 50px;
+}
+.link .box66 {
+  font-size: 15px;
+}
+/*不编译公共方法*/
+.box77 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100px;
+  height: 100px;
+}

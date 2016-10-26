@@ -1,0 +1,17 @@
+1.多级菜单
+下面有ul的上面才有em
+span的手型:有哥哥元素为em的添加em
+事件委托实现:通过正则匹配对应的em/span
+isBlock记录ul是显示还是隐藏  常用办法:自定义变量记录当前元素的状态
+找ul是不是存在,可以通过em/span,比较麻烦,可以通过parent来获取ul
+判断isBlock后,关闭时候把所有的子元素都关闭
+2.window.onload:DOM+资源加载完  document.addEventListener("DOMContentLoaded"):DOM加载完
+$(function(){
+    //DOMContentLoaded
+})
+2.dom2级兼容处理
+addEventListener  removeEventListener
+attachEvent    detachEvent
+1)this为window:包装一个函数tempFn,通过call处理this,然后把这个函数添加在事件池;事件池内不可读,所以在添加前,添加origin记录当前函数是由哪个fn伪装来;并且把tempFn添加在自定义数组mybind+eventType中(mybind区分和原生属性,eventType区分不同的事件类型)
+2)事件触发,多个函数执行顺序
+3)重复绑定

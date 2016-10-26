@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul li{
+            width: 300px;
+            height: 300px;
+        }
+        ul li:nth-child(1){
+            background: -webkit-linear-gradient(left,red,blue);
+        }
+        ul li:nth-child(10){
+            background: -webkit-linear-gradient(left top,red,blue);
+        }
+        /*/!*浏览器中,如果是方向top/left/bottom/right以浏览器支持的前缀为准,
+        如果是方向值
+        如果度数,以最后一个为准
+        linear-gradient(0deg,red,blue)为从下往上 为顺时针  -webkit-linear-gradient(0deg,red,blue)从左往上 为逆时针*!/*/
+        ul li:nth-child(2){
+            background: linear-gradient(0deg,red,blue);
+        }
+        ul li:nth-child(3){
+            background: -webkit-linear-gradient(0deg,red,blue);
+        }
+        ul li:nth-child(4){
+            background: -webkit-linear-gradient(0deg,red,blue);
+            background: linear-gradient(0deg,red,blue);
+        }
+        ul li:nth-child(5){
+            background: linear-gradient(0deg,red,blue);
+            background: -webkit-linear-gradient(0deg,red,blue);
+
+        }
+        /*多个颜色渐变:可以为百分数,也可以为数值;同一个颜色第一个为开始,第二个为结束;第一个颜色的起始值可以省略
+            当两个颜色总和<100%时,剩余的为渐变区域*/
+        ul li:nth-child(6){
+            background: -webkit-linear-gradient(top,red 10%,yellow 20%,yellow 40%,blue 50%);
+        }
+        ul li:nth-child(7){
+            background: -webkit-linear-gradient(top,red 0px,red 10px,blue 10px,blue 20px,yellow 20px,yellow 50px);
+        }
+        /*重复的线性渐变*/
+        ul li:nth-child(8){
+            background: -webkit-repeating-linear-gradient(top,red 0px,red 10px,blue 20px,blue 30px,yellow 40px,yellow 50px);
+
+        }
+        /*模拟重复的线性渐变*/
+        ul li:nth-child(9){
+
+            /*移动端写法 -webkit和标准浏览器支持的写法  注意先后顺序,兼容安卓手机*/
+            /*background: -webkit-linear-gradient(left,red,blue);*/
+            /*background: linear-gradient(left,red,blue);*/
+            background: -webkit-linear-gradient(top,red 0px,red 10px,blue 10px,blue 20px,yellow 20px,yellow 50px);
+            background-size: 100% 50px;/*宽 高*/
+            background-repeat: repeat-y;/*垂直方向平铺*/
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

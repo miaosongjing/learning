@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //基本数据类型
+    var num1=10;//var声明变量num1 将10赋值给num1
+    var num2=num1;//声明变量num2 将num1的值赋给num2
+    num2++;//10+1=11
+    console.log(num1);
+    console.log(num2);
+    //引用数据类型
+    var obj1={
+        name:"珠峰",
+        age:7
+    }//声明变量obj1,赋值给他一个操作地址,地址中有多组键值对
+    var obj2=obj1;//声明obj2,将obj1的操作地址赋给obj2
+    obj2.name="珠峰培训";//获取obj2的name属性(同时是obj1的操作地址),修改属性值
+    console.log(obj1.name);//"珠峰培训"
+    console.log(obj2.name);//"珠峰培训"
+    //基本数据类型直接操作值，每个对象都没有关系，都是自己操作自己
+    //基本数据类型是值的操作
+    //栈内存
+
+
+
+    //引用数据类型，浏览器开辟一个内存空间，用来存储对象中的值，然后给这个空间一个地址，将这个地址反馈给我们的对象，如果有一个新的对象我们将原来的对象和他相等（也就是赋值），那么此时赋值并不是真正“值”，而是一个内存空间的地址，那么这两个对象操作的就是同一个空间
+
+    //引用数据类型是空间地址的操作
+
+    //只要这个对象有，那么这个空间地址就一直存在，我们叫他堆内存
+
+</script>
+</body>
+</html>

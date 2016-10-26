@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #time{
+            margin: 50px auto;
+            border-radius: 5px;
+            width: 400px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            font-size: 30px;
+            background-color: #ddd;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="time">距离下课时间:<span>00:00:00</span></div>
+    <script type="text/javascript">
+        //1.获取span对象
+        var span=document.getElementsByTagName("span")[0];
+        //2 定义补0方法
+        function zero(n){
+            return n<10?"0"+n:n;
+        }
+        //3.定义倒计时方法
+        var timer=null;
+        function interval(){
+            //1)获取当前时间和目标时间
+            var curDate=new Date();
+            var  tarDate=new Date("2016/08/17 23:34:20");
+            //2)获取毫秒时间差
+            var spanMs=tarDate.getTime()-curDate.getTime();
+            //3)计算时分秒
+            var h=Math.floor(spanMs/(1000*3600));
+            var m=Math.floor((spanMs-h*1000*3600)/(1000*60));
+            var s=Math.floor((spanMs-h*1000*3600-m*1000*60)/1000);
+            //4)将时间写入span
+            span.innerHTML=zero(h)+":"+zero(m)+":"+zero(s);
+            //5)到目标时间后清除计时器,将时间定位00:00:00
+            if((h+m+s===0)||(h<0)){
+                span.innerHTML="00:00:00";
+                window.clearInterval(timer);
+            }
+        }
+        timer=window.setInterval(interval,1000);
+        time.onclick= function () {
+            if (timer) {
+                window.clearInterval(timer);//如果定时器存在就清除,任务清除,但定时器还在
+                timer = null;//如果不重新赋值,timer延续之前的值;重新赋值为了下次判断顺利
+            } else {
+                timer = window.setInterval(interval, 1000);
+            }
+        }
+    </script>
+</body>
+</html>

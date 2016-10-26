@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    var ary=[5,1,3,4,2];
+    console.log(quickSort(ary));
+    function quickSort(ary){
+        //思路:中间项
+        //数组只有1项时直接返回数组
+        if(ary.length<=1){return ary;}
+        //找到中间项
+        var middleIndex=Math.floor(ary.length/2);
+        //拿到中间项,并在原数组删除
+        var middleItem=ary.splice(middleIndex,1)[0];
+        //声明左右数组
+        var left=[],right=[];
+        //循环原有数组
+        for(var i=0;i<ary.length;i++){
+            var cur=ary[i];
+            //比中间项大的放右边,小的放左边
+            if(cur>middleItem){
+                right.push(cur);
+            }else{
+                left.push(cur);
+            }
+        }
+        //重复操作,并拼接为新的数组
+        return quickSort(left).concat([middleItem],quickSort(right));
+    }
+</script>
+</body>
+</html>

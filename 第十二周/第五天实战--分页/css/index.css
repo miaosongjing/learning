@@ -1,0 +1,81 @@
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body,html{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        color: #555;
+        font-size: 14px;
+        -webkit-user-select: none;
+    }
+    ul{
+        list-style: none;
+    }
+    input{
+        outline: none;
+    }
+    .box{
+        margin: 10px auto;
+        padding: 10px;
+        border: 1px solid green;
+        width: 800px;
+    }
+    .box .head{
+        height: 35px;
+        line-height: 35px;/*可以作用于子行内元素*/
+        text-align: center;
+        background: green;
+        color: #fff;
+    }
+    .box .head span,.box .list li span{
+        float: left;
+        width: 200px;
+    }
+    .box .list{
+        height: 300px;
+    }
+    .box .list li{
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;/*鼠标移入显示*/
+    }
+    .box .list li:nth-child(even){/*各行变色*/
+        background: #eee;
+    }
+    .box .list li:hover{/*鼠标移入颜色*/
+        background: #fea;
+    }
+    .page{
+        text-align: center;/*实现子元素居中  子元素的display为inline-block*/
+    }
+    .page:after{/*清除浮动*/
+        display: block;
+        content: '';
+        clear: both;
+    }
+    .page span,.page input,.page ul li{
+        display: inline-block;/*实现三种类型元素在一行显示*/
+        margin: 0 3px;
+        border: 1px solid green;
+        width: 45px;
+        height: 20px;
+        line-height: 20px;
+        font-size: 12px;
+        text-align: center;
+        cursor: pointer;
+
+    }
+    .page ul{
+        display: inline-block;/*实现ul和span元素在一行显示*/
+    }
+    .page ul li{
+        width: 20px;
+    }
+    /*使用类名添加特殊样式*/
+    .page ul li.bg{
+        background: green;
+        color: #ffffff;
+    }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+document.body.onclick= function (e) {
+    e=e||window.event;
+    e.target= e.target|| e.srcElement;
+    e.type;//事件类型
+    e.stopPropagation? e.stopPropagation(): e.cancelBubble=true;//阻止传播
+    e.preventDefault? e.preventDefault(): e.returnValue=false;//阻止默认行为
+    e.clientX;
+    e.clientY;
+    e.pageX;//e.clientX+document.documentElement.scrollLeft
+    e.pageY;
+};
+    //keyboardEvent:key keyCode
+</script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            width: 400px;
+            margin: 20px auto;
+            border: 1px solid green;
+            padding: 20px;
+        }
+        ul li{
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            margin: 10px;
+            background: orange;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        /*/!*关系选择器*!/*/
+        /*.a2 + li{/!*相邻的弟弟节点*!/*/
+            /*color: green;*/
+        /*}*/
+        /*.a2 ~ li{/!*所有弟弟节点*!/*/
+            /*font-size: 20px;*/
+            /*text-decoration: underline;*/
+        /*}*/
+        /*
+        结构选择器
+        1.
+        :nth-child系列:
+        父级标签 :nth-child(n):在所有的子元素中查找  查找父级标签下的第n个子元素
+        父级标签 标签x:nth-child(n):在所有的子元素中查找  先查找父级标签下的第n个子元素,确定为标签为标签x时表现样式
+        父级标签 标签:nth-child(2n)
+        父级标签 标签:nth-child(2n+1)
+        2.:nth-of-type系列:在特定类型的子元素中查找
+        父级标签 :nth-of-type(n):各种标签中第n个
+        父级标签 标签x:nth-of-type(n):标签x中第n个
+        3.:first-child   :first-of-type
+        4.:last-child    :last-of-type
+        5.:only-child  只有一个子元素  :only-of-type 同种元素名的只有一个子元素
+        6.:empty 没有任何子元素的元素 没有数据时展示的样式,添加数据后样式失效
+        7.:not()否定选择器
+        8.属性选择器
+            E[attr=val]
+            E[attr|=val] 只能=val或只能以val-开头
+            E[attr*=val] 包含val
+            E[attr~=val] 属性值有多个,有一个是val
+            E[attr^=val] 以val开头
+            E[attr$=val] 以val结尾
+        9.目标伪类选择器  手风琴
+        :target 用来匹配url指向的目标元素(a标签),只有url指向改匹配元素时,样式效果才能生效  通过点击a标签操作另一个元素的样式,标签中的url中只能设置一个目标元素
+        10.伪元素
+        :first-line 匹配第一行文本
+        :first-letter 匹配第一个文字
+        */
+        ul li:nth-child(1){/*获取第一个子元素  伪类的表示法  先查找ul下的第一个子元素,子元素的标记名是否为li标签
+            /*background: palegreen;*/
+        }
+        ul li:nth-child(2n){/*偶数元素 n是从0开始计算*/
+            /*background: green;*/
+        }
+        ul li:nth-child(2n+1){/*奇数元素*/
+            /*background: blue;*/
+        }
+        ul li:nth-of-type(1){
+            /*background: green;*/
+        }
+        ul :first-child{
+            /*background: green;*/
+        }
+        ul :first-of-type{
+            /*background: green;*/
+        }
+        .a1 :only-child{
+            background: green;
+        }
+        div:empty{/*没有数据时展示的样式,添加数据后样式失效*/
+            height: 40px;
+            background: pink;
+        }
+        ul li:not(.li4){
+            /*border-radius: 50%;*/
+        }
+        input[type="button"]{
+
+        }
+        ul li[class|='zf']{
+            /*background: red;*/
+        }
+        ul li[class*="zf"]{
+            /*border-radius: 50%;*/
+        }
+        ul li[class~="zf"]{
+            /*border-radius: 50%;*/
+        }
+        ul li[class^="zf"]{
+            /*border-radius: 50%;*/
+        }
+        #div1{
+            display: none;
+        }
+        #div1:target{/*目标值为div1*/
+            display: block;
+        }
+        #div2:target{/*目标值为div2*/
+            /*background: pink;*/
+        }
+        #div1{
+            width: 200px;
+        }
+        #div1::first-line{
+            /*background: orange;*/
+        }
+        #div1::first-letter{
+            /*background: orange;*/
+        }
+        #div1::before{/*利用content的特性把元素插入在目标元素的前面,在页面显示,不会生成dom节点*/
+            /*content: '111';*/
+            /*color: red;*/
+
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <p>111</p>
+    <p>222</p>
+    <li class="zf zfpx">1</li>
+    <li class="zhufeng">2</li>
+    <li class="zf-peixun">3</li>
+    <li class="li4 zf">4</li>
+    <li class="zf-peixun zf">5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+    <li>11</li>
+    <li>12</li>
+    <li>13</li>
+</ul>
+<!--<div class="a1">-->
+    <!--<p>111</p>-->
+    <!--<li>222</li>-->
+<!--</div>-->
+<div class="a1">
+    <p>1111</p>
+</div>
+<div class="a2"></div>
+<div class="a3"></div>
+<a href="#div1">点击显示div1元素</a>
+<a href="#div2">点击显示div2元素</a>
+<div id="div1" >
+    url地址里指向的目标元素,在css中用:target表示
+    url地址里指向的目标元素,在css中用:target表示
+    url地址里指向的目标元素,在css中用:target表示
+</div>
+<div id="div2" >222</div>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

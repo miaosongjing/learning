@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #box{
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script src="event.js"></script>
+<script type="text/javascript">
+    var box=document.getElementById("box");
+    //1.DOM0级事件绑定:定义在私有属性上;只能给元素的某一个行为绑定一次方法,第二次绑定会把前面的覆盖
+    //DOM2级事件绑定:定义在原型链EventTarget上;可以给元素的某一个行为绑定多个不同方法
+    //DOM0中的行为也可以通过DOM2绑定,而且DOM2提供一些DOM0中没有的行为类型-->DOMContentLoaded:当页面中的dom结构加载完成触发的行为
+    //2.面试题:window.onload=function(){}当页面中的所有资源都加载完成(图片 html 音视频 ...)才会执行后面的函数;并且在一个页面中只能用一次,后面再写会把前面的覆盖,因为它采用的是DOM0级事件绑定
+    //jQuery:$(document).ready(function(){})-->$(function(){})只要页面中的html结构加载完成就会执行函数,并且在一个页面中可以使用多次,因为采用DOM2级事件绑定,并且绑定的行为是DOM2中新增加的DOMContentLoaded
+
+    //3.DOM2
+//    box.addEventListener("click", function (e) {
+//        console.log(this);//this-->box
+//    },false);
+//    box.removeEventListener("click", function (e) {//这个函数和上面的函数看着一样,但是这两个函数是不同(地址不同),所以不能移除 因此在使用dom2事件绑定时,避免使用匿名函数
+//        console.log(this);
+//    },false);
+////////////////////////////////////////////////////////////////
+    //移除的时候保证三个参数:行为 方法 哪个阶段发生-->在使用dom2级事件绑定时,使用实名函数
+//    function fnX(e){
+//        console.log(this);
+//    }
+//    box.addEventListener("click",fnX,false);
+//    box.removeEventListener("click",fnX,false);
+
+
+    function fn2(){console.log(2);}
+    function fn3(){console.log(3);}
+    function fn4(){console.log(4);}
+    function fn5(){console.log(5);}
+    function fn6(){console.log(6);}
+    function fn7(){console.log(7);}
+    function fn8(){console.log(8);}
+    function fn9(){console.log(9);}
+    function fn10(){console.log(10);}
+    function fn11(){console.log(11);}
+    //4.dom2级事件的机制
+    // 1)只能给元素的同一个行为绑定多个不同的方法(如果方法相同只能留一个)
+//    box.addEventListener("click",fn1,false);
+//    box.addEventListener("click",fn1,false);//只执行一次
+    //2)当行为触发,按照绑定的先后顺序依次把绑定的方法执行
+    //3)执行方法中的this是当前被绑定事件的元素本身
+//    box.addEventListener("click",fn1,false);
+//    box.addEventListener("click",fn2,false);
+//    box.addEventListener("click",fn3,false);
+//    box.addEventListener("click",fn4,false);
+//    box.addEventListener("click",fn5,false);
+//    box.addEventListener("click",fn6,false);
+//    box.addEventListener("click",fn7,false);
+//    box.addEventListener("click",fn8,false);
+    //事件池:存储当前元素行为绑定的方法(浏览器自带)--图
+/////////////////////////////////////////////////////////////////////
+    //ie6-8浏览器中,不支持addEventListener和removeEventListener,只能用attachEvent(on+行为,方法)/detachEvent
+    //它只有两个参数,只能在冒泡阶段发生默认只能在冒泡阶段发生
+    //行为需要添加on(和dom0类似)
+    //-->和标准浏览器的事件池机制相比
+    //1)顺序问题:ie6-8混乱
+    //2)重复问题:ie6-8可以给同一个行为绑定多个相同的方法
+    //3)this问题:ie6-8中方法执行时,方法中的this不是当前的元素box,而是window
+//    box.attachEvent("onclick",fn1);
+//    box.attachEvent("onclick",fn2);
+//    box.attachEvent("onclick",fn3);
+//    box.attachEvent("onclick",fn4);
+//    box.attachEvent("onclick",fn5);
+//    box.attachEvent("onclick",fn6);
+//    box.attachEvent("onclick",fn7);
+//    box.attachEvent("onclick",fn8);
+//    box.attachEvent("onclick",fn9);
+//    box.attachEvent("onclick",fn10);
+//    box.attachEvent("onclick",fn11);
+//    box.attachEvent("onclick",fn11);
+//    box.detachEvent("onclick",fn11);
+    var n=0;
+    function fn12(){
+        n++;
+        console.log(12);
+        if(n>=3){
+            off(box,"click",fn2);
+            off(box,"click",fn3);
+            off(box,"click",fn4);
+            off(box,"click",fn5);
+
+        }
+    }
+
+    //box.attachEvent("onclick",fn1.call(box));//在给box绑定事件时,首先执行fn1方法,让fn1中的this变为box,然后把fn1执行的返回结果绑定给onclick
+//    box.attachEvent("onclick", function (e) {
+//        fn1.call(box,e);
+//    });//这样写解决了this的问题,但是出现新的问题,不知道如何移除
+//    var tempFn= function (e) {
+//        fn1.call(box,e);
+//    };
+//    box.attachEvent("onclick", tempFn);
+//    box.detachEvent("onclick", tempFn);
+//    bind(box,"click",fn1);
+//    bind(box,"click",fn1);
+//    bind(box,"click",fn1);
+//    bind(box,"click",fn2);
+
+   on(box,"click",fn2);
+   on(box,"click",fn3);
+   on(box,"click",fn4);
+   on(box,"click",fn5);
+   on(box,"click",fn6);
+   on(box,"click",fn7);
+   on(box,"click",fn8);
+   on(box,"click",fn9);
+   on(box,"click",fn11);
+   on(box,"click",fn12);
+
+
+</script>
+</body>
+</html>

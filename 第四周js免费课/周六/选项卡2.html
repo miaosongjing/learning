@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        #tab{
+            width: 306px;
+            margin: 20px auto;
+        }
+        #tab ul li{
+            float: left;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #dddddd;
+        }
+        #tab div{
+            display: none;
+            clear: both;
+            width: 304px;
+            height:300px;
+            font-size: 20px;
+            border: 1px solid #dddddd;
+        }
+        #tab ul li.active{
+            background: -webkit-linear-gradient(top,#f57614,#00a57f);
+        }
+        #tab div.active{
+            display: block;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="tab">
+    <ul>
+        <li class="active">早上</li>
+        <li>上午</li>
+        <li>下午</li>
+    </ul>
+    <div class="active">你好</div>
+    <div>我好</div>
+    <div>大家好</div>
+</div>
+
+
+<script type="text/javascript">
+    var oTab=document.getElementById("tab");
+    var oLis=oTab.getElementsByTagName("li");
+    var oDivs=oTab.getElementsByTagName("div");
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].index=i;
+        oLis[i].onmouseover= function () {
+            for(var j=0;j<oLis.length;j++){
+                oLis[j].className="";
+                oDivs[j].className="";
+            }
+            this.className="active";
+            oDivs[this.index].className="active";
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+    1.undefined:参数未定义 对象不存在的属性  函数没有传的形参   函数没有返回值
+    2.null:通过id获取元素没有这个id  获取关系节点不存在
+    3.boolean:
+    false:0 NaN ""  null undefined
+    4.数据类型比较
+    1.object==object  false 除非同一个空间引用地址
+    2.对象==字符串 对象转为字符串
+    3.null==undefined
+    4.null和undefined与其他比较都不相等
+    5.任何数据类型之间比较:有数字转为数字,一个引用数据类型->字符串->数字
+dom对象都是引用数据类型
+
+<script type="text/javascript">
+   /* var ary=[];
+    //debugger;断点//代码运行到这里就停止,想继续需要主动按照每一行执行,f11就是逐行执行,f8直接挑出,右键add to
+    // watch监控
+    while(ary.length<3){
+    ary[ary.length]=ary.length+1;
+    }*/
+    /*
+    * js中常用的数组方法:方法作用 参数 返回值 是否改变原有数组
+    * 1.增加 删除 修改 查询
+    * */
+   var ary=["x","y","z"];
+    // 1.增加 删除 修改 查询
+    //push 向数组末尾增加项 要增加的数组项 数组新长度 改变
+    var res=ary.push("$","￥");//如果不加""说明是一个变量,没有定义所以报错   如果是多项,隔开
+   //末尾增加一项的方法 ary[length]="$"
+    console.log(ary);
+    console.log(res);
+   //unshift 向数组开头增加项 要增加的数组项 数组新长度 改变
+    var ary=["x","y"];
+    ary.unshift("$","￥");//如果是多项,隔开
+    console.log(ary);
+    //pop 删除数组最后一项   无   删除的数组项  改变
+    //shift 删除数组第一项   无   删除的数组项   改变
+    var ary=["y"];
+    var res=ary.shift();
+    console.log(ary);
+    console.log(res);
+
+    //splice 删除数组项  删除的数组项组成的新数组  原有改变
+    /*
+    splice(n) 从索引n开始删除到末尾
+    splice(0)  克隆数组
+    splice(n,m)  从索引n开始删除m个
+    splice(n,m,x)  从索引n开始删除m个,x放入删除位置
+    splice(n,0,x)  从索引n开始不删除,把x放入n的前面
+    push==>splice(ary.length,0,x)
+    unshift==>splice(0,0,x)
+    shift==>splice(0,1)
+    pop==>splice(ary.length-1,1)
+    splice(n,m,x,y) 从索引n开始删除m个,从第三个参数开始的参数放入删除位置
+    *
+    *
+    *
+    *
+    * */
+   var ary=[1,2,3,4,"x"];
+   var res=ary.splice(2,2);//删除的是多个,所以返回一个数组
+    console.log(ary);//[1, 2, "x"]
+    console.log(res);//[3, 4]
+   var ary=[1,2,3,4,"x"];
+   var res=ary.splice(2);//
+   console.log(ary);//[1, 2]
+   console.log(res);//[3, 4, "x"]
+   var ary=[1,2,3,4,"x"];
+   var res=ary.splice(2,3,"$");
+   console.log(ary);//[1, 2, "$"]
+   console.log(res);//[3, 4, "x"]
+   var ary=[1,2,3,4,"x"];
+   var res=ary.splice(2,0,"$");
+   console.log(ary);//[1, 2, "$", 3, 4, "x"]
+   console.log(res);// []
+    /*
+    * slice 复制数组
+    *   slice(n,m)  从索引n开始到索引m-1  支持负数,n/m+ary.length
+    *   slice() 克隆数组,与原有数组相同
+    *   slice(0) 克隆数组
+    *   slice(n)  从索引n开始,复制到末尾
+    *   slice(n,n) 返回[]
+    *   返回复制的新数组,n>=m时返回[]
+    *
+    * */
+   var ary=[1,2,3,"x","y","z"];
+   var res=ary.slice(2,4);
+   console.log(ary);//[1, 2, 3, "x", "y", "z"]
+   console.log(res);//[3, "x"]
+   var ary=[1,2,3,"x","y","z"];
+   var res=ary.slice();
+   console.log(ary);//[1,2,3,"x","y","z"]
+   console.log(res);//[1,2,3,"x","y","z"]
+    console.log(ary==res);//false
+   var ary=[1,2,3,"x","y","z"];
+   var res=ary.slice(2,2);
+   console.log(ary);//[1,2,3,"x","y","z"]
+   console.log(res);//[]
+   var ary=[1,2,3,"x","y","z"];
+   var res=ary.slice(-3,-1);
+   console.log(ary);//[1,2,3,"x","y","z"]
+   console.log(res);//["x", "y"]
+    /*
+    * 拼接
+    *  */
+   /*
+    * +拼接字符串  -／＊是运算
+    * concat()  克隆数组
+    * concat([])  克隆数组
+    * concat(ary1,ary2,x)  拼接数组,参数可以是数组或数组项
+    * 返回拼接好的新数组 原有不变
+
+    * */
+    var ary1=[1];
+    var ary2=[2];
+    var ary3=["3"];
+    var res=ary1.concat(ary2);
+    console.log(res);//[1, 2]
+   var ary1=[1];
+   var ary2=[2];
+   var ary3=["3"];
+   var res=ary1.concat(ary2,ary3,"ss");
+   console.log(res);//[1, 2, "3", "ss"]
+   var ary1=[1];
+   var ary2=[2];
+   var ary3=["3"];
+   var res=ary1.concat();
+   console.log(res==ary);//false
+    /*
+    join 把数组中每一项按照指定的分隔符拼接成字符串
+    指定分隔符
+    拼接好的字符串
+    原有不变
+    * */
+    var ary=["x","y","z"];
+    var res=ary.join("$");
+    console.log(res);//x$y$z
+   var ary=["x","y","z"];
+   var res=ary.join("");
+   console.log(res);//xyz
+   var ary=["x","y","z"];
+   var res=ary.join();
+   console.log(res);//x,y,z
+   var ary=[1,2,3];
+   var res=ary.join("+");
+   console.log(res);//1+2+3
+    eval(res);//eval可以把字符串当作js表达式运行(去引号),
+  // console.log(eval(res));//6
+    //求和函数  arguments[].join("+")
+</script>
+</body>
+</html>

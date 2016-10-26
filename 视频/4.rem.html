@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <!--有时需要检测当前的浏览器是pc还是移动端(检测方法:检测是pc还是移动端.js);
+        如果当前的浏览器pc端/移动端,但访问的页面是移动端/pc端,就让其跳转到pc端/移动端
+        跳转window.location.href='xxx'
+        -->
+    <script type="text/javascript">
+
+    </script>
+    <link rel="stylesheet" href="css/reset.min.css"/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            font-size: 100px;/*1rem=100px*/
+
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .box{
+            /*position: absolute;*/
+            /*left: 0;*/
+            /*top: 0;*/
+            /*bottom: 0;*/
+            /*right: 0;*/
+            /*margin: auto;*/
+            margin: 0 0.2rem;
+            width: 6rem;
+            height: 3rem;
+            background: green;
+        }
+
+
+    </style>
+</head>
+<body>
+<section class="main" id="main">
+
+    <div class="box"></div>
+</section>
+
+<script type="text/javascript">
+    //根据当前屏幕宽度和设计稿宽度的比例,动态计算当前宽度下的font-size
+    ~function () {
+        var desW=640,//设计稿
+            winW=document.documentElement.clientWidth,
+            ratio=winW/desW;
+        //如果设备宽度>设计稿,为了图片良好展示,不让其继续变大,以设计稿的宽度为最大宽度,其余部分空白显示,如京东
+        var oMain=document.getElementById('main');
+        if(winW>desW){//超过640px时
+            oMain.style.width=desW+'px';
+            oMain.style.margin='0 auto';
+            return;
+        }
+        document.documentElement.style.fontSize=ratio*100+'px';
+    }();
+</script>
+</body>
+</html>

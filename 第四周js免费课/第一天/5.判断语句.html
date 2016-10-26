@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+四 判断语句
+1.if语句
+    if(条件1){
+        条件1成立时执行的代码;
+    }else if(条件2){
+        条件1成立时执行的代码;
+    }else{
+        条件都不成立时执行的代码;
+    }
+2.三元运算符
+    条件?成立执行代码:不成立执行代码;
+3.switch case 作用于不同值的不同操作
+    switch中条件进行的是绝对比较,等号两侧是相同的数据类型,不能转化,类似===
+    break跳出整个判断,避免执行它下面的代码
+    default以上都不成立时执行
+<script>
+    if(1=="1"){
+        console.log(1);
+    }
+    1=="1"?console.log(1):console.log(2);
+    1=="1"?console.log(1):void 0;//void没有意义,当不成立执行代码不存在时进行补位
+    if("1"==0){
+
+        console.log(0);
+    }else if("1"==1){
+
+        console.log(1);
+    }else{
+
+        console.log("～～");
+    }
+    //输出1
+     switch ("1"){
+         //switch中条件进行的是绝对比较,等号两侧是相同的数据类型,不能转化,类似===
+         case 0:
+             console.log(0);
+             break;//跳出整个判断
+         case 1:
+             console.log(1);
+             break;
+         default ://以上都不成立执行
+             console.log("～～～～")
+     }
+//输出～～～～
+
+
+
+
+
+
+
+</script>
+<a href="javascript:void(0);"></a>
+<!--javascript:void(0);占位用-->
+</body>
+</html>

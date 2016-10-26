@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    //双循环数组去重
+   /* var ary=[1,2,3,4,5,4,3,2,1];
+    //1拿出 其余跟他比 相等删除 i--
+    //2删除 其余跟他比
+    //最后一个不用比 进行length-1轮
+    for(var i=0;i<ary.length-1;i++){//每次拿出一个数和它后面的所有项目比较
+        for(var j=i+1;j<ary.length;j++){
+            if(ary[i]==ary[j]){
+                ary.splice(j,1);
+                j--;
+            }
+            //保证不丢项,避免数组塌陷
+        }
+    }
+    console.log(ary);*/
+    //对象法
+    var ary=[1,2,3,2,1];
+    var obj={};//利用数组的项当作对象的属性名 bug是只能处理字符串或者数字数组,而不能是[]/{}/bool等
+    for(var i=0;i<ary.length;i++){
+        var cur=ary[i];
+        if(obj[cur]==cur){
+//            ary.splice(i,1);
+            ary[i]=ary[ary.length-1];
+            ary.length--;
+            i--;
+            continue;
+        }
+        obj[cur]=cur;
+    }
+    obj=null;
+    console.log(ary);
+
+
+</script>
+</body>
+</html>

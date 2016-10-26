@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+一 外联式切换背景
+    oLink.href(该对象的储存路径)初始值较为复杂,对于这类具有复杂初始值的对象属性,如果要进行判断,可以通过直接设定布尔(var bg=true)进行判断
+二 对象
+1.组成:多组键值对描述对象,键值对之间用","隔开
+2.获取:object.attr/object["attr"]
+    如果属性名是数字,只能采用object["attr"]形式
+3.增加
+    object.attr=value;
+4.修改
+    object.attr=value;
+    形式同增加,当属性名不存在时为增加,已存在为修改
+5.删除
+    真删除:delete object.attr
+    假删除:object.attr=null;
+6.for in循环--对象遍历
+    for(var attr in object){
+        console.log(attr);
+        console.log(object[attr]);
+}
+    键值对有多少个,就遍历多少次;先遍历属性名为数字的(按照从大到小的顺序),在遍历其他
+    遍历获取属性值只能采用object[attr]形式,因为属性可能会是数字,当属行名是数字时,只能采用object[attr]形式.
+三 引用数据类型和基本数据类型的区别
+    1.基本数据类型:操作值--栈内存
+    2.引用数据类型:空间地址操作--堆内存
+四 检测数据类型
+    1.typeof
+    返回值:"number" "string" "boolean" "object" "function" "undeined"
+    返回值的类型是字符串类型
+    不能检测object下的数据类型
+    null返回object
+    undefined返回undefined
+    两层以上的typeof肯定返回"string"
+    2.instanceof
+    3.constructor
+    4.Object.prototype.toString.call()
+五 for循环
+    依次遍历一组元素
+    1.格式:for(var i=0;i<length;i++){执行代码;}
+    2.步骤:
+    1)声明一个变量,设定初始值
+    2)判断是否符合循环条件
+    3)执行代码
+    4)累加
+    3.break:后面的代码不再执行,跳出整个循环
+    4.continue:后面的代码不再执行,跳出本次循环,执行下一次循环
+
+
+</body>
+</html>

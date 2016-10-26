@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+一 前端工程师做什么
+1.静态页面的制作  html+css文本语言
+2.js交互和js动态效果
+    js交互:前台向后台反馈数据
+            后台向前台获取数据
+            (双方协商)
+    js动态效果:选项卡,轮播图,回到头部,点击弹出
+3.代码维护:后台维护
+二 什么是js
+    1)ECMAscript:规定js中的一些规则,如命名方式,基本操作语句数据类型,是js的基础知识
+    现在用的是ECMAscript5 (简称es5)
+    是js的API(使用说明/指导手册)
+    2)dom文档对象模型
+    3)bom浏览器对象模型
+    4)document文档对象
+        包含html中的所有内容
+    5)window浏览器对象
+三 js的引入方式
+    1.行内式:写在标签内部
+    2.内嵌式:写在script标签中的
+    3.外联式:通过script引入一个外部的js文件
+    注:1)css引入还有导入式,是在其他文件加载完后进行加载,必须写在style/css文件里,js没有办法控制导入式里的css属性
+        2)<style></style><link rel="stylesheet" href=""/>写在head中,先加载样式,再加载结构,提高用户体验
+        3)<script !src=""></script>一般写在页面的底部,body结束标签的前面:实现浏览器先加载对象,再触发事件;当写在头部时需要window.onload实现在页面加载完成后再加载js文件
+        4)引用的js文件放在前面,自己写的放在后面,实现正常调用引入的js文件
+        5)写在外联式<script src=""></script>中的js代码无效
+行内例如:
+<!--行内<input type="button" onclick="alert('欢迎大家来到新的一天')"/>-->
+<!--onclick鼠标点击事件     alert: 浏览的弹出框-->
+<!--js中引号之间是单双循环-->
+内嵌式例如
+<script type="text/javascript">
+    //js的注释
+    //ctrl+/  ctrl+shift+/多行注释
+    //js是javascript的缩写,基于对象和事件的客户端开发语言(与安全关系不大)
+    //轻量级脚本语言(包容性大,规则性弱),实现功能
+    document.write("为什么不努力?");
+    //document是对象  write是事件
+</script>
+外联式
+<script src="lizi.js" type="text/javascript">
+   // type="text/javascript"兼容低版本浏览器
+</script>
+四 js的输出方式
+    1.alert():在浏览器的弹出框输出内容---调bug
+    2.document.write :在页面输出内容
+    3.console.log()/console.dir():在浏览器的控制台输出内容--调bug
+    4.innerHtml/innerText:动态向元素内添加内容或者html标签
+<div id="box"></div>
+<script>
+    var str="努力不努力";
+    //获取要操作的对象
+    var oDiv=document.getElementById('box');
+    //在整个文档中,通过idName获取一个元素
+    oDiv.innerHTML=str;
+    //动态向标签中添加内容    对象.事件=内容
+</script>
+五 js的命名方式
+    1.严格区分大小写
+    2.使用驼峰命名法
+    3.可以使用数字/字母/_/$,数字不能开头
+    4.不能使用关键字和保留字
+<script>
+    var oDiv="xxx";
+</script>
+</body>
+</html>

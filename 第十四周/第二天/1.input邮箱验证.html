@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/reset.min.css" type="text/css"/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul>li{
+            width: 300px;
+            margin: 10px auto;
+        }
+        ul>li:nth-child(1) input{
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid green;
+        }
+        #userEmail{
+            display: block;
+            padding: 0 5px;
+            width: 260px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #ccc;
+        }
+        span#emailTip{
+            display: block;
+            margin-top: 10px;
+            padding: 0 5px;
+            line-height: 30px;
+            color: green;
+            font-size: 14px;
+        }
+        li #emailTip.error{
+            color: red;
+        }
+        #userEmail:valid{/*默认使用css3中的伪类进行验证*/
+            border-color:green ;
+        }
+        #userEmail:invalid{
+            border-color:red ;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<ul>
+
+    <li>
+        <input type="email" id="userEmail"/>
+        <span  id="emailTip">请您输入常用邮箱</span>
+    </li><!--滑动杆-->
+</ul>
+<script type="text/javascript">
+    var userEmail=document.getElementById('userEmail'),
+            emailTip=document.getElementById('emailTip');
+    userEmail.onblur= function () {
+        //1.获取文本框中内容,去除首尾空格(trim()方法,不兼容  trimLeft()  trimRight  正则)
+        //var val=this.value.trim();
+        var val=this.value.replace(/^ +| +$/g,'');
+        //2.没有输入
+        if(!val){//空字符串代表假
+            emailTip.innerHTML='输入的邮箱不能为空!';
+            emailTip.className='error';
+        }
+        //3.验证邮箱,正确/不正确
+        var reg = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        if(!reg.test(val)){
+            emailTip.innerHTML='您输入的邮箱格式不正确,哈哈!';
+            emailTip.className='error';
+            return;
+        }
+        emailTip.innerHTML='输入正确!';
+        emailTip.className=null;
+    }
+
+    //字符串方法:queryURLParameter  格式化时间字符串   去除首尾空格
+
+</script>
+</body>
+</html>

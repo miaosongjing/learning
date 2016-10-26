@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "Microsoft YaHei";
+            font-size: 14px;
+        }
+        input{
+            outline: none;
+            display: block;
+        }
+        ul{
+            list-style: none;
+        }
+        a,a:hover,a:active,a:visited,a:target{
+            display: block;
+            text-decoration: none;
+            color: #000;
+        }
+        /*html,body{*/
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*border: 1px solid transparent;*/
+        /*}*/
+        .box{
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            margin-left: -250px;
+            /*margin: 20px auto;/!*body会距离窗口上偏移20px 可以设置*!/*/
+            width: 500px;
+        }
+        .box input{
+            width: 300px;
+            height: 35px;
+            padding: 0 10px;
+            border: 1px solid green;
+        }
+        .box ul{
+            display: none;
+            position: relative;
+            top: -1px;
+            border: 1px solid green;
+        }
+
+        .box ul li,.box ul li a{
+            height: 35px;
+            line-height: 35px;
+            padding:0 10px;
+        }
+        .box ul li{
+            padding: 0;
+        }
+        .box ul li a:hover{
+            background: #ccc;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="text" id="searchInp"/>
+    <ul id="searchList">
+        <li><a href="javascript:void 0;">珠峰培训-前端培训</a></li>
+        <li><a href="javascript:void 0;">珠峰培训node.js</a></li>
+        <li><a href="javascript:void 0;">珠峰培训html5</a></li>
+        <li><a href="javascript:void 0;">珠峰培训美女多多</a></li>
+        <li><a href="javascript:void 0;">珠峰培训耿大很丑</a></li>
+
+    </ul>
+</div>
+
+<script type="text/javascript">
+    //显示:文本框获取焦点,并且文本框中有内容时;在文本框中操作(输入/删除没有清空)内容
+    //隐藏:点击页面文本框和searchList之外位置
+    //点击searchList列表,将列表中的内容放到文本框
+
+    //不管是获取焦点onfocus还是在里面编辑内容onkeyup,都是有内容显示,没内容隐藏
+    var searchInp=document.getElementById("searchInp");
+    var searchList=document.getElementById("searchList");
+    searchInp.onfocus= searchInp.onkeyup=function (e) {
+        var val=this.value.replace(/^\s*$/g,"");//获取文本框中的内容,并且去除首尾空格
+        searchList.style.display=val.length>0?"block":"none";
+    };
+
+    //事件委托
+    document.body.onclick= function (e) {
+        e=e||window.event;
+        e.target= e.target|| e.srcElement;
+
+        //如果事件源是searchList下的a,searchList隐藏,并且把点击这个a中的内容放入文本框
+        //判断事件源
+        if(e.target.tagName.toLowerCase()=="a"&& e.target.parentNode.parentNode.id=="searchList"){
+            searchList.style.display="none";
+            searchInp.value= e.target.innerHTML;
+            return;
+        }
+        //如果事件源是文本框,需要单独处理
+//        if(e.target.id=="searchInp"){return;}
+
+        searchList.style.display="none";
+    };
+    searchInp.onclick= function (e) {
+        e=e||window.event;
+        e.stopPropagation? e.stopPropagation(): e.cancelBubble=true;
+    };
+
+
+//在事件委托中,利用冒泡传播机制,如果当前容器中许多元素绑定事件,可将事件委托给最外层元素,点击每一个会一级一级传播到最外层,执行对应的方法;假设某个元素的方法不需要交给body处理(交给body的话会出现问题),需主动阻止冒泡传播,使其不在委托的范围之内
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #div1{
+            width: 100px;
+            height: 100px;background: red;
+            position: absolute;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+
+<script type="text/javascript">
+    var oDiv=document.getElementById("div1");
+    oDiv.onmousedown= function (e) {
+        e=e||window.event;
+        //1.记录鼠标按下时鼠标相对盒子的偏移
+        this.x= e.clientX-oDiv.offsetLeft;
+        this.y= e.clientY-oDiv.offsetTop;
+        //2.绑定move事件
+
+        //将事件绑定在document是因为chrome没有setCapture(),这个方法是在鼠标和oDiv之间建立连接,释放用releaseCapture()
+        this.setCapture?this.setCapture():void 0;
+        document.onmousemove= function (e) {
+            e=e||window.event;
+            var l= e.clientX-oDiv.x;
+            var t= e.clientY-oDiv.y;
+            var minL= 0,minT= 0,maxL=(document.documentElement.clientWidth||document.body.clientWidth)-oDiv.offsetWidth,maxT=(document.documentElement.clientHeight||document.body.clientHeight)-oDiv.offsetHeight;
+            l=l<minL?minL:(l>maxL?maxL:l);
+            t=t<minT?minT:(t>maxT?maxT:t);
+            oDiv.style.left=l+"px";
+            oDiv.style.top=t+"px";
+
+        };
+        document.onmouseup= function () {
+            oDiv.releaseCapture?oDiv.releaseCapture():void 0;
+            document.onmousemove=null;
+            document.onmouseup=null;
+        };
+
+    }
+
+
+
+
+</script>
+</body>
+</html>

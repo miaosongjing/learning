@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            background: url("images/iphone.jpg") no-repeat;
+            box-shadow: 3px 3px 10px #111;
+            margin: 10px;
+        }
+
+        .box .innerBox {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 175px; /*大盒子的一半*/
+            height: 175px;
+            background: darkorange;
+            opacity: 0.5;
+            filter: alpha(opacity=100);
+            cursor: move; /*cursor:每个值什么意思*/
+        }
+
+        .box .bigImgBox {
+            display: none;
+            position: absolute;
+            left: 380px;
+            width: 350px;
+            height: 350px;
+            box-shadow: 3px 3px 10px #111;
+            overflow: hidden;
+
+        }
+
+        .box .bigImgBox img {
+            /*按比例约束img大小  遮罩盒子右移,图像左移*/
+            position: absolute;
+            width: 200%; /*遮罩盒子的width/box的width*/
+            height: 200%;
+            border: none;
+            vertical-align: top;
+
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="innerBox" id="innerBox"></div>
+    <div class="bigImgBox" id="bigImgBox"><img id="bigImg" src="images/iphone_big.jpg"/></div>
+</div>
+
+<script type="text/javascript">
+    //放大镜目的:为了能看的更加清除
+    var box = document.getElementById("box");
+    var innerBox = document.getElementById("innerBox");
+    var bigImg = document.getElementById("bigImg");
+    var bigImgBox = document.getElementById("bigImgBox");
+    box.onmousemove = function (e) {
+        e = e || window.event;
+        //1.遮罩盒子和放大盒子显示
+        innerBox.style.display = "block";
+        bigImgBox.style.display = "block";
+        //2.计算遮罩盒子的位置
+        var l = e.clientX - this.offsetLeft - innerBox.offsetWidth / 2;
+        var t = e.clientY - this.offsetTop - innerBox.offsetHeight / 2;
+        //3.计算遮罩盒子运动区域的最大值和最小值
+        var minLeft = 0, minTop = 0,
+                maxLeft = box.clientWidth - innerBox.offsetWidth,
+                maxTop = box.clientHeight - innerBox.offsetHeight;
+        //4.遮罩盒子位置赋值
+        if (l < minLeft) {
+            l = minLeft;
+        } else if (l > maxLeft) {
+            l = maxLeft;
+        }
+        if (t < minTop) {
+            t = minTop;
+        } else if (t > maxTop) {
+            t = maxTop;
+        }
+        innerBox.style.left = l + "px";
+        innerBox.style.top = t + "px";
+        //5.计算bigBox的位置,遮罩盒子移动1px,bigBox在相反方向移动2px(2倍)
+        bigImg.style.left = -2 * l + "px";
+        bigImg.style.top = -2 * t + "px";
+
+    };
+    box.onmouseout = function () {
+        innerBox.style.display = "none";
+        bigImgBox.style.display = "none";
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+/*响应式布局*/
+html,body{
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+html{
+    font-size: 100px;
+}
+
+.banner{
+    position: relative;
+    height: 3rem;
+    overflow: hidden;
+}
+.banner .wrapper{
+    position: absolute;
+    left:-100%;/*五张图片前后分别加了图片,显示第一张图片*/
+    top: 0;
+    /*width: 15rem; 在js中动态计算*/
+    height: 3rem;
+}
+.banner .wrapper .slide{
+    float: left;
+    /*width  js计算*/
+    height: 3rem;
+    background: rgba(0,0,0,0.3);/*真实图片没有加载时,可以用个背景图/背景色*/
+}
+.banner .wrapper .slide img{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.banner .tip{
+    position: absolute;
+    left: 0;
+    bottom: .1rem;
+    width: 100%;
+    height: .16rem;
+    line-height: .16rem;
+    text-align: center;
+}
+.banner .tip li{
+    display: inline-block;
+    margin: 0 0.03rem;
+    width: 0.16rem;
+    height: .16rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+}
+.banner .tip li.bg{
+    background: #007aff;
+}
+

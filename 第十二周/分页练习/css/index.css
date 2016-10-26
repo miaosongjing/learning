@@ -1,0 +1,104 @@
+*{
+    padding: 0;
+    margin:0;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font: 14px '宋体';
+    color: #555;
+    -webkit-user-select: none;
+}
+ul{
+    list-style: none;
+}
+input{
+    outline: none;
+}
+/*index*/
+.box{
+    margin: 30px auto;
+    padding: 10px;
+    width: 800px;
+    border: 1px solid green;
+}
+.box .head{
+    height: 35px;
+    line-height: 35px;
+    background: green;
+    color: #ffffff;
+}
+.box .head span,.box .list li span{
+    float: left;
+    width: 200px;
+    text-align: center;
+}
+.box .list{
+    height: 300px;
+}
+.box .list li{
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;/*注意手型*/
+}
+.box .list li:nth-child(even){
+    background: #eee;
+}
+.box .list li:hover{
+    background-color: #fea;
+}
+.box .page{
+    text-align: center;
+}
+.box .page ul{
+    display: inline-block;
+}
+.box .page span,.box .page ul li,.box .page input{
+    display: inline-block;
+    border: 1px solid green;
+    margin: 0 3px;
+    width: 45px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+}
+.box .page ul li{
+    width: 20px;
+}
+.box .page ul li.bg{
+    background: green;
+    color: #fff;
+}
+.box .page:after{
+    display: block;
+    content: '';
+    clear: both;
+}
+
+/*detail*/
+
+.box2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+    width: 200px;
+    height: 200px;
+    border: 1px solid green;
+}
+.box2 li{
+    height: 50px;
+    line-height: 50px;
+}
+.box2 li:nth-child(even){
+    background: #eee;
+}
+.box2 li span{
+    float: left;
+    width: 100px;
+    text-align: center;
+}

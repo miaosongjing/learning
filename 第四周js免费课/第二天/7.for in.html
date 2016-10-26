@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var obj={
+        name:"大白",
+        age:"20岁",
+        height:"200cm",
+        2:333,
+        1:15837958052
+
+    };
+    for(var attr in obj){
+        console.log(attr);
+        //attr代表对象属性名
+        //obj代表要遍历的对象
+        console.log(obj[attr])
+        //for in循环遍历属性值时必须使用obj[attr],而不能用obj.attr,因为对象中的属性名可能是数字
+    }
+    //for in循环用来遍历对象 在遍历时,键值对有多对就遍历多少次;如果属性名中有数字,先遍历数字的属性(从小到大),然后再循环其他属性
+
+
+
+
+
+</script>
+</body>
+</html>

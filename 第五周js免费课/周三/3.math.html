@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    /*
+    * Math.abs()取绝对值
+    * Math.floor()向下取整  floor地板
+    * Math.ceil()向上取整  ceil天花板
+    * Math.round()四舍五入  负数五舍六入Math.round(-3.5)=>-3 Math.round(-3.6)=>-4
+    *  Math.random()获取[0-1)的随机浮点数
+    *  Math.min()获取最小数
+    *  Math.max()获取最大数
+    * 获取[n-m]之间的随机整数
+    * Math.round(Math.random()*(m-n)+n)
+    * */
+    //获取n-m之间的随机整数
+    function getRandom(n,m){
+        //传的参数为有效数字
+        n=Number(n);
+        m=Number(m);
+        if(isNaN(n)||isNaN(m)){
+            return Math.random();
+        }
+        if(n>m){
+            var temp=n;
+            n=m;
+            m=temp;
+        }
+        return Math.round(Math.random()*(m-n)+n);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="css/reset.min.css"/>
+    <link rel="stylesheet" href="css/swiper.min.css"/>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <script>
+        //移动适配-设置根元素字体大小
+        var desW=640;
+        var winW=document.documentElement.clientWidth;
+        var desWFontSize=100;
+        //fs=winW/desW*100
+        document.documentElement.style.fontSize=winW/desW*100+"px";
+    </script>
+</head>
+<body>
+<div id="main">
+    <div class="music">
+        <audio src="audio/beyond.mp3" loop preload="none" id="beyond"></audio>
+        <!--loop:循环播放
+        preload="none"不预加载音视频  metadata 只加载元数据 (长度等) auto 预加载全部音视频
+        controls 显示音视频的用户操作界面-->
+    </div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide slide1">
+                <img src="swiper/page1-text1.png"/>
+                <img src="swiper/page1-text2.png"/>
+                <img src="swiper/page1-text3.png"/>
+                <img src="swiper/page1-text4.png"/>
+            </div>
+            <div class="swiper-slide slide2">
+                <img src="swiper/page2-text1.png"/>
+                <img src="swiper/page2-text2.png"/>
+                <img src="swiper/page2-text3.png"/>
+                <img src="swiper/page2-text4.png"/>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/swiper.min.js"></script>
+<script type="text/javascript">
+    var mySwiper=new Swiper(".swiper-container",{
+        direction:'vertical',
+        loop:true,
+        onSlideChangeEnd: function (swiper) {
+            var slides=swiper.slides;//获取所有滑块
+            var curIndex=swiper.activeIndex;//当前活动滑块索引
+//            实现循环播放
+            var trueSlideNum=slides.length-2;//真实滑块的个数
+            var lastSlideNum=trueSlideNum+1;//最后一个滑块的索引
+            [].forEach.call(slides, function (item, index) {
+                item.id='';//先去掉所有滑块的id
+                if(index == curIndex){
+                    switch (index) {
+                        case 0://第一个滑块是真实的最后一个
+                            item.id='page'+trueSlideNum;
+                            break;
+                        case lastSlideNum://最后一个滑块是真实的第一个
+                            item.id='page1';
+                            break;
+                        default :
+                            item.id='page'+curIndex;
+                    }
+                }
+            });
+        },
+    });
+//    音视频
+    var beyond=document.querySelector('#beyond');
+    var music=document.querySelector('.music');
+    window.setTimeout(function () {
+        beyond.play();//音频文件播放--边缓冲边播放,会触发事件canplay
+        beyond.addEventListener("canplay", function () {
+            music.className='music musicMove';//添加类名
+            music.style.opacity=1;//显示
+        });
+    },1000);
+//    播放/暂停
+    music.addEventListener('click', function () {
+        if(beyond.paused){//暂停
+            beyond.play();
+            music.className='music musicMove';
+
+        }else{
+            beyond.pause();
+            music.className='music';
+        }
+    });
+</script>
+</body>
+</html>

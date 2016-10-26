@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<!--<script type="text/javascript">
+    //获取下一个元素节点
+    function nextEleSibling(ele){
+        var next=ele.nextSibling;
+        while(next&&next.nodeType!==1){
+            next=next.nextSibling;
+        }
+        return next;
+    }
+</script>-->
+<script type="text/javascript">
+    //0-100求和
+    var total=0;
+    for(var i=0;i<=100;i++){
+        total+=i;
+    }
+    console.log(total);
+    //0-100不被3整除添加
+    var total=0;
+    for(var i=0;i<=100;i++){
+        if(i%3){
+            total+=i;
+        }
+
+    }
+    console.log(total);
+    function sum(n){
+        if(n == 0 ){return 0;}
+        return n+sum(n-1);
+    }
+    console.log(sum(100));
+    //函数中自己调用自己,就是递归.注意避免死循环
+    //递归应用:在一堆数字中挑出符合条件的数字
+    // 0-100不被3整除添加
+    function sum(n){
+        if(n == 0 ){return 0;}
+        if(!(n%3)){return sum(n-1);}//被3整除直接返回sum(n-1)
+        return n+sum(n-1);
+    }
+    console.log(sum(100));
+    //10以内被2整除相乘
+    function mul(n){
+        if(n == 0 ){return 1;}
+        if(n%2){return mul(n-1);}//不被2整除直接返回sum(n-1)
+        return n*sum(n-1);
+    }
+    console.log(mul(10));
+</script>
+</body>
+</html>

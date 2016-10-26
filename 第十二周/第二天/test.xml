@@ -1,0 +1,10 @@
+<root>
+    <person>
+        <name>天天</name>
+        <age>15</age>
+    </person>
+    <person>
+        <name>文文</name>
+        <age>16</age>
+    </person>
+</root>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            margin: 20px auto;
+            width: 300px;
+        }
+        #userAge{
+            display: block;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+        #rangeInp{
+            display: block;
+            margin-top: 5px;
+            width: 300px;
+
+        }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="name" id="userAge" disabled value="25"/>
+    <input type="range" id="rangeInp" value="25" max="65" min="18"/>
+</div>
+
+<script type="text/javascript">
+    var userAge=document.getElementById('userAge'),rangeInp=document.getElementById('rangeInp');
+    rangeInp.addEventListener('input', function () {
+        userAge.value=this.value;
+    },false);
+</script>
+</body>
+</html>

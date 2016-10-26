@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        li{
+            margin-top: 5px;
+            width: 100px;
+            height: 30px;
+            border: 1px solid black;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li class="li3">3</li>
+    <li>4</li>
+    <li id="li5">5</li>
+    <li>6</li>
+    <li>7</li>
+</ul>
+<script type="text/javascript">
+    //把点击事件委托给body处理,利用事件冒泡机制
+    var lis=document.getElementsByTagName("li");
+//    for(var i=0;i<lis.length;i++){
+//        lis[i].onclick= function () {//把函数赋值给元素的事件属性
+//            console.log(this.innerHTML);
+//        }
+//    }
+    //给li绑定事件需要分别给每隔li的事件onclick属性赋值一个函数,造成内存浪费
+    document.body.onclick= function (e) {//只要一个函数
+        e=e||window.event;
+        e.target= e.target|| e.srcElement;
+        console.log(e.target.innerHTML);
+    }
+
+
+</script>
+</body>
+</html>

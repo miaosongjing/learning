@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    /*
+    * 定时器的方法:
+    * window.setTimeout(fn,1000)  1000ms后执行函数fn 只执行一次 执行完后可以不清除
+    * window.setInterval(fn,1000)  每隔1000ms执行一次fn  需要清除
+    * 返回值:代表这个定时器是页面中第几个定时器的数字
+    * 定时器只是启动一个任务,当页面所有代码执行完后,所有定时器计时开始,到达时间开始执行,彼此之间互不影响
+    * 定时器的清除:
+    * window.clearTimeout(代表第几个定时器的数字)
+    * window.clearInterval(代表第几个定时器的数字)
+    * //定时器的清除只是任务取消,但是定时器还在
+    *
+    * */
+   /* function fn(){
+        console.log(1);
+    }
+    var timer1=window.setInterval(fn,1000);
+    var timer2=window.setTimeout(fn,1000)
+    window.clearInterval(timer1);
+    console.log(timer2);//定时器只是启动一个任务,当页面所有代码执行完后,所有定时器计时开始,到达时间开始执行,彼此之间互不影响
+
+    */
+    function fn1(){console.log(1);}
+    function fn2(){console.log(2);}
+    function fn3(){console.log(3);}
+    function fn4(){console.log(4);}
+    var timer1=window.setInterval(fn1,1000);//为什么执行两次
+    var timer2=window.setTimeout(fn2,2000);
+    var timer3=window.setInterval(fn3,3000);
+    alert("xingxing");
+   // window.clearInterval(timer1);
+    var timer=null;//给代表定时器的变量赋值不能清除定时器
+    window.clearInterval(timer3);//这种定时器需要主动清除,否则会一直执行
+</script>
+</body>
+</html>

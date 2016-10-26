@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+    <!-- less-->
+    <link rel="stylesheet/less" type="text/css" href="css/tx.less"/>
+    <script type="text/javascript" src="js/less-2.5.3.min.js"></script>
+</head>
+<body>
+<section class="main" id="main"><!--当设备宽度大于设计稿宽度时,内容宽度为640,两边留白 注意css和js设置-->
+    <!-- header-->
+    <header class="header">
+        <div class="con">
+            <h1 class="logo">腾讯体育</h1>
+            <span class="type">NBA</span>
+            <span href="#" class="menu"></span>
+            <span href="#" class="login">登录</span>
+        </div>
+        <nav class="nav">
+            <a href="#">NBA</a>
+            <a href="#">CBA</a>
+            <a href="#">英超</a>
+            <a href="#">欧冠</a>
+            <a href="#">亚冠</a>
+            <a href="#">西甲</a>
+            <a href="#">意甲</a>
+            <a href="#">德甲</a>
+            <a href="#">法甲</a>
+            <a href="#">中超</a>
+            <a href="#">NFL</a>
+            <a href="#">欧洲</a>
+            <a href="#">社区</a>
+            <a href="#">下载</a>
+        </nav>
+    </header>
+    <!-- video-->
+    <section class="videoArea">
+        <video src="http://111.202.98.147/sports.tc.qq.com/x0022yhdxqf.mp4?vkey=0B3EDA4590E2AA734DC7ADEFC2469C1DA2A72158EBBE526879A7AEC711FE5FA5D3146F913C809426D0A277BA86A008644B161BF4B4176B0DECDD52E9210EDFD60E64899B38F11397FEB48EDD5B3E74489A59C4A7E43DB461&br=60&platform=2&fmt=auto&level=0&sdtfrom=v3010&guid=3cbccfa3afbabc96423508e76e6dd1b5&locid=894f1e2e-ed83-4521-8f34-94604310262f&size=11569621&ocid=2486244780" controls preload="none" poster="kbs/poster.jpg">
+    <!--只有preload="none",poster才可以设置封面图-->
+        </video>
+    </section>
+    <!-- match Info-->
+    <section class="matchInfo">
+    <!-- matchList-->
+    </section>
+    <section class="matchList">
+        <ul class="clear">
+            <li>
+                <div>
+                    <img src="kbs/poster.jpg" alt=""/>
+                    <span>02:00</span>
+                </div>
+                <p>美国111-74阿根廷 <br/>杜兰特23分考辛斯两双</p>
+            </li>
+        </ul>
+    </section>
+</section>
+
+
+
+<script type="text/javascript" charset="utf-8" src="js/zepto.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/iscroll-5.1.3.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/ejs.min.js"></script>
+<!--基于ejs创建模版,将原来的html结构放入模版,嵌入数据-->
+<script type="text/template" id="matchInfoTemplate" charset="utf-8">
+    <div class="top">
+        <div class="home">
+            <img src="=matchInfo.leftBadge"/>
+            <span><%=matchInfo.leftGoal%></span>
+        </div>
+        <div class="time"><%=matchInfo.startTime.formatTime('{1}月{2}日 {3}:{4}')%></div>
+        <div class="away">
+            <span><%=matchInfo.rightGoal%></span>
+            <img src="=matchInfo.rightBadge"/>
+        </div>
+    </div>
+    <div class="middle"><!--整个为蓝色 span为红色-->
+        <span class="progress"></span>
+    </div>
+    <div class="bottom">
+        <span class="home  support" type="1"><%=matchInfo.leftSupport%></span>
+        <span class="type"><%=matchInfo.matchDesc%></span>
+        <span class="away  support" type="2"><%=matchInfo.rightSupport%></span>
+    </div>
+
+
+</script>
+<script type="text/template" id="matchListTemplate" charset="utf-8">
+    <%$.each(matchList,function(index,item){%>
+    <li class="<%=index===0?'bg':null%>">
+        <div>
+            <img src="<%=item.pic%>" alt=""/>
+            <span><%=item.duration.formatTime('{1}:{2}')%></span>
+        </div>
+        <p><%=item.title%></p>
+    </li>
+    <%});%>
+</script>
+
+<script type="text/javascript" charset="utf-8" src="js/tx.js"></script>
+</body>
+</html>

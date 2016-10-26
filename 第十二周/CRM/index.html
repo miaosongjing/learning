@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/index.css" type="text/css"/>
+</head>
+<body>
+    <div class="box">
+        <a href="add.html" class="link">增加新客户</a>
+        <!-- 表头-->
+        <h2 class="head">
+            <span class="w50">编号</span>
+            <span class="w150">姓名</span>
+            <span class="w50">年龄</span>
+            <span class="w200">电话</span>
+            <span class="w200">地址</span>
+            <span class="w150">操作</span>
+        </h2>
+        <!-- 列表-->
+        <ul class="list" id="list">
+            <!--<li>-->
+                <!--<span class="w50">1</span>-->
+                <!--<span class="w150">xxx</span>-->
+                <!--<span class="w50">25</span>-->
+                <!--<span class="w200">1234567</span>-->
+                <!--<span class="w200">xxx</span>-->
+                <!--<span class="w150 control" >-->
+                    <!--<a href="">修改</a>-->
+                    <!--<a href="">删除</a>-->
+                <!--</span>-->
+            <!--</li>-->
+        </ul>
+    </div>
+
+
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript">
+        var oList=document.getElementById("list");
+        //1.获取所有的客户信息,完成页面的数据绑定(按照API文档发调取接口)
+        //单例模式
+        var customModule=(function () {
+            //1.2.BIND HTML
+            function bindHTML(data){
+                var str='';
+                for(var i=0;i<data.length;i++){
+                    var curData=data[i];
+                    str+='<li>';
+                    str+='<span class="w50">'+curData["id"]+'</span>';
+                    str+='<span class="w150">'+curData["name"]+'</span>';
+                    str+='<span class="w50">'+curData["age"]+'</span>';
+                    str+='<span class="w200">'+curData["phone"]+'</span>';
+                    str+='<span class="w200">'+curData["address"]+'</span>';
+                    str+='<span class="w150 control">';
+                    //点击修改跳转到add页,需要问号传递id,实现修改指定的客户,所以对href进行处理;点击删除不跳转
+                    str+='<a href="add.html?id='+curData["id"]+'">修改</a>';
+                    str+='<a href="javascript:;" customId="'+curData["id"]+'">删除</a>';//因为删除时要找到对应的id,所以在绑定时把这个客户的id绑定在自定义属性上
+                    str+='</span>';
+                    str+='</li>';
+                }
+                oList.innerHTML=str;
+            }
+            //4.1 DELETE CUSTOM
+            function removeCustom(){
+                //1)给删除按钮绑定点击事件,利用事件委托
+                oList.onclick= function (e) {
+                    e=e||window.event;
+                    var tar= e.target|| e.srcElement,
+                        tarTag=tar.tagName.toUpperCase();
+                    //2)点击的是删除按钮:是A标签,并且文字为"删除"
+                    if(tarTag==="A"&&tar.innerHTML=="删除"){
+                        //出现确认删除提示框
+                        var customId=tar.getAttribute("customId"),
+                            flag=window.confirm("确定要删除编号为["+customId+"]的客户吗?");
+                        //3)删除:发送ajax请求
+                        if(flag){
+                            ajax({
+                                url:'/removeInfo?id='+customId,
+                                dataType: 'JSON',
+                                success: function (jsonData) {
+                                    if(jsonData&&jsonData.code==0){
+                                        //移除li
+                                        oList.removeChild(tar.parentNode.parentNode);
+                                        return;
+                                    }
+                                    alert(jsonData.msg);
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+            //1.1.SEND AJAX GET DATA
+            function init(){
+                ajax({
+                    url:'/getList',
+                    dataType: 'JSON',
+                    success: function (jsonData) {
+                        //数据绑定
+                        if (jsonData && jsonData['code'] == 0) {
+                            var data = jsonData['data'];
+                           //绑定
+                            bindHTML(data);
+                            //4.1 数据绑定后删除
+                            removeCustom();
+                        }
+                    }
+                });
+            }
+
+            return{
+                init:init
+            };
+        })();
+        customModule.init();
+        //3 修改:获取地址栏问号后面的参数信息-->从服务器获取对应id的客户信息-->放入文本框-->点击提交,将最新信息传递给服务器
+        //4 删除:数据绑定后删除
+    </script>
+
+</body>
+</html>

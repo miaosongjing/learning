@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" href="css/reset.min.css"/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+        }
+        .box{
+            position: absolute;
+            /*left: 50%;*/
+            /*top: 50%;*/
+            /*margin-left: -50px;*/
+            /*margin-top: -50px;*/
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;/*注意margin,这种方法不兼容低版本浏览器*/
+            /*display: inline-block;/!*第三种方法:display: inline-block;父级text-align,line-height*!/*/
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            background: green;
+        }
+
+
+    </style>
+</head>
+<body>
+&nbsp;<div class="box" id="box"></div>
+
+<script type="text/javascript">
+    var oBox=document.getElementById('box');
+    //pc端快速点击两次不是双击,而是两次点击  click可以理解为点击,只要触发,不管触发几次就要执行onclick事件
+        //移动端的click被认为是单击,当第一次点击完成后,不会马上触发click事件,需要等待300ms,判断是否触发第二次点击,触发的话就不会执行click(这就是移动端使用click存在300ms的原因)
+    //
+
+    oBox.onclick= function () {
+        console.log('ok');
+    }
+    //pc端dblclick是双击  移动端没有dblclick
+    oBox.ondblclick= function () {
+        console.log('no');
+    }
+
+</script>
+</body>
+</html>

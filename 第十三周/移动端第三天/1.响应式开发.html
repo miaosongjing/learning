@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!--设置移动端的viewport-->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <!--width布局宽度默认值980px
+    device-width:设备宽度
+    initial-scale=设备宽度/width,当它<1时,在移动端看到的页面相对于pc端进行缩小,用户需要主动放大,影响用户体验;所以将width设置为设备宽度(通过@media),initial-scale=1,移动端页面为原始比例,不再进行缩放
+    user-scalable:是否允许用户缩放,yes/no
+    maximum-scale:最大缩放值
+    minimum-scale=:最小缩放值-->
+    <style type="text/css">
+        html{
+            font-size: 100px;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #div1{
+        font-size: 0.2rem;/*默认字体大小是16px*/
+        }
+        #div1 span{
+            display: block;
+            width: 2rem;
+            height: 2rem;
+            background: red;
+        }
+        /*//2.设备特性:*/
+        /*width和device-width区别:当手机竖屏时,width=device-width;横屏时,width值改变,device-width不变*/
+        @media screen and (max-width: 800px){/*设备最大显示区域的宽度为800px*/
+            #div1{
+                /*background: green;*/
+            }
+        }
+        /*// device-pixel-ratio设备像素比:1,2,3 像素比不同,清晰度不同,决定是普通/高清/超清屏幕(清晰度是两者的最大区别,同样大小的图片,像素点越多,越清晰),<2---普通,>2--高清 js中通过window.devicePixelRatio获取设备的像素比*/
+        @media screen and (-webkit-device-pixel-ratio:2){
+            #div1{
+                /*background: green;*/
+            }
+        }
+        @media screen and (-webkit-device-pixel-ratio:3){
+            #div1{
+                /*background: orange;*/
+            }
+        }
+        /*orientation浏览器窗口的方向纵向还是横向，当窗口的高度值大于等于宽度时该特性值为portrait(竖向)，否则为landscape(横向)*/
+        @media screen and (orientation: portrait){
+            #div1{
+                /*background: orange;*/
+            }
+        }
+        @media screen and (orientation: landscape){
+            #div1{
+                /*background: green;*/
+            }
+        }
+        /*可以同时设置两个条件and*/
+        @media screen and (min-width: 200px) and (max-width: 500px){
+            #div1{
+                /*background: orange;*/
+            }
+        }
+
+       /*移动适配:根据设备像素比,且相应倍数的图片*/
+        @media screen and (-webkit-device-pixel-ratio: 2){
+            #div1{
+                background: url("@x2.png") no-repeat;
+            }
+        }
+        @media screen and (-webkit-device-pixel-ratio: 3){
+            #div1{
+                background: url("@x3.png") no-repeat;
+            }
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<div id="div1">
+    <span>珠峰培训</span>
+</div>
+
+<script type="text/javascript">
+
+//响应式开发
+    //1.由来
+    //目前各种移动设备大小不一,这对每套设备制作一套页面的想法是不现实的----->新的设计理念:制作一套页面,通过一些技术使页面在移动端和pc端自动识别屏幕宽度,使页面在不同设备上都显示最佳的视觉效果
+    //2.四条规则
+    //Ⅰ设置视口/窗口viewport:浏览器中页面显示的区域
+    // pc端:不需要设置viewport,视口:浏览器窗口
+    // 移动端:需要设置,早期为解决pc端页面在手机上显示的问题,设置布局视口(layout viewport)为980px.为了使pc端页面在各种移动设备上都能显示完整,通过设备宽度/980缩放页面
+    //Ⅱ页面布局不使用绝对值,而使用相对单位
+    //em:相对于自身字体的大小,但是在使用em时不设置自身字体大小,这时em相对父子字体大小
+    //%:相对于父标签
+    //rem:相对于根元素的字体大小;改变各个设备根元素字体的大小,就可以改变页面上的所有元素大小,常用于移动适配
+    //Ⅲ引入媒体查询@media的使用---根据设备宽度,使页面自动调整的关键技术
+    //语法:@media [not|only] type [and] [expr] {    rules}
+    //not|only：逻辑关键字       expr：媒体表达式   rules：CSS样式
+    //1.type媒体类型： all所有设备 screen 电脑显示器  print打印用纸或打印预览视图   handheld便携设备tv电视机类型的设备  speech语意和音频盒成器   braille盲人用点字法触觉回馈设备  embossed盲文打印机projection各种投影设备tty使用固定密度字母栅格的媒介，比如电传打字机和终端
+    //2.设备特性
+    //3.总结:
+    // 常用的标准宽度:320px(iPhone和其他一些设备)769px(iPad)1024
+    //Ⅳ 图片的自适应
+    //响应式开发制作一套页面,设定max-width:100%;当>100%时图片的宽度为100%,否则为图片默认的大小
+    //移动适配:根据设备像素比,切相应倍数的图片
+    //dpr=1-->切1倍的图 @x1.png 100px 100px
+    //dpr=2-->切2倍的图 @x2.png 200px 200px 常用
+    //dpr=3-->切3倍的图 @x3.png 300px 300px
+
+    //如:iphone5 320-->设计稿 640
+    //iphone6 375-->设计稿 750
+
+
+</script>
+</body>
+</html>

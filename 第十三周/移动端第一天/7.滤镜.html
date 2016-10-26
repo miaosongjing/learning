@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul li{
+            width: 200px;
+            height: 200px;
+            border: 1px solid green;
+            background: url("image/1.jpg");
+        }
+        ul li:nth-child(1){
+            background-size: cover;
+            -webkit-filter: grayscale(1);
+        }
+/*
+-webkit-filter: grayscale(1); 灰度，取值范围0-1
+-webkit-filter: brightness(0.5); 亮度，取值范围0-1
+-webkit-filter: invert(1); 反色，取值范围0-1, 0为原图，1为彻底反色之后
+-webkit-filter: sepia(0.5); 叠加褐色，取值范围0-1
+-webkit-filter: hue-rotate(30deg); 色相（按照色相环进行旋转，顺时针方向，红-橙-
+黄-黄绿-绿-蓝绿-蓝-蓝紫-紫-紫红-红）此处为叠加黄色滤镜
+-webkit-filter: saturate(4); 饱和度，取值范围0 ~ *, 0为无饱和度，1为原图，值越高饱
+和度越大
+-webkit-filter: contrast(2); 对比度，取值范围0 ~ *, 0为无对比度（灰色），1为原图，
+值越高对比度越大
+-webkit-filter: opacity(0.8); 透明度，取值范围0 ~ 1, 0为全透明，1为原图
+-webkit-filter: drop-shadow(0 0 20px red); 阴影
+*/
+        ul li:nth-child(2){
+            background-size: cover;
+            -webkit-filter: brightness(0.5);
+        }
+        ul li:nth-child(3){
+            background-size: cover;
+            -webkit-filter: invert(1);
+        }
+        ul li:nth-child(4){
+            background-size: cover;
+            -webkit-filter: sepia(0.5);
+        }
+        ul li:nth-child(5){
+            background-size: cover;
+            -webkit-filter: hue-rotate(30deg);
+        }
+        ul li:nth-child(6){
+             background-size: cover;
+             -webkit-filter:saturate(4);
+         }
+        ul li:nth-child(7){
+            background-size: cover;
+            -webkit-filter: contrast(2);
+        }
+        ul li:nth-child(8){
+             background-size: cover;
+             -webkit-filter: drop-shadow(0 0 20px red);
+        }
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
